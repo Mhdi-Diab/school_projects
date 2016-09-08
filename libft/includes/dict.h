@@ -10,11 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#ifndef DICT_H
+# define DICT_H
 
-void 		graph_int_test(void);
-void 		graph_str_test(void);
-void		dict_test();
+# define INITIAL_SIZE (1024)
+# define GROWTH_FACTOR (2)
+# define MAX_LOAD_FACTOR (1)
+# define MULTIPLIER (97)
+
+# include <stdlib.h>
+# include <assert.h>
+# include <string.h>
+# include <stdio.h>
+
+typedef struct		s_elt {
+	struct s_elt	*next;
+	char			*key;
+	char			*value;
+}					t_elt;
+
+typedef struct		s_dict {
+	int				size;
+	int				n;
+	struct s_elt	**table;
+}					t_dict;
+
+t_dict				*dict_create(void);
+void				dict_destroy(t_dict *d);
+void				dict_insert(t_dict *d, const char *key, const char *value);
+const char			*dict_search(t_dict *d, const char *key);
+void				dict_delete(t_dict *d, const char *key);
 
 #endif

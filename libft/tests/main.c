@@ -14,7 +14,8 @@
 
 int main()
 {
-	graph_int_test();
-	graph_str_test();
+	// graph_int_test();
+	// graph_str_test();
+	dict_test();
 	return(0);
 }

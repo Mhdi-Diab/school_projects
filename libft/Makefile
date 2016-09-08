@@ -80,7 +80,6 @@ fclean: _fclean
 
 _clean:
 	$(info [info] $@ ...)
-	@rm $(T_NAME)
 	@rm -rf .tmp
 
 _fclean: _clean
