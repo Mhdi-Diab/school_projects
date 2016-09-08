@@ -81,8 +81,8 @@ def drawGraph(theta0, theta1, minX, maxX):
 	plt.show()
 
 def getParameters(argv):
-	learningRate = 0.001
-	iterations = 100000
+	learningRate = 0.1
+	iterations = 1000
 	drawFlag = False
 	printThetasToFile = False
 	printErrors = False
