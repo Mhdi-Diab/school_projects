@@ -1,13 +1,13 @@
 # school_projects
 some of my school projects at Ecole 42
 
-## libft
+## libft (C)
 own library of:
 - linked list simple and circular (with merge sort)
 - binary trees (with red & black balance)
 - hashtable dictionary
 
-## linear regression
+## linear regression (Python)
 Introduction to machine learning.
 Program that predicts the price of a car by using a linear function train with a gradient descent algorithm
 #### How it works:
@@ -27,21 +27,56 @@ python main.py
 ```
 **type de number of miles the car has travelled**
 
-## taskmaster
-Fully-fledged job control daemon similar to supervisor
+## npuzzle (Javascript / Express)
+N-puzzle game solver using the Astar search algorithm.
+
 ### Installation
 ```
-pip install pyyaml,
+npm install
+```
+- Create a test file:   
+```
+python doc/npuzzle-gen.py -s -i 150 4 > test.txt
+```
+#### options:
+- s: solvable
+- u: unsolvable
+- i [nb]: number of iterations
+- last option: size of the puzzle
+
+### On terminal:
+```
+node ./bin/main.js test.txt  [-m -h -e] [-g -u]
+```
+#### options:
+- m: manhattan heuristic
+- h: hamming heuristic
+- e: euclidian heuristic
+- g: sets greedy (heuristics = 0 => fast)
+- u: sets uniform cost (djiskstra => long)
+
+### On server:
+```
+npm start
+```
+Then go to [localhost:4242](http://localhost:4242)
+
+## taskmaster (Python)
+Fully-fledged job control daemon similar to supervisor
+
+### Installation
+```
+pip install pyyaml
 ```
 configs of the program could be changed in config/default_config.yml
 
 # other projects
 
-##study heroes
+##study heroes (Symfony2, Angular, Ionic)
 Mobile application that use Gamification and science to make learning fun and effective for students.
 [Study Heroes](http://studyheroes.fr/)
 
-##shorei kan
+##shorei kan (Symfony2, React Redux)
 (in progress)
 Website with an admin panel, a blog, a newsletter, google map integration etc.
-[Shorei kan](http://shorei-kan-europe.com/)
+[Shorei Kan Europe](http://shorei-kan-europe.com/)

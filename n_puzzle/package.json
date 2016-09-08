@@ -1,0 +1,19 @@
+{
+  "name": "npuzzle",
+  "version": "1.0.0",
+  "engines": {
+    "node": "~0.6.14"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "express": "~4.11.0",
+    "ejs": "~2.1.4",
+    "cookie-session": "~1.1.0",
+    "body-parser": "~1.10.1",
+    "lodash": "",
+    "Set": "^0.4.1",
+    "dict": "^1.4.0",
+    "heap": "^0.2.3",
+    "q": "~1.4.1"
+  }
+}
