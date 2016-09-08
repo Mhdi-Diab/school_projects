@@ -22,7 +22,7 @@ static void 	test_str(char *strings[], int len)
 		graph_insert(&tree, graph_create_node(strings[i], ft_strlen(strings[i]) + 1), cmp);
 	}
 	printf("}\n\n");
-	graph_print(tree, print);
+	graph_print_prefix(tree, print);
 	graph_del(tree, ft_memdel);
 }
 

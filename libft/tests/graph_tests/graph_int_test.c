@@ -25,7 +25,7 @@ void 		test_int(int integers[], int len)
 		graph_insert(&tree, graph_create_node(&integers[i], sizeof(int *)), cmp);
 	}
 	printf("}\n\n");
-	graph_print(tree, print);
+	graph_print_prefix(tree, print);
 	graph_del(tree, ft_memdel);
 
 }
