@@ -12,43 +12,7 @@
 
 #include "linked_list.h"
 
-t_circ	*circ_create(char *data)
-{
-	t_circ	*new;
-
-	new = (t_circ *)malloc(sizeof(t_circ));
-	if (!new)
-		return (NULL);
-	new->data = ft_strdup(data);
-	new->next = NULL;
-	new->prev = NULL;
-	return (new);
-}
-
-void	circ_push_back(t_circ **begin, char *data)
-{
-	t_circ	*tmp;
-	t_circ	*new;
-
-	tmp = *begin;
-	if (tmp)
-	{
-		tmp = (*begin)->prev;
-		new = circ_create(data);
-		new->prev = tmp;
-		tmp->next = new;
-		new->next = *begin;
-		(*begin)->prev = new;
-	}
-	else
-	{
-		*begin = circ_create(data);
-		(*begin)->prev = NULL;
-		(*begin)->next = NULL;
-	}
-}
-
-void	circ_push_front(t_circ **begin, char *data)
+void	ft_circadd_front(t_circ **begin, void *data)
 {
 	t_circ	*tmp;
 	t_circ	*prev;
@@ -57,7 +21,7 @@ void	circ_push_front(t_circ **begin, char *data)
 	if (tmp)
 	{
 		prev = tmp->prev;
-		tmp = circ_create(data);
+		tmp = ft_circ_new(data);
 		tmp->next = *begin;
 		tmp->prev = prev;
 		if (prev)
@@ -66,20 +30,5 @@ void	circ_push_front(t_circ **begin, char *data)
 		*begin = tmp;
 	}
 	else
-		*begin = circ_create(data);
-}
-
-t_circ	*circ_get_arg(char **arg)
-{
-	int		i;
-	t_circ	*circ;
-
-	circ = NULL;
-	i = 0;
-	while (arg[i])
-	{
-		circ_push_back(&circ, arg[i]);
-		i++;
-	}
-	return (circ);
+		*begin = ft_circ_new(data);
 }

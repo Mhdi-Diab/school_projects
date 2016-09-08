@@ -25,7 +25,8 @@ typedef struct		s_list
 
 typedef struct		s_circ
 {
-	char			*data;
+	void			*content;
+	size_t			content_size;
 	struct s_circ	*prev;
 	struct s_circ	*next;
 }					t_circ;
@@ -37,9 +38,9 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstadd_back(t_list **alst, t_list *new);
 void				ft_lst_merge_sort(t_list **begin, int (*f)(void *, void *));
-t_circ				*circ_get_arg(char **arg);
-void				circ_push_back(t_circ **begin, char *data);
-t_circ				*circ_create(char *data);
-void				circ_push_front(t_circ **begin, char *data);
+
+void				ft_circadd_back(t_circ **begin, char *data);
+t_circ				*ft_circ_new(char *data);
+void				ft_circadd(t_circ **begin, char *data);
 
 #endif
