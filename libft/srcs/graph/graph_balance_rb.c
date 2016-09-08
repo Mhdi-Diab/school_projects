@@ -120,4 +120,5 @@ void			graph_balance_rb(t_btree **r, t_btree *x)
 			rb_second_balance(r, &x, &y);
 		}
 	}
+	(*r)->color = RB_BLACK;
 }

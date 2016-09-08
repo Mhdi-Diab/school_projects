@@ -42,5 +42,4 @@ void			graph_insert(t_btree **r, t_btree *n, int (*c)(void *, void *))
 {
 	tree_insert(r, n, c);
 	graph_balance_rb(r, n);
-	(*r)->color = RB_BLACK;
 }
