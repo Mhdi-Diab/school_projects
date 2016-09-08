@@ -11,7 +11,7 @@ static void print(t_btree *tree, int level)
 	printf("%*s\n", level * 10, (char *)tree->item);
 }
 
-static void 		test_str(char *strings[], int len)
+static void 	test_str(char *strings[], int len)
 {
 	t_btree *tree;
 	tree = NULL;
@@ -28,7 +28,7 @@ static void 		test_str(char *strings[], int len)
 void 		graph_str_test(void)
 {
 	char *t1[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
-	char *t2[] = {"hello", "World", "mickey", "donald duck", "picsou", "asterix"};
+	char *t2[] = {"hello", "World", "mickey", "donald", "picsou", "asterix"};
 
 	test_str(t1, 11);
 	test_str(t2, 6);
