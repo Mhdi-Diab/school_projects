@@ -39,5 +39,7 @@ void				*graph_search(t_btree *r, void *item,
 	int (*cmp)(void *, void *));
 t_btree				*graph_create_node(void *item, size_t item_size);
 void				graph_balance_rb(t_btree **r, t_btree *x);
+void				graph_print(t_btree *r, void (*print)(t_btree *, int level));
+int					graph_depth(t_btree *node);
 
 #endif

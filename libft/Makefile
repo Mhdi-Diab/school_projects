@@ -20,10 +20,13 @@ T_DIR = tests
 
 CC_FLAGS = -Wall -Wextra -Werror
 CC_HEADERS = -I ./includes -I ./srcs/libft/includes
+CC_TEST_HEADERS = -I ./tests/includes
 CC_DEBUG =
 
 C_FILES = $(shell find $(C_DIR) -type f -follow -print | grep ".*\.c$$" | grep -v "\.spec\.c")
 C_DIRS = $(shell find $(C_DIR) -type d -follow -print)
+
+T_FILES = $(shell find $(T_DIR) -type f -follow -print | grep ".*\.c$$" | grep -v "\.spec\.c")
 
 H_FILES = $(shell find includes -type f -follow -print | grep ".*\.h$$")
 O_DIRS = $(C_DIRS:$(C_DIR)%=$(O_DIR)%)
@@ -66,7 +69,8 @@ $(O_DIR)%.o: $(C_DIR)%.c $(H_FILES)
 		&& printf "."
 
 test:
-	@gcc $(CC_FLAGS) $(NAME) $(T_DIR)/main.c $(CC_HEADERS) -o $(T_NAME)
+	@gcc $(CC_FLAGS) $(NAME) $(T_FILES) $(CC_HEADERS) $(CC_TEST_HEADERS) -o $(T_NAME)
+	./$(T_NAME)
 
 clean: _clean
 	@$(foreach lib, $(MAKE_PATHS), $(MAKE) -C $(lib) clean;)
@@ -76,6 +80,7 @@ fclean: _fclean
 
 _clean:
 	$(info [info] $@ ...)
+	@rm $(T_NAME)
 	@rm -rf .tmp
 
 _fclean: _clean

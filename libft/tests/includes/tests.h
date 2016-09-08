@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_btree2.c                                        :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/03 16:11:37 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/20 17:34:02 by atamano          ###   ########.fr       */
+/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
+/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graph.h"
+#ifndef TEST_H
+# define TEST_H
 
-void	*graph_search(t_btree *r, void *k, int (*cmp)(void *, void *))
-{
-	if (r)
-	{
-		if ((*cmp)(r->item, k) == 0)
-			return(r->item);
-		graph_search(r->left, k, cmp);
-		graph_search(r->right, k, cmp);
-	}
-	return(NULL);
-}
+void 		graph_int_test(void);
+void 		graph_str_test(void);
+
+#endif

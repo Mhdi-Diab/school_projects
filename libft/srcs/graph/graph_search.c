@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_btree.c                                         :+:      :+:    :+:   */
+/*   ft_btree2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/03 16:09:28 by atamano           #+#    #+#             */
-/*   Updated: 2015/02/03 16:09:30 by atamano          ###   ########.fr       */
+/*   Created: 2015/02/03 16:11:37 by atamano           #+#    #+#             */
+/*   Updated: 2015/03/20 17:34:02 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#include "graph.h"
 
-int main()
+void	*graph_search(t_btree *r, void *k, int (*cmp)(void *, void *))
 {
-	graph_int_test();
-	graph_str_test();
-	return(0);
+	if (r)
+	{
+		if ((*cmp)(r->item, k) == 0)
+			return(r->item);
+		graph_search(r->left, k, cmp);
+		graph_search(r->right, k, cmp);
+	}
+	return (NULL);
 }
