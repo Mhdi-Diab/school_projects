@@ -34,7 +34,8 @@ N-puzzle game solver using the Astar search algorithm.
 ```
 npm install
 ```
-- Create a test file:   
+## Launch  on terminal
+Create a npuzzle map file
 ```
 python doc/npuzzle-gen.py -s -i 150 4 > test.txt
 ```
@@ -44,7 +45,7 @@ python doc/npuzzle-gen.py -s -i 150 4 > test.txt
 - i [nb]: number of iterations
 - last option: size of the puzzle
 
-### On terminal:
+Launch the solver on the generated npuzzle map file
 ```
 node ./bin/main.js test.txt  [-m -h -e] [-g -u]
 ```
@@ -55,7 +56,8 @@ node ./bin/main.js test.txt  [-m -h -e] [-g -u]
 - g: sets greedy (heuristics = 0 => fast)
 - u: sets uniform cost (djiskstra => long)
 
-### On server:
+### Launch it on browser:
+This command launches an express server
 ```
 npm start
 ```
