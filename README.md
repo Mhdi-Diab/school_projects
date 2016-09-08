@@ -10,10 +10,12 @@ own library of:
 ## linear regression
 Introduction to machine learning.
 The purpose is to create a program that predicts the price of a car by using a linear function train with a gradient descent algorithm
-### How it works:
+#### How it works:
 ```
-python linear_reg.py (to load the data in Datasets directory)
+python linear_reg.py
 ```
+(to load the data in Datasets directory)
+
 ####options:
 - g: to draw a graph representing the data set and the linear regression
 - i: to set the number of iterations (default: 1000)
