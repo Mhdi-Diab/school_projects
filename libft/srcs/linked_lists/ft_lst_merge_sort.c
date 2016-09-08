@@ -63,7 +63,7 @@ static void		ft_bf_split(t_list *source, t_list **frontref, t_list **backref)
 	}
 }
 
-void			ft_merge_sort(t_list **begin, int (*f)(void *, void *))
+void			ft_lst_merge_sort(t_list **begin, int (*f)(void *, void *))
 {
 	t_list *head;
 	t_list *a;
@@ -73,7 +73,7 @@ void			ft_merge_sort(t_list **begin, int (*f)(void *, void *))
 	if ((head == NULL) || (head->next == NULL))
 		return ;
 	ft_bf_split(head, &a, &b);
-	ft_merge_sort(&a, (*f));
-	ft_merge_sort(&b, (*f));
+	ft_lst_merge_sort(&a, (*f));
+	ft_lst_merge_sort(&b, (*f));
 	*begin = ft_st_mrg(a, b, f);
 }

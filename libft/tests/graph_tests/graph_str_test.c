@@ -23,6 +23,7 @@ static void 	test_str(char *strings[], int len)
 	}
 	printf("}\n\n");
 	graph_print(tree, print);
+	graph_del(tree, ft_memdel);
 }
 
 void 		graph_str_test(void)

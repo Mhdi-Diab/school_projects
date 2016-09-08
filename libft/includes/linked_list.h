@@ -36,7 +36,7 @@ t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstadd_back(t_list **alst, t_list *new);
-void				ft_merge_sort(t_list **begin, int (*f)(void *, void *));
+void				ft_lst_merge_sort(t_list **begin, int (*f)(void *, void *));
 t_circ				*circ_get_arg(char **arg);
 void				circ_push_back(t_circ **begin, char *data);
 t_circ				*circ_create(char *data);

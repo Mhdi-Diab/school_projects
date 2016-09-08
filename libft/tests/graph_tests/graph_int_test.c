@@ -26,6 +26,7 @@ void 		test_int(int integers[], int len)
 	}
 	printf("}\n\n");
 	graph_print(tree, print);
+	graph_del(tree, ft_memdel);
 
 }
 
