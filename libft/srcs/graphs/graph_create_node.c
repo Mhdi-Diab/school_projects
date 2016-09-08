@@ -12,20 +12,20 @@
 
 #include "graph.h"
 
-t_btree	*rb_create_node(char *index, char *data)
+t_btree	*graph_create_node(void *item, size_t n)
 {
-	t_btree *new;
+   t_btree *new;
 
-	(void)data;
-	new = (t_btree *)malloc(sizeof(t_btree));
-	if (new)
-	{
-		new->index = ft_strdup(index);
-		new->color = RB_RED;
-		new->content = NULL;
-		new->parent = NULL;
-		new->left = NULL;
-		new->right = NULL;
-	}
-	return (new);
+   new = (t_btree *)malloc(sizeof(t_btree));
+   if (new)
+   {
+	   new->item = ft_memalloc(n);
+	   if (new->item)
+		   new->item = ft_memcpy(new->item, item, n);
+	   new->color = RB_RED;
+	   new->parent = NULL;
+	   new->left = NULL;
+	   new->right = NULL;
+   }
+   return (new);
 }

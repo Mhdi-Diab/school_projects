@@ -28,17 +28,16 @@ typedef struct		s_btree
 	struct s_btree	*parent;
 	struct s_btree	*left;
 	struct s_btree	*right;
-	char			*index;
-	char			*content;
+	void			*item;
+	size_t			item_size;
 	enum e_rb_color	color;
 }					t_btree;
 
-void				rb_insert(t_btree **r, char *index, char *str,
-	int (*cmp)(char *, char *));
-void				rb_search(t_btree *r, char *k,
-	int (*cmp)(char *, char *), t_list **list);
-t_btree				*rb_create_node(char *index, char *data);
-// void				tree_insert(t_btree **root, t_btree *x,
-// 	int (*cmp)(char *, char *));
+void				graph_insert(t_btree **r, t_btree *n,
+	int (*cmp)(void *, void *));
+void				*graph_search(t_btree *r, void *item,
+	int (*cmp)(void *, void *));
+t_btree				*graph_create_node(void *item, size_t item_size);
+void				graph_balance_rb(t_btree **r, t_btree *x);
 
 #endif

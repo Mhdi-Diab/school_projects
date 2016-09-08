@@ -56,7 +56,7 @@ static void		right_rotate(t_btree **root, t_btree *y)
 	y->parent = x;
 }
 
-static void		rb_insert2(t_btree **root, t_btree **x, t_btree **y)
+static void		rb_first_balance(t_btree **root, t_btree **x, t_btree **y)
 {
 	if (*y && (*y)->color == RB_RED)
 	{
@@ -78,7 +78,7 @@ static void		rb_insert2(t_btree **root, t_btree **x, t_btree **y)
 	}
 }
 
-static void		rb_insert3(t_btree **root, t_btree **x, t_btree **y)
+static void		rb_second_balance(t_btree **root, t_btree **x, t_btree **y)
 {
 	if (*y && (*y)->color == RB_RED)
 	{
@@ -100,41 +100,11 @@ static void		rb_insert3(t_btree **root, t_btree **x, t_btree **y)
 	}
 }
 
-static void		tree_insert(t_btree **root, t_btree *x,
-	int (*cmp)(char *, char *))
-{
-	if (!*root)
-		*root = x;
-	else if ((*cmp)((*root)->index, x->index) > 0)
-	{
-		if (!(*root)->left)
-		{
-			(*root)->left = x;
-			(*root)->left->parent = *root;
-		}
-		else
-			tree_insert(&((*root)->left), x, cmp);
-	}
-	else
-	{
-		if (!(*root)->right)
-		{
-			(*root)->right = x;
-			(*root)->right->parent = *root;
-		}
-		else
-			tree_insert(&((*root)->right), x, cmp);
-	}
-}
 
-void			rb_insert(t_btree **r, char *index, char *data,
-	int (*cmp)(char *, char *))
+void			graph_balance_rb(t_btree **r, t_btree *x)
 {
-	t_btree *x;
 	t_btree *y;
 
-	x = rb_create_node(index, data);
-	tree_insert(r, x, cmp);
 	while ((x != *r) && (x->parent->color == RB_RED))
 	{
 		if (x->parent->parent && x->parent == x->parent->parent->left)
@@ -142,13 +112,12 @@ void			rb_insert(t_btree **r, char *index, char *data,
 			y = x->parent->parent->right;
 			if (!y)
 				break ;
-			rb_insert2(r, &x, &y);
+			rb_first_balance(r, &x, &y);
 		}
 		else if (x && x->parent->parent)
 		{
 			y = x->parent->parent->left;
-			rb_insert3(r, &x, &y);
+			rb_second_balance(r, &x, &y);
 		}
 	}
-	(*r)->color = RB_BLACK;
 }

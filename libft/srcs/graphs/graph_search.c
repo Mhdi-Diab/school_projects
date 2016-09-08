@@ -12,20 +12,14 @@
 
 #include "graph.h"
 
-void	rb_search(t_btree *r, char *k,
-	int (*cmp)(char *, char *), t_list **list)
+void	*graph_search(t_btree *r, void *k, int (*cmp)(void *, void *))
 {
-	char *str;
-
 	if (r)
 	{
-		if ((*cmp)(r->index, k) == 0)
-		{
-			str = ft_strtrim(r->index);
-			ft_lstadd_back(list, ft_lstnew(str, ft_strlen(str) + 1));
-			free(str);
-		}
-		rb_search(r->left, k, cmp, list);
-		rb_search(r->right, k, cmp, list);
+		if ((*cmp)(r->item, k) == 0)
+			return(r->item);
+		graph_search(r->left, k, cmp);
+		graph_search(r->right, k, cmp);
 	}
+	return(NULL);
 }
