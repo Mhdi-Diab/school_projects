@@ -34,7 +34,7 @@ N-puzzle game solver using the Astar search algorithm.
 ```
 npm install
 ```
-## Launch  on terminal
+### Launch it  on terminal
 Create a npuzzle map file
 ```
 python doc/npuzzle-gen.py -s -i 150 4 > test.txt
@@ -74,11 +74,11 @@ configs of the program could be changed in config/default_config.yml
 
 # Other Projects
 
-##study heroes (Symfony2, Angular, Ionic)
+## Study Heroes (Symfony2, Angular, Ionic)
 Mobile application that use Gamification and science to make learning fun and effective for students.
 [Study Heroes](http://studyheroes.fr/)
 
-##shorei kan (Symfony2, React Redux)
+## Shorei Kan Europe (Symfony2, React Redux)
 (in progress)
 Website with an admin panel, a blog, a newsletter, google map integration etc.
 [Shorei Kan Europe](http://shorei-kan-europe.com/)
