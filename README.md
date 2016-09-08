@@ -1,13 +1,13 @@
-# school_projects
-some of my school projects at Ecole 42
+# School Projects
+Some of my school projects at Ecole 42
 
-## libft (C)
-own library of:
+## Libft (C)
+Libc rewritten library coupled with my own library of:
 - linked list simple and circular (with merge sort)
 - binary trees (with red & black balance)
 - hashtable dictionary
 
-## linear regression (Python)
+## Linear Regression (Python)
 Introduction to machine learning.
 Program that predicts the price of a car by using a linear function train with a gradient descent algorithm
 #### How it works:
@@ -16,7 +16,7 @@ python linear_reg.py
 ```
 (to load the data in Datasets directory)
 
-####options:
+#### Options:
 - g: to draw a graph representing the data set and the linear regression
 - i: to set the number of iterations (default: 1000)
 - s: to set the learning rate (default: 0.1)
@@ -27,7 +27,7 @@ python main.py
 ```
 **type de number of miles the car has travelled**
 
-## npuzzle (Javascript / Express)
+## Npuzzle (Javascript / Express)
 N-puzzle game solver using the Astar search algorithm.
 
 ### Installation
@@ -39,7 +39,7 @@ Create a npuzzle map file
 ```
 python doc/npuzzle-gen.py -s -i 150 4 > test.txt
 ```
-#### options:
+#### Options:
 - s: solvable
 - u: unsolvable
 - i [nb]: number of iterations
@@ -49,7 +49,7 @@ Launch the solver on the generated npuzzle map file
 ```
 node ./bin/main.js test.txt  [-m -h -e] [-g -u]
 ```
-#### options:
+#### Options:
 - m: manhattan heuristic
 - h: hamming heuristic
 - e: euclidian heuristic
@@ -63,7 +63,7 @@ npm start
 ```
 Then go to [localhost:4242](http://localhost:4242)
 
-## taskmaster (Python)
+## Taskmaster (Python)
 Fully-fledged job control daemon similar to supervisor
 
 ### Installation
@@ -72,7 +72,7 @@ pip install pyyaml
 ```
 configs of the program could be changed in config/default_config.yml
 
-# other projects
+# Other Projects
 
 ##study heroes (Symfony2, Angular, Ionic)
 Mobile application that use Gamification and science to make learning fun and effective for students.
