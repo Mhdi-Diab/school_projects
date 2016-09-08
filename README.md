@@ -11,12 +11,12 @@ own library of:
 Introduction to machine learning.
 The purpose is to create a program that predicts the price of a car by using a linear function train with a gradient descent algorithm
 How it works:
-1) python linear_reg.py (to load the data in Datasets directory)
+1. python linear_reg.py (to load the data in Datasets directory)
 options:
     -g: to draw a graph representing the data set and the linear regression
     -i: to set the number of iterations (default: 1000)
     -s: to set the learning rate (default: 0.1)
     -p: to print all theta values into a file
     -e: to print estimation errors
-2) python main.py
-3) type de number of miles the car has travelled
+2. python main.py
+3. type de number of miles the car has travelled
