@@ -10,37 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DICT_H
-# define DICT_H
+#include "dict.h"
 
-# define INITIAL_SIZE (1024)
-# define GROWTH_FACTOR (2)
-# define MAX_LOAD_FACTOR (1)
-# define MULTIPLIER (97)
+void dict_delete(t_dict *d, const char *key)
+{
+	t_elt	**prev;
+	t_elt	*e;
 
-# include <stdlib.h>
-# include <assert.h>
-# include <string.h>
-# include <stdio.h>
-
-typedef struct		s_elt {
-	struct s_elt	*next;
-	char			*key;
-	char			*value;
-}					t_elt;
-
-typedef struct		s_dict {
-	int				size;
-	int				n;
-	struct s_elt	**table;
-}					t_dict;
-
-t_dict				*dict_init(void);
-t_dict				*dict_create(int size);
-void				dict_destroy(t_dict *d);
-void				dict_insert(t_dict *d, const char *key, const char *value);
-const char			*dict_search(t_dict *d, const char *key);
-void				dict_delete(t_dict *d, const char *key);
-unsigned long		dict_hash(const char *s);
-
-#endif
+	prev = &(d->table[dict_hash(key) % d->size]);
+	while (*prev != 0)
+	{
+		if (!ft_strcmp((*prev)->key, key))
+		{
+			e = *prev;
+			*prev = e->next;
+			free(e->key);
+			free(e->value);
+			free(e);
+			return ;
+		}
+		prev = &((*prev)->next);
+	}
+}

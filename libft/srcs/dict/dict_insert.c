@@ -10,37 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DICT_H
-# define DICT_H
+#include "dict.h"
 
-# define INITIAL_SIZE (1024)
-# define GROWTH_FACTOR (2)
-# define MAX_LOAD_FACTOR (1)
-# define MULTIPLIER (97)
+static void grow(t_dict *d)
+{
+	t_dict	*d2;
+	t_dict	swap;
+	int		i;
+	t_elt	*e;
 
-# include <stdlib.h>
-# include <assert.h>
-# include <string.h>
-# include <stdio.h>
+	d2 = dict_create(d->size * GROWTH_FACTOR);
+	i = 0;
+	while (i < d->size)
+	{
+		e = d->table[i];
+		while (e != 0)
+		{
+			dict_insert(d2, e->key, e->value);
+			e = e->next;
+		}
+		i++;
+	}
+	swap = *d;
+	*d = *d2;
+	*d2 = swap;
+	dict_destroy(d2);
+}
 
-typedef struct		s_elt {
-	struct s_elt	*next;
-	char			*key;
-	char			*value;
-}					t_elt;
+void dict_insert(t_dict *d, const char *key, const char *value)
+{
+	t_elt			*e;
+	unsigned long	h;
 
-typedef struct		s_dict {
-	int				size;
-	int				n;
-	struct s_elt	**table;
-}					t_dict;
-
-t_dict				*dict_init(void);
-t_dict				*dict_create(int size);
-void				dict_destroy(t_dict *d);
-void				dict_insert(t_dict *d, const char *key, const char *value);
-const char			*dict_search(t_dict *d, const char *key);
-void				dict_delete(t_dict *d, const char *key);
-unsigned long		dict_hash(const char *s);
-
-#endif
+	e = malloc(sizeof(*e));
+	if (e)
+	{
+		e->key = ft_strdup(key);
+		e->value = ft_strdup(value);
+		h = dict_hash(key) % d->size;
+		e->next = d->table[h];
+		d->table[h] = e;
+		d->n++;
+		if (d->n >= d->size * MAX_LOAD_FACTOR) {
+			grow(d);
+		}
+	}
+}

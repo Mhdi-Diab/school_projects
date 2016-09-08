@@ -10,37 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DICT_H
-# define DICT_H
+#include "dict.h"
 
-# define INITIAL_SIZE (1024)
-# define GROWTH_FACTOR (2)
-# define MAX_LOAD_FACTOR (1)
-# define MULTIPLIER (97)
+t_dict *dict_create(int size)
+{
+	t_dict	*d;
+	int		i;
 
-# include <stdlib.h>
-# include <assert.h>
-# include <string.h>
-# include <stdio.h>
+	d = (t_dict *)malloc(sizeof(*d));
+	if (d)
+	{
+		d->size = size;
+		d->n = 0;
+		d->table = (t_elt **)malloc(sizeof(t_elt *) * d->size);
+		if (d->table)
+		{
+			i = 0;
+			while (i < d->size)
+				d->table[i++] = 0;
+		}
+	}
+	return (d);
+}
 
-typedef struct		s_elt {
-	struct s_elt	*next;
-	char			*key;
-	char			*value;
-}					t_elt;
-
-typedef struct		s_dict {
-	int				size;
-	int				n;
-	struct s_elt	**table;
-}					t_dict;
-
-t_dict				*dict_init(void);
-t_dict				*dict_create(int size);
-void				dict_destroy(t_dict *d);
-void				dict_insert(t_dict *d, const char *key, const char *value);
-const char			*dict_search(t_dict *d, const char *key);
-void				dict_delete(t_dict *d, const char *key);
-unsigned long		dict_hash(const char *s);
-
-#endif
+t_dict *dict_init(void)
+{
+	return dict_create(INITIAL_SIZE);
+}
