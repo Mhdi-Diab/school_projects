@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabsize.c                                       :+:      :+:    :+:   */
+/*   ft_btree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/07 11:26:37 by atamano           #+#    #+#             */
-/*   Updated: 2015/02/07 11:26:38 by atamano          ###   ########.fr       */
+/*   Created: 2015/02/03 16:09:28 by atamano           #+#    #+#             */
+/*   Updated: 2015/02/03 16:09:30 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "array.h"
+#include "graph.h"
 
-int		ft_tabsize(char **tab)
+t_btree	*rb_create_node(char *index, char *data)
 {
-	int i;
+	t_btree *new;
 
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
+	(void)data;
+	new = (t_btree *)malloc(sizeof(t_btree));
+	if (new)
+	{
+		new->index = ft_strdup(index);
+		new->color = RB_RED;
+		new->content = NULL;
+		new->parent = NULL;
+		new->left = NULL;
+		new->right = NULL;
+	}
+	return (new);
 }

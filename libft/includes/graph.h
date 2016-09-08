@@ -35,10 +35,10 @@ typedef struct		s_btree
 
 void				rb_insert(t_btree **r, char *index, char *str,
 	int (*cmp)(char *, char *));
-void				btree_search(t_btree *r, char *k,
+void				rb_search(t_btree *r, char *k,
 	int (*cmp)(char *, char *), t_list **list);
-t_btree				*btree_create_node(char *index, char *data);
-void				tree_insert(t_btree **root, t_btree *x,
-	int (*cmp)(char *, char *));
+t_btree				*rb_create_node(char *index, char *data);
+// void				tree_insert(t_btree **root, t_btree *x,
+// 	int (*cmp)(char *, char *));
 
 #endif

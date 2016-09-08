@@ -100,13 +100,40 @@ static void		rb_insert3(t_btree **root, t_btree **x, t_btree **y)
 	}
 }
 
+static void		tree_insert(t_btree **root, t_btree *x,
+	int (*cmp)(char *, char *))
+{
+	if (!*root)
+		*root = x;
+	else if ((*cmp)((*root)->index, x->index) > 0)
+	{
+		if (!(*root)->left)
+		{
+			(*root)->left = x;
+			(*root)->left->parent = *root;
+		}
+		else
+			tree_insert(&((*root)->left), x, cmp);
+	}
+	else
+	{
+		if (!(*root)->right)
+		{
+			(*root)->right = x;
+			(*root)->right->parent = *root;
+		}
+		else
+			tree_insert(&((*root)->right), x, cmp);
+	}
+}
+
 void			rb_insert(t_btree **r, char *index, char *data,
 	int (*cmp)(char *, char *))
 {
 	t_btree *x;
 	t_btree *y;
 
-	x = btree_create_node(index, data);
+	x = rb_create_node(index, data);
 	tree_insert(r, x, cmp);
 	while ((x != *r) && (x->parent->color == RB_RED))
 	{

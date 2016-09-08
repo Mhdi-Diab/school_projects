@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_btree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2015/02/03 16:09:28 by atamano           #+#    #+#             */
+/*   Updated: 2015/02/03 16:09:30 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARRAY_H
-# define ARRAY_H
+#include "graph.h"
 
-#include "string.h"
-
-void				ft_sort_params(char **argv);
-void				ft_tabdel(char **tab);
-int					ft_tablen(char **tab);
-
-#endif
+int main()
+{
+	
+	return (0);
+}

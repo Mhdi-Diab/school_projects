@@ -11,11 +11,14 @@
 # **************************************************************************** #
 
 NAME = libft.a
+T_NAME = exec_test
+
 OUTPUT_TYPE = lib
 C_DIR = srcs
 O_DIR = .tmp/objects
+T_DIR = tests
 
-CC_FLAGS = -g -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror
 CC_HEADERS = -I ./includes -I ./srcs/libft/includes
 CC_DEBUG =
 
@@ -61,6 +64,9 @@ $(O_DIR)%.o: $(C_DIR)%.c $(H_FILES)
 	@mkdir -p $(O_DIRS) $(O_DIR)
 	@gcc $(CC_OPTIONS) $(CONFIG_EXTRA_H) $(CC_DEBUG) -o $@ -c $< \
 		&& printf "."
+
+test:
+	@gcc $(CC_FLAGS) $(NAME) $(T_DIR)/main.c $(CC_HEADERS) -o $(T_NAME)
 
 clean: _clean
 	@$(foreach lib, $(MAKE_PATHS), $(MAKE) -C $(lib) clean;)
