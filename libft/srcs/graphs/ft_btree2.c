@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "graph.h"
 
 void	btree_search(t_btree *r, char *k,
 	int (*cmp)(char *, char *), t_list **list)

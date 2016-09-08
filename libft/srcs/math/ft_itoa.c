@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "math.h"
 
 static char			*ft_itoa2(int n, unsigned int i, int count, int j)
 {

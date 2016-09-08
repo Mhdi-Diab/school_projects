@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "array.h"
 
 void	ft_sort_params(char **argv)
 {

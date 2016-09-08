@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
-#include "libft.h"
+#include "string.h"
 
 static size_t	ft_trimlen(char *s)
 {

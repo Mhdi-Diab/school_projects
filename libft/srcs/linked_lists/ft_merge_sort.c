@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "linked_list.h"
 
 static t_list	*ft_st_mrg(t_list *a, t_list *b, int (*f)(void *, void *))
 {

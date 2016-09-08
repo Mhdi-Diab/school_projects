@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "linked_list.h"
 
 t_circ	*circ_create(char *data)
 {

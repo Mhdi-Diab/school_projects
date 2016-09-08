@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "math.h"
+
 static int		ft_atoi2(const char *str, int i, int value, int neg)
 {
 	if (!str)

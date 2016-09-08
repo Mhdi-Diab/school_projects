@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "graph.h"
 
 static void		left_rotate(t_btree **root, t_btree *x)
 {
