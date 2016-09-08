@@ -1,0 +1,18 @@
+programs:
+    umask:
+        cmd: "umask"
+        numprocs: 1
+        umask: 000
+        workingdir: /tmp
+        autostart: true
+        autorestart: false
+        exitcodes: 0
+        startretries: 3
+        starttime: 0
+        stopsignal: TERM
+        stoptime: 10
+        stdout: /tmp/umask.stdout
+        stderr: /tmp/umask.stderr
+        env:
+            STARTED_BY: taskmaster
+            ANSWER: 42

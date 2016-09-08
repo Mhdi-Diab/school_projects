@@ -1,0 +1,21 @@
+programs:
+    env:
+        cmd: "env"
+        numprocs: 1
+        umask: 000
+        workingdir: /tmp
+        autostart: true
+        autorestart: false
+        exitcodes: 0
+        startretries: 3
+        starttime: 0
+        stopsignal: TERM
+        stoptime: 10
+        stdout: /tmp/env.stdout
+        stderr: /tmp/env.stderr
+        env:
+            STARTED_BY: taskmaster
+            ANSWER: 42
+            LOL: HEHE
+            NICE: BRICE
+            GUTEN: TAG

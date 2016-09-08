@@ -1,0 +1,18 @@
+programs:
+    bash:
+        cmd: "/bin/bash"
+        numprocs: 1
+        umask: 777
+        workingdir: /tmp
+        autostart: true
+        autorestart: false
+        exitcodes: 0
+        startretries: 3
+        starttime: 1
+        stopsignal: TERM
+        stoptime: 10
+        stdout: /tmp/bash.stdout
+        stderr: /tmp/bash.stderr
+        env:
+            STARTED_BY: taskmaster
+            ANSWER: 42
