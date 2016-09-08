@@ -1,2 +1,0 @@
-syn on
-set nu
