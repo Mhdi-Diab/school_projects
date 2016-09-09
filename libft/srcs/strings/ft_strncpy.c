@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2014/11/03 12:10:03 by atamano           #+#    #+#             */
+/*   Updated: 2014/11/04 14:08:04 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "strings.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+char	*ft_strncpy(char *dst, const char *src, size_t n)
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
+	size_t i;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	i = 0;
+	while (i < n && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dst[i] = '\0';
+		i++;
+	}
+	return (dst);
+}

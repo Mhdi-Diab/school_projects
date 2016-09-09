@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2014/11/03 17:42:21 by atamano           #+#    #+#             */
+/*   Updated: 2014/11/03 18:23:11 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "ctypes.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+int	ft_isalpha(int c)
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
-
-int					get_next_line(int fd, char **line);
-
-#endif
+	if ((c >= 65 && c <= 90)
+			|| (c >= 97 && c <= 122))
+		return (1);
+	return (0);
+}

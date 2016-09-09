@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2014/11/04 18:28:18 by atamano           #+#    #+#             */
+/*   Updated: 2014/11/05 16:54:20 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "strings.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+void	*ft_memalloc(size_t size)
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
+	void	*tab;
+	char	*temp;
+	size_t	count;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	count = 0;
+	tab = malloc(size);
+	if (!tab)
+		return (NULL);
+	temp = (char *)tab;
+	while (count < size)
+	{
+		temp[count] = '\0';
+		count++;
+	}
+	return (tab);
+}

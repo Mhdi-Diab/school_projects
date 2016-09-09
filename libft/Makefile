@@ -69,8 +69,7 @@ $(O_DIR)%.o: $(C_DIR)%.c $(H_FILES)
 		&& printf "."
 
 test:
-	@gcc $(CC_FLAGS) $(NAME) $(T_FILES) $(CC_HEADERS) $(CC_TEST_HEADERS) -o $(T_NAME)
-	./$(T_NAME)
+	@make -C tests/moulitest_tests libft_bonus
 
 clean: _clean
 	@$(foreach lib, $(MAKE_PATHS), $(MAKE) -C $(lib) clean;)

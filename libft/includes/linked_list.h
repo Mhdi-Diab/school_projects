@@ -14,7 +14,7 @@
 # define LINKED_LIST_H
 
 # include <stdlib.h>
-# include "string.h"
+# include "strings.h"
 
 typedef struct		s_list
 {
@@ -38,9 +38,11 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstadd_back(t_list **alst, t_list *new);
 void				ft_lst_merge_sort(t_list **begin, int (*f)(void *, void *));
+void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
-void				ft_circadd_back(t_circ **begin, char *data);
-t_circ				*ft_circ_new(char *data);
-void				ft_circadd(t_circ **begin, char *data);
+void				ft_circadd_back(t_circ **begin, t_circ *new);
+t_circ				*ft_circnew(void *content, size_t content_size);
+void				ft_circadd(t_circ **begin, t_circ *data);
 
 #endif

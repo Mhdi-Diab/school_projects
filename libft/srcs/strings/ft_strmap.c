@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2014/11/04 19:26:08 by atamano           #+#    #+#             */
+/*   Updated: 2014/11/04 19:37:42 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "strings.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
+	char	*tab;
+	int		i;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	i = 0;
+	tab = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!tab)
+		return (NULL);
+	while (s[i])
+	{
+		tab[i] = (*f)(s[i]);
+		i++;
+	}
+	tab[i] = '\0';
+	return (tab);
+}

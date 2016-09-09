@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   create_circ.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2015/01/27 10:30:20 by atamano           #+#    #+#             */
+/*   Updated: 2015/01/27 13:01:42 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "linked_list.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+void	ft_circadd(t_circ **begin, t_circ *new)
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
+	t_circ	*tmp;
+	t_circ	*prev;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	tmp = *begin;
+	if (tmp)
+	{
+		prev = tmp->prev;
+		tmp = new;
+		tmp->next = *begin;
+		tmp->prev = prev;
+		if (prev)
+			prev->next = tmp;
+		(*begin)->prev = tmp;
+		*begin = tmp;
+	}
+	else
+		*begin = new;
+}

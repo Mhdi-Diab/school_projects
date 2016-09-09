@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2015/02/05 18:36:44 by atamano           #+#    #+#             */
+/*   Updated: 2015/02/05 18:36:47 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "strings.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
+	size_t	i;
+	size_t	j;
+	size_t	temp;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	i = 0;
+	if (*s2 == '\0')
+		return ((char *)s1);
+	while (i < n && s1[i])
+	{
+		j = 0;
+		if (s1[i] == s2[j])
+		{
+			temp = i;
+			while (i < n && s2[j] == s1[i])
+			{
+				if (s2[j + 1] == '\0')
+					return ((char *)&s1[temp]);
+				j++;
+				i++;
+			}
+			i = temp;
+		}
+		i++;
+	}
+	return (NULL);
+}

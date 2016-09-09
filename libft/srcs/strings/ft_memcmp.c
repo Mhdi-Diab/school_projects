@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2015/02/05 18:33:41 by atamano           #+#    #+#             */
+/*   Updated: 2015/02/05 18:33:45 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "strings.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
+	size_t				count;
+	const unsigned char	*str1;
+	const unsigned char	*str2;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	str1 = s1;
+	str2 = s2;
+	count = 0;
+	while (count < n)
+	{
+		if (str1[count] != str2[count])
+			return (str1[count] - str2[count]);
+		count++;
+	}
+	return (0);
+}

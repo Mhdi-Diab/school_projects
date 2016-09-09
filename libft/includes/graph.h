@@ -15,7 +15,7 @@
 
 # include "linked_list.h"
 # include "print.h"
-# include "string.h"
+# include "strings.h"
 
 typedef enum		e_rb_color
 {

@@ -13,7 +13,7 @@
 #ifndef ARRAY_H
 # define ARRAY_H
 
-#include "string.h"
+#include "strings.h"
 
 void				ft_sort_params(char **argv);
 void				ft_tabdel(char **tab);

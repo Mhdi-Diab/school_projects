@@ -14,8 +14,8 @@
 # define PRINT_H
 
 # include <unistd.h>
-# include "string.h"
-# include "math.h"
+# include "strings.h"
+# include "maths.h"
 
 typedef enum		e_str_color
 {

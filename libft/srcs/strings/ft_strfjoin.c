@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2014/11/04 20:22:32 by atamano           #+#    #+#             */
+/*   Updated: 2014/12/29 12:28:47 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "strings.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+char	*ft_strfjoin(char const *s1, char const *s2)
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
+	size_t	length;
+	char	*tab;
+	int		i;
+	int		j;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	j = 0;
+	i = 0;
+	length = ft_strlen(s1) + ft_strlen(s2) + 1;
+	tab = (char *)malloc(sizeof(char) * length);
+	if (!tab)
+		return (NULL);
+	while (s1[i])
+	{
+		tab[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		tab[i++] = s2[j++];
+	tab[i] = '\0';
+	if (*s1)
+		ft_strdel((char **)&s1);
+	return (tab);
+}

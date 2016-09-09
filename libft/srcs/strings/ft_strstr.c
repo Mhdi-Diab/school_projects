@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 12:02:21 by atamano           #+#    #+#             */
-/*   Updated: 2015/03/24 16:10:16 by atamano          ###   ########.fr       */
+/*   Created: 2015/02/05 18:38:03 by atamano           #+#    #+#             */
+/*   Updated: 2015/02/05 18:38:04 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "strings.h"
 
-# include "array.h"
-# include "ctypes.h"
-# include "linked_list.h"
-# include "strings.h"
-
-# define BUFF_SIZE 100
-
-typedef struct		s_buffer
+char	*ft_strstr(const char *strstack, const char *srcdle)
 {
-	int			fd;
-	char		buf[BUFF_SIZE + 1];
-}					t_buffer;
+	int		i;
+	char	*str;
+	char	*src;
 
-int					get_next_line(int fd, char **line);
-
-#endif
+	if (!strstack || !srcdle)
+		return (NULL);
+	str = (char *)strstack;
+	src = (char *)srcdle;
+	i = ft_strlen(src);
+	if (*src == 0)
+		return (str);
+	while (*str != 0)
+	{
+		if (!ft_strncmp(str, src, i))
+			return (str);
+		str++;
+	}
+	return (NULL);
+}

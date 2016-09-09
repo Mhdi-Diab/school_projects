@@ -13,7 +13,7 @@
 #ifndef MATH_H
 # define MATH_H
 
-# include "string.h"
+# include "strings.h"
 
 typedef struct		s_atof
 {

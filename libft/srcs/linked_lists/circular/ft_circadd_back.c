@@ -12,16 +12,14 @@
 
 #include "linked_list.h"
 
-void	ft_circular_push_back(t_circ **begin, void *data)
+void	ft_circadd_back(t_circ **begin, t_circ *new)
 {
 	t_circ	*tmp;
-	t_circ	*new;
 
 	tmp = *begin;
 	if (tmp)
 	{
 		tmp = (*begin)->prev;
-		new = ft_circ_new(data);
 		new->prev = tmp;
 		tmp->next = new;
 		new->next = *begin;
@@ -29,7 +27,7 @@ void	ft_circular_push_back(t_circ **begin, void *data)
 	}
 	else
 	{
-		*begin = ft_circ_new(data);
+		*begin = new;
 		(*begin)->prev = NULL;
 		(*begin)->next = NULL;
 	}
