@@ -22,7 +22,8 @@ typedef enum	e_modifier
 	L,
 	LL,
 	J,
-	Z
+	Z,
+	NO_MODIFIER
 }				t_enum_modifier;
 
 t_enum_modifier		modifier_get(char *str);

@@ -15,20 +15,10 @@
 #include "precision.h"
 #include "modifier.h"
 
-static int		format_do_exec(t_format *f, va_list ap)
+void		format_parse(t_format *f, char *str)
 {
-	(void)f;
-	(void)ap;
-	return (0);
-}
-
-int				format_exec(char *str, va_list ap)
-{
-	t_format	*f;
-
-	f = format_new();
-	format_parse(f, str);
-	format_do_exec(f, ap);
-	format_del(&f);
-	return (0);
+	f->modifier = modifier_get(str);
+	f->conversion = conversion_new(str);
+	f->precision = precision_get(str);
+	options_get(&f->options, str);
 }

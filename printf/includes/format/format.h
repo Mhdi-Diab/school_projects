@@ -31,8 +31,6 @@ typedef struct	s_format
 t_format		*format_new(void);
 void			format_del(t_format **format);
 int				format_exec(char *str, va_list ap);
-int				conversion_get_handlers(t_format *f);
-char			*conversion_handle_s(char *str, va_list ap);
-int				conversion_get_handler_index(char *str);
+void			format_parse(t_format *f, char *str);
 
 #endif

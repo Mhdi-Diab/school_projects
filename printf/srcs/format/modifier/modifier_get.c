@@ -13,11 +13,17 @@
 #include "modifier.h"
 #include "token.h"
 
-t_enum_modifier	modifier_get(char *str)
+t_enum_modifier			modifier_get(char *str)
 {
-	while (str && *str)
+	static const char	*modifiers[] = {"hh", "h", "ll", "l", "j", "z"};
+	t_enum_modifier		enum_modif;
+
+	enum_modif = HH;
+	while (enum_modif < NO_MODIFIER)
 	{
-		str++;
+		if (ft_strstr(str, modifiers[enum_modif]))
+			return (enum_modif);
+		enum_modif++;
 	}
-	return (LL);
+	return (NO_MODIFIER);
 }
