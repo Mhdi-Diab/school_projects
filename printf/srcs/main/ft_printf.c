@@ -21,6 +21,7 @@ int		ft_printf(const char *format, ...)
 	if (!format)
 		return (0);
 	va_start(ap, format);
+	P("---\nFORMAT: %s\n----\n", format);
 	ast = ast_new();
 	ast_get_tokens(ast, (char *)format);
 	ast_get_args(ast, ap);

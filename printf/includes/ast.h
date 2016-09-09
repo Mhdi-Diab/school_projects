@@ -15,7 +15,6 @@
 
 # include "libft.h"
 # include "printf.h"
-# include <stdarg.h>
 
 typedef struct	s_ast
 {

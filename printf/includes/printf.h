@@ -25,6 +25,8 @@ typedef enum	e_bool
 # include "ast.h"
 # include "format.h"
 # include <stdarg.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 int		ft_printf(const char *format, ...);
 

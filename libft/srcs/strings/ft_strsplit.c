@@ -12,7 +12,7 @@
 
 #include "strings.h"
 
-int			count_words(char *str, char c)
+static int		count_words(char *str, char c)
 {
 	int count;
 
@@ -29,7 +29,7 @@ int			count_words(char *str, char c)
 	return (count);
 }
 
-int			count_char(char *str, char c)
+static int		count_char(char *str, char c)
 {
 	int		count;
 
@@ -42,7 +42,7 @@ int			count_char(char *str, char c)
 	return (count);
 }
 
-char		**get_array(char *str, char c)
+static char		**get_array(char *str, char c)
 {
 	char	**array;
 	int		nb_char;
@@ -69,7 +69,7 @@ char		**get_array(char *str, char c)
 	return (array);
 }
 
-char		**ft_strsplit(char const *s, char c)
+char			**ft_strsplit(char const *s, char c)
 {
 	if (!s || !c)
 		return (NULL);

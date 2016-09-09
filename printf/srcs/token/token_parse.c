@@ -14,20 +14,14 @@
 
 void		token_parse(t_ast *ast, char *format)
 {
-	int		i;
-	bool	in_format;
-
-	i = 0;
-	in_format = false;
-	while (format[i])
+	while (*format)
 	{
-		if (format[i])
+		if (*format == START_FORMAT)
 		{
-			P("%c", format[i]);
+			format++;
+			format = token_get_format(ast, format);
 		}
-		i++;
+		else
+			format = token_get_simple(ast, format);
 	}
-	PN("\n");
-	(void)ast;
-	(void)format;
 }

@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORMAT_H
-# define FORMAT_H
+#include "token.h"
 
-# include "printf.h"
-
-typedef struct	s_format
+t_token		*token_new(t_type type)
 {
-	char		*token;
-	void		*arg;
-}				t_format;
+	t_token		*token;
 
-
-#endif
+	// P("**** %s\n", "init token");
+	token = ft_memalloc(sizeof(t_token *));
+	if (!token)
+		return (NULL);
+	token->content = NULL;
+	token->type = type;
+	return (token);
+}

@@ -10,16 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORMAT_H
-# define FORMAT_H
+#include "token.h"
 
-# include "printf.h"
-
-typedef struct	s_format
+static int	count_to_end(char *format)
 {
-	char		*token;
-	void		*arg;
-}				t_format;
+	int count;
 
+	count = 0;
+	while (format[count] && !ft_strchr(END_FORMAT, format[count]))
+		count++;
+	return (count + 1);
+}
 
-#endif
+char		*token_get_format(t_ast *ast, char *format)
+{
+	int			count;
+	t_token		*token;
+
+	count = 0;
+	if (*format == START_FORMAT)
+		return (token_get_simple(ast, format));
+	token = token_new(FORMAT_STRING);
+	count = count_to_end(format);
+	token->content = ft_strsub(format, 0, count);
+	P("Format token content:|%s|\n", token->content);
+	ft_lstadd_back(&ast->token, ft_lstnew(token, sizeof(t_token *)));
+	return (format + count);
+}

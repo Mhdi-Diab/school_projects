@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORMAT_H
-# define FORMAT_H
+#include "format.h"
 
-# include "printf.h"
-
-typedef struct	s_format
+t_format	*format_new(void)
 {
-	char		*token;
-	void		*arg;
-}				t_format;
+	t_format		*format;
 
-
-#endif
+	P("**** %s\n", "init format");
+	format = ft_memalloc(sizeof(t_format *));
+	if (!format)
+		return (NULL);
+	format->token = NULL;
+	format->arg = NULL;
+	return (format);
+}

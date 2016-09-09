@@ -14,10 +14,10 @@
 # define TOKEN_H
 
 # include "ast.h"
-# include <stdarg.h>
+# include "printf.h"
 
 # define END_FORMAT "sSpdDioOuUxXcC%"
-# define START_FORMAT "%"
+# define START_FORMAT '%'
 
 typedef enum		s_type
 {
@@ -27,10 +27,13 @@ typedef enum		s_type
 
 typedef struct		s_token
 {
-	void			*content;
+	char			*content;
 	t_type			type;
 }					t_token;
 
 void				token_parse(t_ast *ast, char *format);
+char				*token_get_simple(t_ast *ast, char *format);
+char				*token_get_format(t_ast *ast, char *format);
+t_token				*token_new(t_type type);
 
 #endif
