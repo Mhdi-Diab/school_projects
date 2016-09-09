@@ -10,16 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "format.h"
+#include "option.h"
 #include "precision.h"
-#include "token.h"
+#include "modifier.h"
+#include "width.h"
 
-int		width_get(char *str)
+void		format_print(t_format *f)
 {
-	while (*str && *str != '.')
-	{
-		if (ft_isdigit(*str))
-			return (ft_atoi(str));
-		str++;
+	static const char	opt[] = {'#', '0', '-', '+', ' '};
+	const char	*modifiers[] = {"hh", "h", "ll", "l", "j", "z"};
+
+	PN("\n\n");
+	P("Conversion: %c\n", f->conversion->conversion);
+	for (int i = 0; i < NB_OPTIONS; i++) {
+		if (f->options[i])
+			P("Option: %c\n", opt[i]);
 	}
-	return (0);
+	if (f->modifier != NO_MODIFIER)
+		P("Modifier: %s\n", modifiers[f->modifier]);
+	printf("Precision: %d\nWidth: %d\n", f->precision, f->width);
+	PN("\n");
 }

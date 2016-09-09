@@ -33,5 +33,6 @@ t_format		*format_new(void);
 void			format_del(t_format **format);
 int				format_exec(char *str, va_list ap);
 void			format_parse(t_format *f, char *str);
+void			format_print(t_format *f);
 
 #endif

@@ -15,6 +15,6 @@
 
 # include "printf.h"
 
-int	width_get(char *str);
+int		width_get(char *str);
 
 #endif

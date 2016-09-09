@@ -28,6 +28,7 @@ int				format_exec(char *str, va_list ap)
 
 	f = format_new();
 	format_parse(f, str);
+	// format_print(f);
 	format_do_exec(f, ap);
 	format_del(&f);
 	return (0);

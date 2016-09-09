@@ -14,11 +14,13 @@
 #include "option.h"
 #include "precision.h"
 #include "modifier.h"
+#include "width.h"
 
 void		format_parse(t_format *f, char *str)
 {
 	f->modifier = modifier_get(str);
 	f->conversion = conversion_new(str);
 	f->precision = precision_get(str);
+	f->width = width_get(str);
 	options_get(&f->options, str);
 }
