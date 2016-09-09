@@ -16,11 +16,8 @@ t_format	*format_new(void)
 {
 	t_format		*format;
 
-	P("**** %s\n", "init format");
 	format = ft_memalloc(sizeof(t_format));
 	if (!format)
 		return (NULL);
-	format->token = NULL;
-	format->arg = NULL;
 	return (format);
 }

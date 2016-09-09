@@ -17,7 +17,7 @@ static int	count_to_end(char *format)
 	int count;
 
 	count = 0;
-	while (format[count] && !ft_strchr(END_FORMAT, format[count]))
+	while (format[count] && !ft_strchr(CONVERSION_FORMAT, format[count]))
 		count++;
 	return (count + 1);
 }

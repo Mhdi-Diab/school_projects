@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include "format.h"
+#include "printf.h"
 
-int		format_exec(char *str, va_list ap)
+void	format_del(t_format **format)
 {
-	(void)str;
-	(void)ap;
-	format_handlers(str, ap);
-	return (0);
+	P("\n**** %s\n", "del format");
+	free(*format);
+	*format = NULL;
+	//TODO: clear FORMAT
 }

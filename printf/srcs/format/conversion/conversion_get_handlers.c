@@ -11,11 +11,10 @@
 /* ************************************************************************** */
 
 #include "format.h"
+#include "token.h"
 
-int		format_exec(char *str, va_list ap)
+int		conversion_get_handlers(t_format *f)
 {
-	(void)str;
-	(void)ap;
-	format_handlers(str, ap);
-	return (0);
+	f->conversion[0] = conversion_handle_s;
+	return (1);
 }

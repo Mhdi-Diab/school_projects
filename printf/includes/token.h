@@ -15,9 +15,7 @@
 
 # include "ast.h"
 # include "printf.h"
-
-# define END_FORMAT "sSpdDioOuUxXcC%"
-# define START_FORMAT '%'
+# include "format.h"
 
 typedef enum		s_type
 {

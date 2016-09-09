@@ -11,11 +11,24 @@
 /* ************************************************************************** */
 
 #include "format.h"
+#include "token.h"
 
-int		format_exec(char *str, va_list ap)
+int		conversion_get_handler_index(char *str)
 {
-	(void)str;
-	(void)ap;
-	format_handlers(str, ap);
-	return (0);
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	tmp = str;
+	while (str && *str)
+	{
+		if (ft_strchr(CONVERSION_FORMAT, *str))
+		{
+			while (tmp && *tmp && CONVERSION_FORMAT[i] != *str) //TODO: to improve
+				i++;
+			return (i);
+		}
+		str++;
+	}
+	return (i);
 }

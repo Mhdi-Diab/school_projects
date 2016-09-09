@@ -12,10 +12,10 @@
 
 #include "format.h"
 
-int		format_exec(char *str, va_list ap)
+char		*conversion_handle_s(char *str, va_list ap)
 {
 	(void)str;
 	(void)ap;
-	format_handlers(str, ap);
-	return (0);
+	PN("IN AHAH\n");
+	return (NULL);
 }
