@@ -23,7 +23,8 @@ typedef enum	e_option
 	ZERO,
 	MINUS,
 	PLUS,
-	SPACE
+	SPACE,
+	NO_OPTION
 }				t_enum_option;
 
 void	options_get(bool (*options)[NB_OPTIONS], char *str);

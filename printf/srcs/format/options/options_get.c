@@ -15,9 +15,14 @@
 
 void	options_get(bool (*options)[NB_OPTIONS], char *str)
 {
-	while (str && *str)
+	static const char	opt[] = {'#', '0', '-', '+', ' '};
+	t_enum_option		enum_opt;
+
+	enum_opt = SHARP;
+	while (enum_opt < NO_OPTION)
 	{
-		str++;
+		if (ft_strchr(str, opt[enum_opt]))
+			(*options)[enum_opt] = true;
+		enum_opt++;
 	}
-	(void)options;
 }
