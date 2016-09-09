@@ -26,7 +26,7 @@ static void grow(t_dict *d)
 		e = d->table[i];
 		while (e != 0)
 		{
-			dict_insert(d2, e->key, e->value);
+			dict_insert(d2, e->key, e->content, e->content_size);
 			e = e->next;
 		}
 		i++;
@@ -37,7 +37,7 @@ static void grow(t_dict *d)
 	dict_destroy(d2);
 }
 
-void dict_insert(t_dict *d, const char *key, const char *value)
+void dict_insert(t_dict *d, const char *key, void *content, size_t content_size)
 {
 	t_elt			*e;
 	unsigned long	h;
@@ -46,7 +46,9 @@ void dict_insert(t_dict *d, const char *key, const char *value)
 	if (e)
 	{
 		e->key = ft_strdup(key);
-		e->value = ft_strdup(value);
+		e->content = ft_memalloc(content_size);
+		e->content_size = content_size;
+		ft_memcpy(e->content, content, content_size);
 		h = dict_hash(key) % d->size;
 		e->next = d->table[h];
 		d->table[h] = e;

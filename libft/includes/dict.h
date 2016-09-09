@@ -27,7 +27,8 @@
 typedef struct		s_elt {
 	struct s_elt	*next;
 	char			*key;
-	char			*value;
+	void			*content;
+	size_t			content_size;
 }					t_elt;
 
 typedef struct		s_dict {
@@ -39,8 +40,8 @@ typedef struct		s_dict {
 t_dict				*dict_init(void);
 t_dict				*dict_create(int size);
 void				dict_destroy(t_dict *d);
-void				dict_insert(t_dict *d, const char *key, const char *value);
-const char			*dict_search(t_dict *d, const char *key);
+void				dict_insert(t_dict *d, const char *key, void *v, size_t t);
+void				*dict_search(t_dict *d, const char *key);
 void				dict_delete(t_dict *d, const char *key);
 unsigned long		dict_hash(const char *s);
 

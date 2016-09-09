@@ -16,11 +16,11 @@ T_NAME = exec_test
 OUTPUT_TYPE = lib
 C_DIR = srcs
 O_DIR = .tmp/objects
-T_DIR = tests
+T_DIR = tests/unit
 
 CC_FLAGS = -Wall -Wextra -Werror
 CC_HEADERS = -I ./includes -I ./srcs/libft/includes
-CC_TEST_HEADERS = -I ./tests/includes
+CC_TEST_HEADERS = -I ./tests/unit/includes/
 CC_DEBUG =
 
 C_FILES = $(shell find $(C_DIR) -type f -follow -print | grep ".*\.c$$" | grep -v "\.spec\.c")
@@ -69,6 +69,10 @@ $(O_DIR)%.o: $(C_DIR)%.c $(H_FILES)
 		&& printf "."
 
 test:
+	@gcc $(CC_FLAGS) $(NAME) $(T_FILES) $(CC_HEADERS) $(CC_TEST_HEADERS)
+	@./a.out && rm a.out
+
+check:
 	@make -C tests/moulitest_tests libft_bonus
 
 clean: _clean

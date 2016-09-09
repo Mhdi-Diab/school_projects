@@ -25,7 +25,7 @@ void dict_delete(t_dict *d, const char *key)
 			e = *prev;
 			*prev = e->next;
 			free(e->key);
-			free(e->value);
+			free(e->content);
 			free(e);
 			return ;
 		}

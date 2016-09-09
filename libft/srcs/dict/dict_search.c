@@ -12,7 +12,7 @@
 
 #include "dict.h"
 
-const char *dict_search(t_dict *d, const char *key)
+void	*dict_search(t_dict *d, const char *key)
 {
 	t_elt	*e;
 
@@ -20,7 +20,7 @@ const char *dict_search(t_dict *d, const char *key)
 	while (e != 0)
 	{
 		if (!ft_strcmp(e->key, key))
-			return e->value;
+			return e->content;
 		e = e->next;
 	}
 	return (0);

@@ -25,7 +25,7 @@ void dict_destroy(t_dict *d)
 		while (e != 0) {
 			next = e->next;
 			free(e->key);
-			free(e->value);
+			free(e->content);
 			free(e);
 			e = next;
 		}
