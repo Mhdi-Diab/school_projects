@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "ast.h"
+#include "printf.h"
 
 void	ast_del(t_ast **ast)
 {
-	P("**** %s\n", "del ast");
+	P("\n**** %s\n", "del ast");
 	free(*ast);
 	*ast = NULL;
 	//TODO: clear l'AST

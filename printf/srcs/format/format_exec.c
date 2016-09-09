@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "format.h"
 
-void		ast_print(t_ast *ast)
+int		format_exec(char *str, va_list ap)
 {
-	(void)ast;
+	(void)str;
+	(void)ap;
+	return (0);
 }

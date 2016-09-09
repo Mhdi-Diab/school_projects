@@ -10,17 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORMAT_H
-# define FORMAT_H
+#include "printf.h"
+#include "ast.h"
+#include "format.h"
+#include "token.h"
 
-# include "printf.h"
-
-typedef struct	s_format
+static int	simple_exec(char *str)
 {
-	char		*token;
-	void		*arg;
-}				t_format;
+	ft_putstr(str);
+	return (ft_strlen(str));
+}
 
-int				format_exec(char *str, va_list ap);
+void		ft_exec(t_ast *ast, va_list ap)
+{
+	t_list	*list;
+	t_token	*token;
 
-#endif
+	list = ast->token;
+	while (list)
+	{
+		token = (t_token *)list->content;
+		if (token->type == SIMPLE_STRING)
+			ast->total += simple_exec(token->content);
+		else if (token->type == FORMAT_STRING)
+			ast->total += format_exec(token->content, ap);
+		list = list->next;
+	}
+}

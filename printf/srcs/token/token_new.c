@@ -16,7 +16,7 @@ t_token		*token_new(t_type type)
 {
 	t_token		*token;
 
-	token = ft_memalloc(sizeof(t_token *));
+	token = ft_memalloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->content = NULL;

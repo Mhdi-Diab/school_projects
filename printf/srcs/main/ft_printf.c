@@ -11,12 +11,14 @@
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
+#include "ast.h"
+#include "format.h"
 
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	t_ast		*ast;
+	int			ret;
 
 	if (!format)
 		return (0);
@@ -24,9 +26,9 @@ int		ft_printf(const char *format, ...)
 	P("---\nFORMAT: %s\n----\n", format);
 	ast = ast_new();
 	ast_get_tokens(ast, (char *)format);
-	ast_get_args(ast, ap);
-	ast_print(ast);
+	ft_exec(ast, ap);
 	va_end(ap);
+	ret = ast->total;
 	ast_del(&ast);
-	return (0);
+	return (ret);
 }
