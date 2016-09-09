@@ -10,31 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include "token.h"
 
-# include "ast.h"
-# include "printf.h"
-
-# define END_FORMAT "sSpdDioOuUxXcC%"
-# define START_FORMAT '%'
-
-typedef enum		s_type
+void		token_print(t_ast *ast)
 {
-	SIMPLE_STRING,
-	FORMAT_STRING
-}					t_type;
+	t_list	*list;
+	t_token	*token;
 
-typedef struct		s_token
-{
-	char			*content;
-	t_type			type;
-}					t_token;
-
-void				token_parse(t_ast *ast, char *format);
-char				*token_get_simple(t_ast *ast, char *format);
-char				*token_get_format(t_ast *ast, char *format);
-t_token				*token_new(t_type type);
-void				token_print(t_ast *ast);
-
-#endif
+	list = ast->token;
+	while (list)
+	{
+		token = (t_token *)list->content;
+		if (token->type == FORMAT_STRING)
+			ft_putstr("Token: FORMAT STRING |");
+		else
+			ft_putstr("Token: SIMPLE_STRING |");
+		ft_putstr(token->content);
+		ft_putstr("|\n");
+		list = list->next;
+	}
+}

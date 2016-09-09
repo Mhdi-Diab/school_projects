@@ -22,6 +22,8 @@ void		token_parse(t_ast *ast, char *format)
 			format = token_get_format(ast, format);
 		}
 		else
+		{
 			format = token_get_simple(ast, format);
+		}
 	}
 }

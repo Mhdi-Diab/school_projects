@@ -33,7 +33,6 @@ char		*token_get_format(t_ast *ast, char *format)
 	token = token_new(FORMAT_STRING);
 	count = count_to_end(format);
 	token->content = ft_strsub(format, 0, count);
-	P("Format token content:|%s|\n", token->content);
-	ft_lstadd_back(&ast->token, ft_lstnew(token, sizeof(t_token *)));
+	ft_lstadd_back(&ast->token, ft_lstnew(token, sizeof(t_token)));
 	return (format + count);
 }

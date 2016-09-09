@@ -34,7 +34,6 @@ char		*token_get_simple(t_ast *ast, char *format)
 	token = token_new(SIMPLE_STRING);
 	count = count_to_end(format);
 	token->content = ft_strsub(format, 0, count);
-	P("Simple token content:|%s|\n", token->content);
-	ft_lstadd_back(&ast->token, ft_lstnew(token, sizeof(t_token *)));
+	ft_lstadd_back(&ast->token, ft_lstnew(token, sizeof(t_token)));
 	return (format + count);
 }
