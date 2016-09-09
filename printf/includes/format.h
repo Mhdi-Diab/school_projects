@@ -10,22 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
-#include <stdio.h>
+#ifndef FORMAT_H
+# define FORMAT_H
 
-int		ft_printf(const char *format, ...)
+# include <stdarg.h>
+
+typedef struct	s_format
 {
-	va_list		ap;
-	t_ast		*ast;
+	char		*str;
+	void		*arg;
+}				t_format;
 
-	if (!format)
-		return (0);
-	va_start(ap, format);
-	ast = ast_new();
-	ast_get_tokens(ast, (char *)format);
-	ast_get_args(ast, ap);
-	ast_print(ast);
-	va_end(ap);
-	ast_del(&ast);
-	return (0);
-}
+
+#endif

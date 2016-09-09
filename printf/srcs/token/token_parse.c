@@ -10,22 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
-#include <stdio.h>
+#include "token.h"
 
-int		ft_printf(const char *format, ...)
+void		token_parse(t_ast *ast, char *format)
 {
-	va_list		ap;
-	t_ast		*ast;
+	int		i;
+	bool	in_format;
 
-	if (!format)
-		return (0);
-	va_start(ap, format);
-	ast = ast_new();
-	ast_get_tokens(ast, (char *)format);
-	ast_get_args(ast, ap);
-	ast_print(ast);
-	va_end(ap);
-	ast_del(&ast);
-	return (0);
+	i = 0;
+	in_format = false;
+	while (format[i])
+	{
+		if (format[i])
+		{
+			P("%c", format[i]);
+		}
+		i++;
+	}
+	PN("\n");
+	(void)ast;
+	(void)format;
 }

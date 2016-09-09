@@ -10,22 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
-#include <stdio.h>
+#include "ast.h"
 
-int		ft_printf(const char *format, ...)
+void		ast_print(t_ast *ast)
 {
-	va_list		ap;
-	t_ast		*ast;
-
-	if (!format)
-		return (0);
-	va_start(ap, format);
-	ast = ast_new();
-	ast_get_tokens(ast, (char *)format);
-	ast_get_args(ast, ap);
-	ast_print(ast);
-	va_end(ap);
-	ast_del(&ast);
-	return (0);
+	(void)ast;
 }

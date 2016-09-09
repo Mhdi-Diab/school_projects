@@ -10,22 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
-#include <stdio.h>
+#ifndef TOKEN_H
+# define TOKEN_H
 
-int		ft_printf(const char *format, ...)
+# include "ast.h"
+# include <stdarg.h>
+
+# define END_FORMAT "sSpdDioOuUxXcC%"
+# define START_FORMAT "%"
+
+typedef enum		s_type
 {
-	va_list		ap;
-	t_ast		*ast;
+	SIMPLE_STRING,
+	FORMAT_STRING
+}					t_type;
 
-	if (!format)
-		return (0);
-	va_start(ap, format);
-	ast = ast_new();
-	ast_get_tokens(ast, (char *)format);
-	ast_get_args(ast, ap);
-	ast_print(ast);
-	va_end(ap);
-	ast_del(&ast);
-	return (0);
-}
+typedef struct		s_token
+{
+	void			*content;
+	t_type			type;
+}					t_token;
+
+void				token_parse(t_ast *ast, char *format);
+
+#endif
