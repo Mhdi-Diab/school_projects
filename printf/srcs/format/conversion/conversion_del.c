@@ -10,16 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
-#include "token.h"
+#include "conversion.h"
+#include "printf.h"
 
-int				format_handlers(char *str, va_list ap)
+void	conversion_del(t_conversion **conversion)
 {
-	t_format	*f;
-
-	f = format_new();
-	f->conversion = conversion_new(str);
-	(void)ap;
-	format_del(&f);
-	return (0);
+	free(*conversion);
+	*conversion = NULL;
+	//TODO: clear FORMAT
 }

@@ -26,4 +26,6 @@ typedef enum	e_option
 	SPACE
 }				t_enum_option;
 
+void	options_get(bool (*options)[NB_OPTIONS], char *str);
+
 #endif

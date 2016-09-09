@@ -25,4 +25,6 @@ typedef enum	e_modifier
 	Z
 }				t_enum_modifier;
 
+t_enum_modifier		modifier_get(char *str);
+
 #endif

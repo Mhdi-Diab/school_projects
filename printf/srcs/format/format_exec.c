@@ -11,11 +11,21 @@
 /* ************************************************************************** */
 
 #include "format.h"
+#include "option.h"
+#include "precision.h"
+#include "modifier.h"
 
 int		format_exec(char *str, va_list ap)
 {
-	(void)str;
+	t_format	*f;
+
+	f = format_new();
+	f->conversion = conversion_new(str);
+	options_get(&f->options, str);
+	f->modifier = modifier_get(str);
+	f->precision = precision_get(str);
+
 	(void)ap;
-	format_handlers(str, ap);
+	format_del(&f);
 	return (0);
 }

@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include "format.h"
+#include "conversion.h"
 #include "printf.h"
 
 void	format_del(t_format **format)
 {
-	// P("\n**** %s\n", "del format");
+	conversion_del(&(*format)->conversion);
 	free(*format);
 	*format = NULL;
 	//TODO: clear FORMAT

@@ -10,29 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORMAT_H
-# define FORMAT_H
+#ifndef PRECISION_H
+# define PRECISION_H
 
 # include "printf.h"
-# include "modifier.h"
-# include "conversion.h"
-# include "option.h"
 
-# define START_FORMAT '%'
-
-typedef struct	s_format
-{
-	t_conversion	*conversion;
-	bool			options[NB_OPTIONS];
-	t_enum_modifier	modifier;
-	int				precision;
-}				t_format;
-
-t_format		*format_new(void);
-void			format_del(t_format **format);
-int				format_exec(char *str, va_list ap);
-int				conversion_get_handlers(t_format *f);
-char			*conversion_handle_s(char *str, va_list ap);
-int				conversion_get_handler_index(char *str);
+int	precision_get(char *str);
 
 #endif

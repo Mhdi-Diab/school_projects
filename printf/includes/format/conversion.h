@@ -26,6 +26,7 @@ typedef struct	s_convertion
 }				t_conversion;
 
 t_conversion	*conversion_new(char *str);
+void			conversion_del(t_conversion **conversion);
 char			conversion_get(char *str);
 int				conversion_get_func_index(char c);
 
