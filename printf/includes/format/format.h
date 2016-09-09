@@ -26,6 +26,7 @@ typedef struct	s_format
 	bool			options[NB_OPTIONS];
 	t_enum_modifier	modifier;
 	int				precision;
+	int				width;
 }				t_format;
 
 t_format		*format_new(void);

@@ -17,14 +17,14 @@ t_format	*format_new(void)
 	t_format		*format;
 	int				i;
 
-	i = 0;
+	i = -1;
 	format = ft_memalloc(sizeof(t_format));
 	if (!format)
 		return (NULL);
-	while (i < NB_OPTIONS)
-	{
+	while (++i < NB_OPTIONS)
 		format->options[i] = false;
-		i++;
-	}
+	format->modifier = NO_MODIFIER;
+	format->precision = 0;
+	format->width = 0;
 	return (format);
 }

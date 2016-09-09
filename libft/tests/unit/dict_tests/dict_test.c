@@ -8,7 +8,6 @@ void dict_test(void)
 	int i;
 
 	d = dict_init();
-
 	dict_insert(d, "foo", "hello world", 13);
 	puts(dict_search(d, "foo"));
 	dict_insert(d, "foo", "hello world2", 14);
