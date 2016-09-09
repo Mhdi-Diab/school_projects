@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef AST_H
+# define AST_H
 
-int		ft_printf(const char *format, ...);
 
 #endif

@@ -85,7 +85,7 @@ log:
 	tail -f $(DEBUG_FILE_NAME)
 
 check:
-	make -C tests/
+	make -C tests/moulitest_tests ft_printf
 
 val: all
 	valgrind --leak-check=full $(CONFIG_RUN_CMD)
