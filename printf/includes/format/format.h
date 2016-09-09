@@ -10,21 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
+#ifndef FORMAT_H
+# define FORMAT_H
 
-t_format	*format_new(void)
+# include "printf.h"
+# include "modifier.h"
+# include "conversion.h"
+# include "option.h"
+
+# define START_FORMAT '%'
+
+typedef struct	s_format
 {
-	t_format		*format;
-	int				i;
+	t_conversion	*conversion;
+	bool			options[NB_OPTIONS];
+	t_enum_modifier	modifier;
+}				t_format;
 
-	i = 0;
-	format = ft_memalloc(sizeof(t_format));
-	if (!format)
-		return (NULL);
-	while (i < NB_OPTIONS)
-	{
-		format->options[i] = false;
-		i++;
-	}
-	return (format);
-}
+t_format		*format_new(void);
+void			format_del(t_format **format);
+int				format_exec(char *str, va_list ap);
+int				format_handlers(char *str, va_list ap);
+int				conversion_get_handlers(t_format *f);
+char			*conversion_handle_s(char *str, va_list ap);
+int				conversion_get_handler_index(char *str);
+
+
+#endif

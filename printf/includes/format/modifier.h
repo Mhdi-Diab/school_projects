@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
+#ifndef MODIFIER_H
+# define MODIFIER_H
 
-t_format	*format_new(void)
+# include "printf.h"
+
+typedef enum	e_modifier
 {
-	t_format		*format;
-	int				i;
+	HH = 0,
+	H,
+	L,
+	LL,
+	J,
+	Z
+}				t_enum_modifier;
 
-	i = 0;
-	format = ft_memalloc(sizeof(t_format));
-	if (!format)
-		return (NULL);
-	while (i < NB_OPTIONS)
-	{
-		format->options[i] = false;
-		i++;
-	}
-	return (format);
-}
+#endif

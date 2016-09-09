@@ -10,21 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
+#include "conversion.h"
 
-t_format	*format_new(void)
+static void		conversion_set_handlers(t_conversion *c)
 {
-	t_format		*format;
-	int				i;
+	c->func[0] = conversion_handle_s;
+}
 
-	i = 0;
-	format = ft_memalloc(sizeof(t_format));
-	if (!format)
+t_conversion	*conversion_new(char *str)
+{
+	t_conversion	*c;
+
+	c = ft_memalloc(sizeof(c));
+	if (!c)
 		return (NULL);
-	while (i < NB_OPTIONS)
-	{
-		format->options[i] = false;
-		i++;
-	}
-	return (format);
+	c->conversion = conversion_get(str);
+	c->func_index = conversion_get_func_index(c->conversion);
+	conversion_set_handlers(c);
+	return (c);
 }

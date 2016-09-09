@@ -10,11 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
+#include "conversion.h"
 #include "token.h"
 
-int		conversion_get_handlers(t_format *f)
+int		conversion_get_func_index(char c)
 {
-	f->conversion[0] = conversion_handle_s;
-	return (1);
+	int		i;
+
+	i = 0;
+	while (CONVERSION_FORMAT[i])
+	{
+		if (CONVERSION_FORMAT[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
 }

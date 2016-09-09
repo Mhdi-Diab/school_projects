@@ -10,25 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
-#include "token.h"
+#ifndef CONVERSION_H
+# define CONVERSION_H
 
-int		conversion_get_handler_index(char *str)
+# include "printf.h"
+
+# define CONVERSION_FORMAT "sSpdDioOuUxXcC"
+# define NB_CONVERSIONS 14
+
+typedef struct	s_convertion
 {
-	int		i;
-	char	*tmp;
+	char		conversion;
+	int			func_index;
+	char		*(*func[NB_CONVERSIONS]) (char *str, va_list ap);
+}				t_conversion;
 
-	i = 0;
-	tmp = str;
-	while (str && *str)
-	{
-		if (ft_strchr(CONVERSION_FORMAT, *str))
-		{
-			while (tmp && *tmp && CONVERSION_FORMAT[i] != *str) //TODO: to improve
-				i++;
-			return (i);
-		}
-		str++;
-	}
-	return (i);
-}
+t_conversion	*conversion_new(char *str);
+char			conversion_get(char *str);
+int				conversion_get_func_index(char c);
+
+char			*conversion_handle_s(char *str, va_list ap);
+
+#endif

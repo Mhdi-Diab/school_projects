@@ -10,27 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORMAT_H
-# define FORMAT_H
+#include "conversion.h"
+#include "token.h"
 
-# include "printf.h"
-
-# define CONVERSION_FORMAT "sSpdDioOuUxXcC"
-# define START_FORMAT '%'
-
-typedef struct	s_format
+char	conversion_get(char *str)
 {
-	char		*(*conversion[14]) (char *str, va_list ap);
-}				t_format;
-
-t_format		*format_new(void);
-void			format_del(t_format **format);
-int				format_exec(char *str, va_list ap);
-int				format_handlers(char *str, va_list ap);
-
-int				conversion_get_handlers(t_format *f);
-char			*conversion_handle_s(char *str, va_list ap);
-int				conversion_get_handler_index(char *str);
-
-
-#endif
+	while (str && *str)
+	{
+		if (ft_strchr(CONVERSION_FORMAT, *str))
+			return (*str);
+		str++;
+	}
+	return ('\0');
+}

@@ -15,7 +15,7 @@
 
 void	format_del(t_format **format)
 {
-	P("\n**** %s\n", "del format");
+	// P("\n**** %s\n", "del format");
 	free(*format);
 	*format = NULL;
 	//TODO: clear FORMAT

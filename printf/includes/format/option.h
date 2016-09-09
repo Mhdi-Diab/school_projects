@@ -10,21 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
+#ifndef OPTION_H
+# define OPTION_H
 
-t_format	*format_new(void)
+# include "printf.h"
+
+# define NB_OPTIONS 5
+
+typedef enum	e_option
 {
-	t_format		*format;
-	int				i;
+	SHARP = 0,
+	ZERO,
+	MINUS,
+	PLUS,
+	SPACE
+}				t_enum_option;
 
-	i = 0;
-	format = ft_memalloc(sizeof(t_format));
-	if (!format)
-		return (NULL);
-	while (i < NB_OPTIONS)
-	{
-		format->options[i] = false;
-		i++;
-	}
-	return (format);
-}
+#endif

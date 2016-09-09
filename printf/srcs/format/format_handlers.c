@@ -16,14 +16,10 @@
 int				format_handlers(char *str, va_list ap)
 {
 	t_format	*f;
-	int			i;
-	int			max;
 
 	f = format_new();
-	max = conversion_get_handlers(f);
-	i = conversion_get_handler_index(str);
-	if (i < max)
-		f->conversion[i](str, ap);;
+	f->conversion = conversion_new(str);
+	(void)ap;
 	format_del(&f);
 	return (0);
 }
