@@ -13,12 +13,13 @@
 #include "precision.h"
 #include "token.h"
 
-int	precision_get(char *str)
+int	width_get(char *str)
 {
-	char	*sub_str;
-
-	sub_str = ft_strchr(str, '.');
-	if (!sub_str)
-		return (0);
-	return (ft_atoi(++sub_str));
+	while (*str && *str != '.')
+	{
+		if (ft_isdigit(*str))
+			return (ft_atoi(str));
+		str++;
+	}
+	return (0);
 }

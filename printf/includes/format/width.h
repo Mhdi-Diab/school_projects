@@ -10,15 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "precision.h"
-#include "token.h"
+#ifndef WIDTH_H
+# define WIDTH_H
 
-int	precision_get(char *str)
-{
-	char	*sub_str;
+# include "printf.h"
 
-	sub_str = ft_strchr(str, '.');
-	if (!sub_str)
-		return (0);
-	return (ft_atoi(++sub_str));
-}
+int	width_get(char *str);
+
+#endif
