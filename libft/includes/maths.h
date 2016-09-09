@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATH_H
-# define MATH_H
+#ifndef MATHS_H
+# define MATHS_H
 
 # include "strings.h"
 

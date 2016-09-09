@@ -12,76 +12,66 @@
 
 #include "strings.h"
 
-static int	ft_count_words(char *s, char c)
+int			count_words(char *str, char c)
 {
-	int		words;
-	int		i;
-
-	words = 0;
-	i = 0;
-	if (s[0] != 0 && s[0] != c)
-		words++;
-	while (s[i] != 0)
-	{
-		if (s[i] != c && (s[i + 1] == 0 || s[i + 1] == c))
-			words++;
-		i++;
-	}
-	return (words);
-}
-
-static int	w_len(char *s, char c)
-{
-	int		count;
-	int		i;
+	int count;
 
 	count = 0;
-	i = 0;
-	while (s[i] != 0 && s[i] != c)
+	while (*str)
 	{
-		count++;
-		i++;
+		while (*str && *str == c)
+			str++;
+		if (*str)
+			count++;
+		while (*str && *str != c)
+			str++;
 	}
 	return (count);
 }
 
-void		ft_split1(char **array, char *str, char c)
+int			count_char(char *str, char c)
 {
+	int		count;
+
+	count = 0;
+	while (*str && *str != c)
+	{
+		count++;
+		str++;
+	}
+	return (count);
+}
+
+char		**get_array(char *str, char c)
+{
+	char	**array;
+	int		nb_char;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	while (*str != 0)
+	array = ft_memalloc((sizeof(char *) * count_words(str, c) + 1));
+	if (array)
 	{
-		if (*str == c)
-			str++;
-		else
+		while (*str)
 		{
-			array[i] = (char *)malloc(w_len(str, c) + 1);
-			if (array[i])
+			while (*str && *str == c)
+				str++;
+			if (*str)
 			{
-				while (*str != c && *str != 0)
-					array[i][j++] = *str++;
-				array[i++][j] = 0;
-				j = 0;
+				nb_char = count_char(str, c);
+				array[i] = ft_memalloc((sizeof(char) * nb_char + 1));
+				ft_strncpy(array[i++], str, nb_char);
+				str += nb_char;
 			}
 		}
+		array[i] = NULL;
 	}
-	array[++i] = NULL;
+	return (array);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	char	**array;
-	char	*str;
-
 	if (!s || !c)
 		return (NULL);
-	str = (char *)s;
-	if ((array = ft_memalloc(sizeof(char *) * (ft_count_words(str, c) + 1))))
-	{
-		ft_split1(array, str, c);
-	}
-	return (array);
+	return (get_array((char *)s, c));
 }
