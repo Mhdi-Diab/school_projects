@@ -35,6 +35,7 @@ char			*conversion_arg_di(void *ff, va_list ap);
 
 char			*conversion_handle_s(void *f, va_list ap);
 char			*conversion_handle_big_s(void *f, va_list ap);
+char			*conversion_handle_big_c(void *f, va_list ap);
 char			*conversion_handle_p(void *f, va_list ap);
 char			*conversion_handle_d(void *f, va_list ap);
 char			*conversion_handle_x(void *f, va_list ap);

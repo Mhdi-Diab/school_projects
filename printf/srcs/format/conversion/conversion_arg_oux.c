@@ -19,7 +19,7 @@ char	*conversion_arg_oux(void *ff, va_list ap, char *base)
 	char				*arg;
 
 	f = (t_format *)ff;
-	if (ft_isupper(f->conversion->conversion)|| f->modifier == L)
+	if (ft_isupper(f->conversion->conversion) || f->modifier == L)
 		arg = ft_llbtoa(va_arg(ap, unsigned long), base);
 	else if (f->modifier == LL)
 		arg = ft_llbtoa(va_arg(ap, unsigned long long), base);
@@ -31,6 +31,10 @@ char	*conversion_arg_oux(void *ff, va_list ap, char *base)
 		arg = ft_llbtoa(va_arg(ap, uintmax_t), base);
 	else if (f->modifier == Z)
 		arg = ft_llbtoa(va_arg(ap, size_t), base);
+	else if (f->conversion->conversion == 'x' ||
+		f->conversion->conversion == 'u' ||
+		f->conversion->conversion == 'p')
+		arg = ft_llbtoa(va_arg(ap, unsigned long), base);
 	else
 		arg = ft_llbtoa(va_arg(ap, int), base);
 	if (!arg)

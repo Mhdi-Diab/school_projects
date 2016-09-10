@@ -13,12 +13,12 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_handle_x(void *ff, va_list ap)
+char	*conversion_handle_big_c(void *ff, va_list ap)
 {
 	t_format	*f;
 
 	f = (t_format *)ff;
-	if (f->conversion->conversion == 'X')
-		return (conversion_arg_oux(ff, ap, "0123456789ABCDEF"));
-	return (conversion_arg_oux(ff, ap, "0123456789abcdef"));
+	(void)f;
+	(void)ap;
+	return (NULL);
 }

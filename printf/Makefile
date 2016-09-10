@@ -37,8 +37,8 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(O_FILES)
-	@echo ""
-	@echo "[info] compile $(OUTPUT_TYPE) ..."
+	# @echo ""
+	# @echo "[info] compile $(OUTPUT_TYPE) ..."
 
 ifeq ($(OUTPUT_TYPE), lib)
 	@ar rcs $@ $^

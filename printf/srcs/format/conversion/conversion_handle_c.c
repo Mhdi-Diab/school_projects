@@ -15,10 +15,10 @@
 
 char	*conversion_handle_c(void *ff, va_list ap)
 {
-	char	*arg;
+	char	c;
 
 	(void)ff;
-	arg = ft_strnew(2);
-	arg[0] = (char)va_arg(ap, int);
-	return (arg);
+	c = (char)va_arg(ap, int);
+	ft_putchar(c);
+	return (NULL);
 }
