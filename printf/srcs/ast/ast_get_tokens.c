@@ -16,5 +16,6 @@
 void		ast_get_tokens(t_ast *ast, char *format)
 {
 	token_parse(ast, format);
-	// token_print(ast);
+	if (DEBUG)
+		token_print(ast);
 }

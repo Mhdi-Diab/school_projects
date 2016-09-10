@@ -15,7 +15,7 @@
 
 void	options_get(bool (*options)[NB_OPTIONS], char *str)
 {
-	static const char	opt[] = {'#', '0', '-', '+', ' '};
+	const char			opt[] = {'#', '0', '-', '+', ' '};
 	t_enum_option		enum_opt;
 
 	enum_opt = SHARP;

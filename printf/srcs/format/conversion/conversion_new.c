@@ -15,13 +15,16 @@
 static void		conversion_set_handlers(t_conversion *c)
 {
 	c->func[0] = conversion_handle_s;
+	c->func[1] = conversion_handle_big_s;
+	c->func[2] = conversion_handle_p;
+	c->func[3] = conversion_handle_d;
 }
 
 t_conversion	*conversion_new(char *str)
 {
 	t_conversion	*c;
 
-	c = ft_memalloc(sizeof(c));
+	c = ft_memalloc(sizeof(*c));
 	if (!c)
 		return (NULL);
 	c->conversion = conversion_get(str);

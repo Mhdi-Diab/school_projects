@@ -19,7 +19,7 @@ t_ast		*ast_new(void)
 
 	if (DEBUG)
 		P("**** %s\n", "init ast");
-	ast = ft_memalloc(sizeof(t_ast));
+	ast = ft_memalloc(sizeof(*ast));
 	if (!ast)
 		return (NULL);
 	ast->token = NULL;

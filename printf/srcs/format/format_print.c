@@ -18,7 +18,7 @@
 
 void		format_print(t_format *f)
 {
-	static const char	opt[] = {'#', '0', '-', '+', ' '};
+	const char	opt[] = {'#', '0', '-', '+', ' '};
 	const char	*modifiers[] = {"hh", "h", "ll", "l", "j", "z"};
 
 	PN("\n\n");

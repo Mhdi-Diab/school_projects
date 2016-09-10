@@ -18,7 +18,7 @@ t_format	*format_new(void)
 	int				i;
 
 	i = -1;
-	format = ft_memalloc(sizeof(t_format));
+	format = ft_memalloc(sizeof(*format));
 	if (!format)
 		return (NULL);
 	while (++i < NB_OPTIONS)

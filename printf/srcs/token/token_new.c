@@ -14,12 +14,12 @@
 
 t_token		*token_new(t_type type)
 {
-	t_token		*token;
+	t_token		*tok;
 
-	token = ft_memalloc(sizeof(t_token));
-	if (!token)
+	tok = ft_memalloc(sizeof(*tok));
+	if (!tok)
 		return (NULL);
-	token->content = NULL;
-	token->type = type;
-	return (token);
+	tok->content = NULL;
+	tok->type = type;
+	return (tok);
 }

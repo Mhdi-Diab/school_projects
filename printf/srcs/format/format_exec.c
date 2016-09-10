@@ -20,14 +20,9 @@ static int		format_do_exec(t_format *f, va_list ap)
 	t_conversion	*c;
 
 	c = f->conversion;
-	if (c->func_index != -1 && c->func_index == 0) //TODO: a changer
+	if (c->func_index != -1)
 	{
 		c->func[c->func_index](f, ap);
-	}
-	else
-	{
-		if (c->conversion == 'd')
-			va_arg(ap, int);
 	}
 	return (0);
 }
@@ -38,7 +33,8 @@ int				format_exec(char *str, va_list ap)
 
 	f = format_new();
 	format_parse(f, str);
-	// format_print(f);
+	if (DEBUG)
+		format_print(f);
 	format_do_exec(f, ap);
 	format_del(&f);
 	return (0);
