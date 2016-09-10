@@ -15,11 +15,5 @@
 
 char	*conversion_handle_x(void *ff, va_list ap)
 {
-	t_format			*f;
-	char				*arg;
-
-	f = (t_format *)ff;
-	(void)f;
-	arg = ft_llbtoa(va_arg(ap, unsigned long int), "0123456789ABCDEF");
-	return (arg);
+	return (conversion_arg_oux(ff, ap, "0123456789ABCDEF"));
 }

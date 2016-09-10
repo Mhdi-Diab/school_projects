@@ -10,34 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONVERSION_H
-# define CONVERSION_H
+#include "conversion.h"
+#include "format.h"
 
-# include "printf.h"
-
-# define CONVERSION_FORMAT "sSpdDioOuUxXcC"
-# define NB_CONVERSIONS 14
-
-typedef struct	s_convertion
+char	*conversion_arg_oux(void *ff, va_list ap, char *base)
 {
-	char		conversion;
-	int			func_index;
-	char		*(*func[NB_CONVERSIONS]) (void *f, va_list ap);
-}				t_conversion;
+	t_format			*f;
+	char				*arg;
 
-t_conversion	*conversion_new(char *str);
-void			conversion_del(t_conversion **conversion);
-char			conversion_get(char *str);
-int				conversion_get_func_index(char c);
-
-char			*conversion_arg_oux(void *ff, va_list ap, char *base);
-char			*conversion_arg_di(void *ff, va_list ap, char *base);
-
-char			*conversion_handle_s(void *f, va_list ap);
-char			*conversion_handle_big_s(void *f, va_list ap);
-char			*conversion_handle_p(void *f, va_list ap);
-char			*conversion_handle_d(void *f, va_list ap);
-char			*conversion_handle_x(void *f, va_list ap);
-char			*conversion_handle_o(void *ff, va_list ap);
-
-#endif
+	f = (t_format *)ff;
+	if (ft_isupper(f->conversion->conversion)|| f->modifier == L)
+		arg = ft_llbtoa(va_arg(ap, unsigned long), base);
+	else if (f->modifier == LL)
+		arg = ft_llbtoa(va_arg(ap, unsigned long long), base);
+	else if (f->modifier == HH)
+		arg = ft_llbtoa((unsigned char)va_arg(ap, int), base);
+	else if (f->modifier == H)
+		arg = ft_llbtoa((unsigned short)va_arg(ap, int), base);
+	else if (f->modifier == J)
+		arg = ft_llbtoa(va_arg(ap, uintmax_t), base);
+	else if (f->modifier == Z)
+		arg = ft_llbtoa(va_arg(ap, size_t), base);
+	else
+		arg = ft_llbtoa(va_arg(ap, int), base);
+	return (arg);
+}
