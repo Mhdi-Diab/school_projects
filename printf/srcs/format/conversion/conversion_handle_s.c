@@ -21,6 +21,7 @@ void	conversion_handle_s(void *ff, va_list ap)
 	f = (t_format *)ff;
 	if (f->modifier == L)
 		return (conversion_handle_big_s(ff, ap));
-	arg = va_arg(ap, char *);
+	arg = ft_strdup(va_arg(ap, char *));
 	ft_putstr(arg);
+	free(arg);
 }

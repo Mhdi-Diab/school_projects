@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/01 18:13:00 by atamano           #+#    #+#             */
-/*   Updated: 2014/12/20 19:37:38 by atamano          ###   ########.fr       */
+/*   Created: 2014/11/05 14:07:12 by atamano           #+#    #+#             */
+/*   Updated: 2014/11/25 13:21:00 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "conversion.h"
-#include "format.h"
+#include <stdlib.h>
 
-void	conversion_handle_d(void *ff, va_list ap)
+size_t	ft_nblen(long long n)
 {
-	t_format	*f;
-	char		*arg;;
+	size_t	nb_char;
 
-	f = (t_format *)ff;
-	(void)f;
-	arg = ft_lltoa(va_arg(ap, int));
-	ft_putstr(arg);
-	free(arg);
+	nb_char = 0;
+	if (n < 0)
+		nb_char++;
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		nb_char++;
+		n /= 10;
+	}
+	return (nb_char);
 }

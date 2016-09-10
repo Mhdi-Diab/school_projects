@@ -29,5 +29,8 @@ int					ft_atoi(const char *str);
 char				*ft_itoa(int n);
 int					ft_power(int nb, int power);
 int					ft_sqrt(int nb);
+char				*ft_llbtoa(unsigned long long n, char *base);
+char				*ft_lltoa(long long n);
+size_t				ft_nblen(long long n);
 
 #endif
