@@ -17,8 +17,18 @@
 
 static int		format_do_exec(t_format *f, va_list ap)
 {
-	(void)f;
-	(void)ap;
+	t_conversion	*c;
+
+	c = f->conversion;
+	if (c->func_index != -1 && c->func_index == 0) //TODO: a changer
+	{
+		c->func[c->func_index](f, ap);
+	}
+	else
+	{
+		if (c->conversion == 'd')
+			va_arg(ap, int);
+	}
 	return (0);
 }
 

@@ -13,10 +13,14 @@
 #ifndef PRINTF_H
 # define PRINTF_H
 
-#define P(f_, ...) printf((f_), __VA_ARGS__)
-#define PN(f_) printf((f_))
+# define P(f_, ...) printf((f_), __VA_ARGS__)
+# define PN(f_) printf((f_))
+# define DEBUG 0
 
-# include "libft.h"
+# include "strings.h"
+# include "maths.h"
+# include "print.h"
+# include "linked_list.h"
 # include "ast.h"
 
 typedef enum	e_bool

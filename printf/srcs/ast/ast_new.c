@@ -17,7 +17,8 @@ t_ast		*ast_new(void)
 {
 	t_ast		*ast;
 
-	P("**** %s\n", "init ast");
+	if (DEBUG)
+		P("**** %s\n", "init ast");
 	ast = ft_memalloc(sizeof(t_ast));
 	if (!ast)
 		return (NULL);

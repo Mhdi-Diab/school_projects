@@ -11,10 +11,15 @@
 /* ************************************************************************** */
 
 #include "conversion.h"
+#include "format.h"
 
-char		*conversion_handle_s(char *str, va_list ap)
+char		*conversion_handle_s(void *ff, va_list ap)
 {
-	(void)str;
-	(void)ap;
+	t_format	*f;
+	char		*arg;
+
+	f = (t_format *)ff;
+	arg = va_arg(ap, char *);
+	ft_putstr(arg);
 	return (NULL);
 }

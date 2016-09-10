@@ -15,7 +15,8 @@
 
 void	ast_del(t_ast **ast)
 {
-	P("\n**** %s\n", "del ast");
+	if (DEBUG)
+		P("\n**** %s\n", "del ast");
 	free(*ast);
 	*ast = NULL;
 	//TODO: clear l'AST

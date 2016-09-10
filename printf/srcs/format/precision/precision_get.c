@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "precision.h"
-#include "token.h"
 
 int	precision_get(char *str)
 {

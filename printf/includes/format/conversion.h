@@ -22,14 +22,13 @@ typedef struct	s_convertion
 {
 	char		conversion;
 	int			func_index;
-	char		*(*func[NB_CONVERSIONS]) (char *str, va_list ap);
+	char		*(*func[NB_CONVERSIONS]) (void *f, va_list ap);
 }				t_conversion;
 
 t_conversion	*conversion_new(char *str);
 void			conversion_del(t_conversion **conversion);
 char			conversion_get(char *str);
 int				conversion_get_func_index(char c);
-
-char			*conversion_handle_s(char *str, va_list ap);
+char			*conversion_handle_s(void *f, va_list ap);
 
 #endif
