@@ -13,7 +13,7 @@
 #include "conversion.h"
 #include "format.h"
 
-void	conversion_handle_s(void *ff, va_list ap)
+char	*conversion_handle_s(void *ff, va_list ap)
 {
 	t_format	*f;
 	char		*arg;
@@ -22,6 +22,5 @@ void	conversion_handle_s(void *ff, va_list ap)
 	if (f->modifier == L)
 		return (conversion_handle_big_s(ff, ap));
 	arg = ft_strdup(va_arg(ap, char *));
-	ft_putstr(arg);
-	free(arg);
+	return (arg);
 }

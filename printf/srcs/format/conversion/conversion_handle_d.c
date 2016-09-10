@@ -13,14 +13,14 @@
 #include "conversion.h"
 #include "format.h"
 
-void	conversion_handle_d(void *ff, va_list ap)
+char	*conversion_handle_d(void *ff, va_list ap)
 {
 	t_format	*f;
 	char		*arg;;
 
 	f = (t_format *)ff;
-	(void)f;
+	if (f->modifier == L)
+		return (conversion_handle_big_d(ff, ap));
 	arg = ft_lltoa(va_arg(ap, int));
-	ft_putstr(arg);
-	free(arg);
+	return (arg);
 }

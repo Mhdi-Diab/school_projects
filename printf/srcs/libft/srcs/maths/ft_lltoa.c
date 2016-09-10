@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "maths.h"
 
-char	*ft_lltoa(long long n)
+char	*ft_lltoa(intmax_t n)
 {
 	char	*str;
 	size_t	len;

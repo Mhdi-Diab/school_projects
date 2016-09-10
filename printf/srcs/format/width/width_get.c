@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "precision.h"
-#include "token.h"
+#include "width.h"
 
 int		width_get(char *str)
 {

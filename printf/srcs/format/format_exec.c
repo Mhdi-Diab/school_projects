@@ -18,11 +18,14 @@
 static int		format_do_exec(t_format *f, va_list ap)
 {
 	t_conversion	*c;
+	char			*ret;
 
 	c = f->conversion;
 	if (c->func_index != -1)
 	{
-		c->func[c->func_index](f, ap);
+		ret = c->func[c->func_index](f, ap);
+		ft_putstr(ret);
+		ft_strdel(&ret);
 	}
 	return (0);
 }

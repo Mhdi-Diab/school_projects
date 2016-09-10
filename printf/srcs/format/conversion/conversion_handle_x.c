@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/05 14:07:12 by atamano           #+#    #+#             */
-/*   Updated: 2014/11/25 13:21:00 by atamano          ###   ########.fr       */
+/*   Created: 2014/12/01 18:13:00 by atamano           #+#    #+#             */
+/*   Updated: 2014/12/20 19:37:38 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "conversion.h"
+#include "format.h"
 
-size_t	ft_nblen(intmax_t n)
+char	*conversion_handle_x(void *ff, va_list ap)
 {
-	size_t	nb_char;
+	t_format			*f;
+	char				*arg;
 
-	nb_char = 0;
-	if (n < 0)
-		nb_char++;
-	if (n == 0)
-		return (1);
-	while (n != 0)
-	{
-		nb_char++;
-		n /= 10;
-	}
-	return (nb_char);
+	f = (t_format *)ff;
+	(void)f;
+	arg = ft_llbtoa(va_arg(ap, unsigned long int), "0123456789ABCDEF");
+	return (arg);
 }

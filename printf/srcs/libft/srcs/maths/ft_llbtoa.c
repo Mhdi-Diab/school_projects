@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "maths.h"
 
-static size_t	ft_nbblen(unsigned long long n, size_t base)
+static size_t	ft_nbblen(uintmax_t n, size_t base)
 {
 	size_t	nb_char;
 
@@ -28,7 +28,7 @@ static size_t	ft_nbblen(unsigned long long n, size_t base)
 	return (nb_char);
 }
 
-char			*ft_llbtoa(unsigned long long n, char *base)
+char			*ft_llbtoa(uintmax_t n, char *base)
 {
 	char	*str;
 	size_t	len;
