@@ -15,5 +15,5 @@
 
 char	*conversion_handle_d(void *ff, va_list ap)
 {
-	return (conversion_arg_di(ff, ap, "0123456789"));
+	return (conversion_arg_di(ff, ap));
 }

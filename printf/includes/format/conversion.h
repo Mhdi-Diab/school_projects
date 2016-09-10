@@ -31,7 +31,7 @@ char			conversion_get(char *str);
 int				conversion_get_func_index(char c);
 
 char			*conversion_arg_oux(void *ff, va_list ap, char *base);
-char			*conversion_arg_di(void *ff, va_list ap, char *base);
+char			*conversion_arg_di(void *ff, va_list ap);
 
 char			*conversion_handle_s(void *f, va_list ap);
 char			*conversion_handle_big_s(void *f, va_list ap);

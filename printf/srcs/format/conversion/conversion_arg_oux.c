@@ -33,5 +33,7 @@ char	*conversion_arg_oux(void *ff, va_list ap, char *base)
 		arg = ft_llbtoa(va_arg(ap, size_t), base);
 	else
 		arg = ft_llbtoa(va_arg(ap, int), base);
+	if (!arg)
+		return (ft_strdup("(null)"));
 	return (arg);
 }
