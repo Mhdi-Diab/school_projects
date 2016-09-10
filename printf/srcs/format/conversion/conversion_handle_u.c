@@ -10,24 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
-#include "ast.h"
+#include "conversion.h"
 #include "format.h"
 
-int		ft_printf(const char *format, ...)
+char	*conversion_handle_u(void *ff, va_list ap)
 {
-	va_list		ap;
-	t_ast		*ast;
-	int			ret;
-
-	if (!format)
-		return (0);
-	va_start(ap, format);
-	ast = ast_new();
-	ast_get_tokens(ast, (char *)format);
-	ft_exec(ast, ap);
-	va_end(ap);
-	ret = ast->total;
-	ast_del(&ast);
-	return (ret);
+	return (conversion_arg_oux(ff, ap, "0123456789"));
 }

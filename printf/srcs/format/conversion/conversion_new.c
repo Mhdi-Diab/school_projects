@@ -22,6 +22,12 @@ static void		conversion_set_handlers(t_conversion *c)
 	c->func[5] = conversion_handle_d;
 	c->func[6] = conversion_handle_o;
 	c->func[7] = conversion_handle_o;
+	c->func[8] = conversion_handle_u;
+	c->func[9] = conversion_handle_u;
+	c->func[10] = conversion_handle_x;
+	c->func[11] = conversion_handle_x;
+	c->func[12] = conversion_handle_c;
+	c->func[13] = conversion_handle_c; //TODO: a remplacer
 }
 
 t_conversion	*conversion_new(char *str)

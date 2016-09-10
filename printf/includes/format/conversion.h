@@ -39,5 +39,7 @@ char			*conversion_handle_p(void *f, va_list ap);
 char			*conversion_handle_d(void *f, va_list ap);
 char			*conversion_handle_x(void *f, va_list ap);
 char			*conversion_handle_o(void *ff, va_list ap);
+char			*conversion_handle_u(void *ff, va_list ap);
+char			*conversion_handle_c(void *ff, va_list ap);
 
 #endif

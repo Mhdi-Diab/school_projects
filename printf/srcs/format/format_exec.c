@@ -19,26 +19,30 @@ static int		format_do_exec(t_format *f, va_list ap)
 {
 	t_conversion	*c;
 	char			*ret;
+	int				len;
 
 	c = f->conversion;
+	len = 0;
 	if (c->func_index != -1)
 	{
 		ret = c->func[c->func_index](f, ap);
 		ft_putstr(ret);
+		len = ft_strlen(ret);
 		ft_strdel(&ret);
 	}
-	return (0);
+	return (len);
 }
 
 int				format_exec(char *str, va_list ap)
 {
 	t_format	*f;
+	int			len;
 
 	f = format_new();
 	format_parse(f, str);
 	if (DEBUG)
 		format_print(f);
-	format_do_exec(f, ap);
+	len = format_do_exec(f, ap);
 	format_del(&f);
-	return (0);
+	return (len);
 }
