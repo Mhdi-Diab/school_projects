@@ -15,4 +15,12 @@
 
 # include "printf.h"
 
+int			ft_putstrlen(char *str);
+int			ft_putcharlen(char c);
+int			ft_binary_string_to_decimal(char *grid);
+int			ft_count_binary_len(unsigned int i);
+int			ft_putwchar(wint_t wchar);
+int			ft_putwstr(wchar_t *str);
+char		*ft_get_binary_string(unsigned int decimal);
+
 #endif

@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_unicode2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/01 18:13:00 by atamano           #+#    #+#             */
-/*   Updated: 2014/12/20 19:37:38 by atamano          ###   ########.fr       */
+/*   Created: 2014/12/20 13:54:56 by atamano           #+#    #+#             */
+/*   Updated: 2014/12/20 13:55:19 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "conversion.h"
-#include "printf.h"
+#include "utils.h"
 
-void	conversion_del(t_conversion **conversion)
+int		ft_count_binary_len(unsigned int i)
 {
-	free(*conversion);
-	*conversion = NULL;
-	//TODO: clear CONVERSION
+	int nb;
+
+	nb = 0;
+	while (i / 2 != 0)
+	{
+		i /= 2;
+		nb++;
+	}
+	return (nb);
 }

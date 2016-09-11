@@ -14,11 +14,11 @@
 #include "ast.h"
 #include "format.h"
 #include "token.h"
+#include "utils.h"
 
 static int	simple_exec(char *str)
 {
-	ft_putstr(str);
-	return (ft_strlen(str));
+	return (ft_putstrlen(str));
 }
 
 void		ft_exec(t_ast *ast, va_list ap)

@@ -12,7 +12,7 @@
 
 #include "token.h"
 
-static char	*check_format(t_ast *ast, char *str)
+static char	*token_check_format(t_ast *ast, char *str)
 {
 	while (*str)
 	{
@@ -38,7 +38,7 @@ void		token_parse(t_ast *ast, char *format)
 			format++;
 			if (*format)
 			{
-				str = check_format(ast, format);
+				str = token_check_format(ast, format);
 				format = str ? str : token_get_format(ast, format);
 			}
 		}
