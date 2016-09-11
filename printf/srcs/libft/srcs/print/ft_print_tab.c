@@ -21,5 +21,6 @@ void		ft_print_tab(char **tab)
 	{
 		ft_putstr(tab[i]);
 		ft_putchar('\n');
+		i++;
 	}
 }

@@ -13,12 +13,12 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_handle_c(void *ff, va_list ap)
+void	conversion_handle_c(void *ff, va_list ap, int *len)
 {
 	char	c;
 
 	(void)ff;
 	c = (char)va_arg(ap, int);
 	ft_putchar(c);
-	return (NULL);
+	*len = 1;
 }

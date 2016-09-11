@@ -13,7 +13,12 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_handle_o(void *ff, va_list ap)
+void	conversion_handle_o(void *ff, va_list ap, int *len)
 {
-	return (conversion_arg_oux(ff, ap, "01234567"));
+	char	*str;
+
+	str = conversion_arg_oux(ff, ap, "01234567");
+	*len = ft_strlen(str);
+	ft_putstr(str);
+	ft_strdel(&str);
 }

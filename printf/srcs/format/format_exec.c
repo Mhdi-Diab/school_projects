@@ -18,22 +18,13 @@
 static int		format_do_exec(t_format *f, va_list ap)
 {
 	t_conversion	*c;
-	char			*ret;
 	int				len;
 
 	c = f->conversion;
 	len = 0;
 	if (c->func_index != -1)
 	{
-		ret = c->func[c->func_index](f, ap);
-		if (ret)
-		{
-			ft_putstr(ret);
-			len = ft_strlen(ret);
-			ft_strdel(&ret);
-		}
-		else if (f->conversion->conversion == 'c') //TODO: a revoir
-			len = 1;
+		c->func[c->func_index](f, ap, &len);
 	}
 	return (len);
 }

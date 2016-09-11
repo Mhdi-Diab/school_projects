@@ -22,7 +22,7 @@ typedef struct	s_convertion
 {
 	char		conversion;
 	int			func_index;
-	char		*(*func[NB_CONVERSIONS]) (void *f, va_list ap);
+	void		(*func[NB_CONVERSIONS]) (void *f, va_list ap, int *len);
 }				t_conversion;
 
 t_conversion	*conversion_new(char *str);
@@ -33,14 +33,14 @@ int				conversion_get_func_index(char c);
 char			*conversion_arg_oux(void *ff, va_list ap, char *base);
 char			*conversion_arg_di(void *ff, va_list ap);
 
-char			*conversion_handle_s(void *f, va_list ap);
-char			*conversion_handle_big_s(void *f, va_list ap);
-char			*conversion_handle_big_c(void *f, va_list ap);
-char			*conversion_handle_p(void *f, va_list ap);
-char			*conversion_handle_d(void *f, va_list ap);
-char			*conversion_handle_x(void *f, va_list ap);
-char			*conversion_handle_o(void *ff, va_list ap);
-char			*conversion_handle_u(void *ff, va_list ap);
-char			*conversion_handle_c(void *ff, va_list ap);
+void			conversion_handle_s(void *f, va_list ap, int *len);
+void			conversion_handle_big_s(void *f, va_list ap, int *len);
+void			conversion_handle_big_c(void *f, va_list ap, int *len);
+void			conversion_handle_p(void *f, va_list ap, int *len);
+void			conversion_handle_d(void *f, va_list ap, int *len);
+void			conversion_handle_x(void *f, va_list ap, int *len);
+void			conversion_handle_o(void *ff, va_list ap, int *len);
+void			conversion_handle_u(void *ff, va_list ap, int *len);
+void			conversion_handle_c(void *ff, va_list ap, int *len);
 
 #endif

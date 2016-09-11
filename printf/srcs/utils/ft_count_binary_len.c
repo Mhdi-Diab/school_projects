@@ -17,7 +17,7 @@ int		ft_count_binary_len(unsigned int i)
 	int nb;
 
 	nb = 0;
-	while (i / 2 != 0)
+	while (i != 0)
 	{
 		i /= 2;
 		nb++;

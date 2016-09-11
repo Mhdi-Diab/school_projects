@@ -13,7 +13,12 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_handle_d(void *ff, va_list ap)
+void	conversion_handle_d(void *ff, va_list ap, int *len)
 {
-	return (conversion_arg_di(ff, ap));
+	char	*str;
+
+	str = conversion_arg_di(ff, ap);
+	*len = ft_strlen(str);
+	ft_putstr(str);
+	ft_strdel(&str);
 }

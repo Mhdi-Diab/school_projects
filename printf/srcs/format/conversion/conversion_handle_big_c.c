@@ -12,13 +12,14 @@
 
 #include "conversion.h"
 #include "format.h"
+#include "utils.h"
 
-char	*conversion_handle_big_c(void *ff, va_list ap)
+void	conversion_handle_big_c(void *ff, va_list ap, int *len)
 {
-	t_format	*f;
+	wint_t	c;
 
-	f = (t_format *)ff;
-	(void)f;
+	(void)ff;
 	(void)ap;
-	return (NULL);
+	c = va_arg(ap, wint_t);
+	*len = ft_putwchar(c);
 }

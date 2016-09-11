@@ -13,13 +13,15 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_handle_p(void *ff, va_list ap)
+void	conversion_handle_p(void *ff, va_list ap, int *len)
 {
 	char				*arg;
 	char				*hexa;
 
-	arg = conversion_handle_x(ff, ap);
+	arg = conversion_arg_oux(ff, ap, "0123456789abcdef");
 	hexa = ft_strjoin("0x", arg);
 	ft_strdel(&arg);
-	return (hexa);
+	*len = ft_strlen(hexa);
+	ft_putstr(hexa);
+	ft_strdel(&hexa);
 }

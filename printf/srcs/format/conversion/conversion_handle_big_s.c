@@ -13,12 +13,12 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_handle_big_s(void *ff, va_list ap)
+void	conversion_handle_big_s(void *ff, va_list ap, int *len)
 {
 	t_format	*f;
 
 	f = (t_format *)ff;
 	(void)f;
 	(void)ap;
-	return (NULL);
+	(void)len;
 }

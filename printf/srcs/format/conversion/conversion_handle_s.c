@@ -13,16 +13,18 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_handle_s(void *ff, va_list ap)
+void	conversion_handle_s(void *ff, va_list ap, int *len)
 {
 	t_format	*f;
 	char		*arg;
-	char		*ret;
+	char		*str;
 
 	f = (t_format *)ff;
 	if (f->modifier == L)
-		return (conversion_handle_big_s(ff, ap));
+		return (conversion_handle_big_s(ff, ap, len));
 	arg = va_arg(ap, char *);
-	ret = ft_strdup(arg ? arg : "(null)");
-	return (ret);
+	str = ft_strdup(arg ? arg : "(null)");
+	*len = ft_strlen(str);
+	ft_putstr(str);
+	ft_strdel(&str);
 }
