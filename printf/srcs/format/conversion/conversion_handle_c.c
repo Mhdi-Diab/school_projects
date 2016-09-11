@@ -12,16 +12,25 @@
 
 #include "conversion.h"
 #include "format.h"
+#include "width.h"
+#include "utils.h"
 
 void	conversion_handle_c(void *ff, va_list ap, int *len)
 {
 	char		c;
+	char		*str;
 	t_format	*f;
 
 	f = (t_format *)ff;
 	if (f->modifier == L)
 		return (conversion_handle_big_c(ff, ap, len));
+	str = ft_memalloc(sizeof(char) * 2);
 	c = (char)va_arg(ap, int);
-	ft_putchar(c);
-	*len = 1;
+	if (c == 0 && f->width != 0)
+		f->width -= 1;
+	str[0] = c;
+	str = width_handle(f, str);
+	*len = ft_putstrlen(str);
+	*len += c == 0  ? ft_putcharlen(c) : 0;
+	ft_strdel(&str);
 }

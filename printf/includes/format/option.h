@@ -16,17 +16,18 @@
 # include "printf.h"
 
 # define NB_OPTIONS 5
+# define OPTION_STR "#0-+ "
 
 typedef enum	e_option
 {
-	SHARP = 0,
-	ZERO,
-	MINUS,
-	PLUS,
-	SPACE,
+	OPT_SHARP = 0,
+	OPT_ZERO,
+	OPT_MINUS,
+	OPT_PLUS,
+	OPT_SPACE,
 	NO_OPTION
 }				t_enum_option;
 
-void	options_get(bool (*options)[NB_OPTIONS], char *str);
+void	options_parse(bool (*options)[NB_OPTIONS], char *str);
 
 #endif

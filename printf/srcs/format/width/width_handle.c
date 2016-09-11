@@ -11,11 +11,24 @@
 /* ************************************************************************** */
 
 #include "width.h"
+#include "option.h"
 
-int		width_handle(char *str, int width, char conversion)
+char	*width_handle(t_format *f, char *str)
 {
-	(void)str;
-	(void)width;
-	(void)conversion;
-	return (0);
+	char	c;
+	int		len;
+	char	*new_str;
+
+	len = ft_strlen(str);
+	if (f->width != 0 && f->width > len)
+	{
+		c = f->options[OPT_ZERO] ? '0' : ' ';
+		new_str = ft_memalloc(sizeof(char) * (f->width + 1));
+		ft_memset(new_str, c, f->width - len);
+		new_str[f->width - len] = '\0';
+		new_str = f->options[OPT_MINUS] ?
+			ft_strfjoin(str, new_str) : ft_strfjoin(new_str, str);
+		return (new_str);
+	}
+	return (str);
 }

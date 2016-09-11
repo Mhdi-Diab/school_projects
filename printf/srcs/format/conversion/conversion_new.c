@@ -37,8 +37,8 @@ t_conversion	*conversion_new(char *str)
 	conversion = ft_memalloc(sizeof(*conversion));
 	if (!conversion)
 		return (NULL);
-	conversion->c = conversion_get(str);
-	conversion->func_index = conversion_get_func_index(conversion->c);
+	conversion->c = conversion_parse(str);
+	conversion->func_index = conversion_parse_func_index(conversion->c);
 	conversion_set_handlers(conversion);
 	return (conversion);
 }

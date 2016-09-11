@@ -10,10 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "option.h"
+#include "token.h"
 
-void		ast_get_args(t_ast *ast, va_list ap)
+void	options_parse(bool (*options)[NB_OPTIONS], char *str)
 {
-	(void)ast;
-	(void)ap;
+	const char			opt[] = {'#', '0', '-', '+', ' '};
+	t_enum_option		enum_opt;
+
+	while (*str)
+	{
+		enum_opt = OPT_SHARP;
+		if (!ft_strchr(OPTION_STR, *str))
+			break ;
+		while (enum_opt < NO_OPTION)
+		{
+			if (*str == opt[enum_opt])
+				(*options)[enum_opt] = true;
+			enum_opt++;
+		}
+		str++;
+	}
 }

@@ -26,6 +26,10 @@ static int		format_do_exec(t_format *f, va_list ap)
 	{
 		c->func[c->func_index](f, ap, &len);
 	}
+	else
+	{
+		conversion_handle_bad_char(f, &len);
+	}
 	return (len);
 }
 

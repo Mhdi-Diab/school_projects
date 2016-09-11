@@ -24,7 +24,6 @@ typedef struct	s_ast
 
 t_ast			*ast_new(void);
 void			ast_get_tokens(t_ast *ast, char *format);
-void			ast_get_args(t_ast *ast, va_list ap);
 void			ast_del(t_ast **ast);
 
 #endif

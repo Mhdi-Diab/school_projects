@@ -15,6 +15,8 @@
 
 # include "printf.h"
 
+# define MODIFIER_STR "hljz"
+
 typedef enum	e_modifier
 {
 	HH = 0,

@@ -12,35 +12,15 @@
 
 #include "token.h"
 
-static char	*token_check_format(t_ast *ast, char *str)
-{
-	while (*str)
-	{
-		if (ft_strchr(CONVERSION_FORMAT, *str))
-			return (NULL);
-		else if (START_FORMAT == *str)
-			return (token_get_simple(ast, str));
-		else if (!ft_strchr(FORMAT_ACCEPTED, *str))
-			return (str);
-		str++;
-	}
-	return (NULL);
-}
-
 void		token_parse(t_ast *ast, char *format)
 {
-	char	*str;
-
 	while (*format)
 	{
 		if (*format == START_FORMAT)
 		{
 			format++;
 			if (*format)
-			{
-				str = token_check_format(ast, format);
-				format = str ? str : token_get_format(ast, format);
-			}
+				format = token_get_format(ast, format);
 		}
 		else
 			format = token_get_simple(ast, format);

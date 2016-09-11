@@ -14,8 +14,11 @@
 # define WIDTH_H
 
 # include "printf.h"
+# include "format.h"
 
-int		width_get(char *str);
-int		width_handle(char *str, int width, char conversion);
+# define WIDTH_STR "0123456789"
+
+int		width_parse(char *str);
+char	*width_handle(t_format *f, char *str);
 
 #endif

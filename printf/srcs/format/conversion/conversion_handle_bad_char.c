@@ -10,15 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "conversion.h"
+#include "format.h"
+#include "utils.h"
 #include "width.h"
 
-int		width_get(char *str)
+void	conversion_handle_bad_char(void *ff, int *len)
 {
-	while (*str && *str != '.')
-	{
-		if (ft_isdigit(*str))
-			return (ft_atoi(str));
-		str++;
-	}
-	return (0);
+	char	*str;
+	t_format	*f;
+
+	f = (t_format *)ff;
+	str = ft_memalloc(sizeof(char) * 2);
+	str[0] = f->conversion->c;
+	str = width_handle(f, str);
+	*len = ft_putstrlen(str);
+	ft_strdel(&str);
 }

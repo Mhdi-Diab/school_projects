@@ -13,7 +13,7 @@
 #include "conversion.h"
 #include "token.h"
 
-int		conversion_get_func_index(char c)
+int		conversion_parse_func_index(char c)
 {
 	int		i;
 

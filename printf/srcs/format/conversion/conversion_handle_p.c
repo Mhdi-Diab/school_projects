@@ -12,6 +12,7 @@
 
 #include "conversion.h"
 #include "format.h"
+#include "width.h"
 
 void	conversion_handle_p(void *ff, va_list ap, int *len)
 {
@@ -20,6 +21,7 @@ void	conversion_handle_p(void *ff, va_list ap, int *len)
 
 	arg = modifier_handle_oux(ff, ap, "0123456789abcdef");
 	hexa = ft_strjoin("0x", arg);
+	hexa = width_handle((t_format *)ff, hexa);
 	ft_strdel(&arg);
 	*len = ft_strlen(hexa);
 	ft_putstr(hexa);

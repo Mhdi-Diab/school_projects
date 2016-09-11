@@ -17,8 +17,13 @@ static int	count_to_end(char *format)
 	int count;
 
 	count = 0;
-	while (format[count] && !ft_strchr(CONVERSION_FORMAT, format[count]))
+	while (format[count] && ft_strchr(FORMAT_STR, format[count]) &&
+		!ft_strchr(CONVERSION_FORMAT, format[count]))
+	{
+		if (format[count] == START_FORMAT)
+			return (count + 1);
 		count++;
+	}
 	return (count + 1);
 }
 
@@ -28,8 +33,6 @@ char		*token_get_format(t_ast *ast, char *format)
 	t_token		*token;
 
 	count = 0;
-	if (*format == START_FORMAT)
-		return (token_get_simple(ast, format));
 	token = token_new(FORMAT_STRING);
 	count = count_to_end(format);
 	token->content = ft_strsub(format, 0, count);

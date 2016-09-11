@@ -10,19 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "option.h"
+#include "conversion.h"
 #include "token.h"
 
-void	options_get(bool (*options)[NB_OPTIONS], char *str)
+char	conversion_parse(char *str)
 {
-	const char			opt[] = {'#', '0', '-', '+', ' '};
-	t_enum_option		enum_opt;
-
-	enum_opt = SHARP;
-	while (enum_opt < NO_OPTION)
+	while (str && *str)
 	{
-		if (ft_strchr(str, opt[enum_opt]))
-			(*options)[enum_opt] = true;
-		enum_opt++;
+		if (ft_strchr(CONVERSION_FORMAT, *str) || !ft_strchr(FORMAT_STR, *str)
+			|| *str == START_FORMAT)
+			return (*str);
+		str++;
 	}
+	return ('\0');
 }

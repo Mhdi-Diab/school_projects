@@ -6,11 +6,11 @@ int main()
 {
 	setlocale(LC_ALL, "en_US.UTF-8");
 	int i;
-	char c = 42;
+	int c = 42121;
 
-	i = printf("%hhO, %hhO", 0, USHRT_MAX);
+	i = printf("{% %}");
 	P("\n%d\n", i);
-	i = ft_printf("%hhO, %hhO", 0, USHRT_MAX);
+	i = ft_printf("{% %}");
 	P("\n%d\n", i);
 	return (0);
 }

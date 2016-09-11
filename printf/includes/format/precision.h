@@ -15,6 +15,8 @@
 
 # include "printf.h"
 
+# define PRECISION_STR "."
+
 int	precision_get(char *str);
 
 #endif

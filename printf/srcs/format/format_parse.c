@@ -21,6 +21,6 @@ void		format_parse(t_format *f, char *str)
 	f->modifier = modifier_get(str);
 	f->conversion = conversion_new(str);
 	f->precision = precision_get(str);
-	f->width = width_get(str);
-	options_get(&f->options, str);
+	f->width = width_parse(str);
+	options_parse(&f->options, str);
 }

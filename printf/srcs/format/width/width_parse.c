@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "conversion.h"
-#include "token.h"
+#include "width.h"
 
-char	conversion_get(char *str)
+int		width_parse(char *str)
 {
-	while (str && *str)
+	while (*str && *str != '.')
 	{
-		if (ft_strchr(CONVERSION_FORMAT, *str))
-			return (*str);
+		if (ft_isdigit(*str) && *str != '0')
+			return (ft_atoi(str));
 		str++;
 	}
-	return ('\0');
+	return (0);
 }
