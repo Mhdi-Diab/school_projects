@@ -5,8 +5,11 @@
 int main()
 {
 	setlocale(LC_ALL, "en_US.UTF-8");
+	int i;
 
-	printf("%C\n", 945);
-	ft_printf("%C\n", 945);
+	i = printf("\nlui: %S", L"Α α");
+	P("\n%d\n", i);
+	i = ft_printf("\nmoi: %S", L"Α α");
+	P("\n%d\n", i);
 	return (0);
 }

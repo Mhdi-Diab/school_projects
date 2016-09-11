@@ -19,7 +19,6 @@ void	conversion_handle_big_c(void *ff, va_list ap, int *len)
 	wint_t	c;
 
 	(void)ff;
-	(void)ap;
 	c = va_arg(ap, wint_t);
 	*len = ft_putwchar(c);
 }

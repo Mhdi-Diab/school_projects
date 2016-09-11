@@ -70,7 +70,7 @@ static char		**get_octal_strings(char *bin)
 	int		bin_len;
 	char	**tab;
 
-	tab = ft_memalloc(sizeof(char *) * 4);
+	tab = ft_memalloc(sizeof(char *) * 5);
 	tab[0] = ft_strdup("0xxxxxxx");
 	tab[1] = ft_strdup("110xxxxx10xxxxxx");
 	tab[2] = ft_strdup("1110xxxx10xxxxxx10xxxxxx");
@@ -92,6 +92,11 @@ int				ft_putwchar(wint_t wchar)
 	i = (unsigned int)wchar;
 	print_len = 0;
 	bin = ft_get_binary_string(i);
+	if (ft_strlen(bin) < 8)
+	{
+		ft_putchar(i);
+		return (1);
+	}
 	grid = get_octal_strings(bin);
 	if (grid)
 	{
