@@ -17,7 +17,7 @@ void	conversion_handle_u(void *ff, va_list ap, int *len)
 {
 	char	*str;
 
-	str = conversion_arg_oux(ff, ap, "0123456789");
+	str = modifier_handle_oux(ff, ap, "0123456789");
 	*len = ft_strlen(str);
 	ft_putstr(str);
 	ft_strdel(&str);

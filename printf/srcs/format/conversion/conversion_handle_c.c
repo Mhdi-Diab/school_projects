@@ -15,9 +15,12 @@
 
 void	conversion_handle_c(void *ff, va_list ap, int *len)
 {
-	char	c;
+	char		c;
+	t_format	*f;
 
-	(void)ff;
+	f = (t_format *)ff;
+	if (f->modifier == L)
+		return (conversion_handle_big_c(ff, ap, len));
 	c = (char)va_arg(ap, int);
 	ft_putchar(c);
 	*len = 1;

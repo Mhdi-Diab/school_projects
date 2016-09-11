@@ -13,13 +13,13 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_arg_di(void *ff, va_list ap)
+char	*modifier_handle_di(void *ff, va_list ap)
 {
 	t_format			*f;
 	char				*arg;
 
 	f = (t_format *)ff;
-	if (ft_isupper(f->conversion->conversion)|| f->modifier == L)
+	if (ft_isupper(f->conversion->c)|| f->modifier == L)
 		arg = ft_lltoa(va_arg(ap, long));
 	else if (f->modifier == LL)
 		arg = ft_lltoa(va_arg(ap, long long));

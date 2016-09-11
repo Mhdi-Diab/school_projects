@@ -19,8 +19,8 @@ typedef enum	e_modifier
 {
 	HH = 0,
 	H,
-	L,
 	LL,
+	L,
 	J,
 	Z,
 	NO_MODIFIER

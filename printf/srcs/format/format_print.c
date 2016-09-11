@@ -22,7 +22,7 @@ void		format_print(t_format *f)
 	const char	*modifiers[] = {"hh", "h", "ll", "l", "j", "z"};
 
 	PN("\n\n");
-	P("Conversion: %c\n", f->conversion->conversion);
+	P("Conversion: %c\n", f->conversion->c);
 	for (int i = 0; i < NB_OPTIONS; i++) {
 		if (f->options[i])
 			P("Option: %c\n", opt[i]);

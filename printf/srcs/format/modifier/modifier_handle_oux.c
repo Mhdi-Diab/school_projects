@@ -13,14 +13,14 @@
 #include "conversion.h"
 #include "format.h"
 
-char	*conversion_arg_oux(void *ff, va_list ap, char *base)
+char	*modifier_handle_oux(void *ff, va_list ap, char *base)
 {
 	t_format			*f;
 	char				*arg;
 
 	f = (t_format *)ff;
-	if ((ft_isupper(f->conversion->conversion) || f->modifier == L) &&
-		f->conversion->conversion != 'X')
+	if ((ft_isupper(f->conversion->c) || f->modifier == L) &&
+		f->conversion->c != 'X')
 		arg = ft_llbtoa(va_arg(ap, unsigned long), base);
 	else if (f->modifier == LL)
 		arg = ft_llbtoa(va_arg(ap, unsigned long long), base);
@@ -32,9 +32,7 @@ char	*conversion_arg_oux(void *ff, va_list ap, char *base)
 		arg = ft_llbtoa(va_arg(ap, uintmax_t), base);
 	else if (f->modifier == Z)
 		arg = ft_llbtoa(va_arg(ap, size_t), base);
-	else if (f->conversion->conversion == 'x')
-		arg = ft_llbtoa(va_arg(ap, unsigned int), base);
-	else if (f->conversion->conversion == 'p')
+	else if (f->conversion->c == 'p' || f->conversion->c == 'X')
 		arg = ft_llbtoa(va_arg(ap, unsigned long), base);
 	else
 		arg = ft_llbtoa(va_arg(ap, unsigned int), base);

@@ -32,13 +32,13 @@ static void		conversion_set_handlers(t_conversion *c)
 
 t_conversion	*conversion_new(char *str)
 {
-	t_conversion	*c;
+	t_conversion	*conversion;
 
-	c = ft_memalloc(sizeof(*c));
-	if (!c)
+	conversion = ft_memalloc(sizeof(*conversion));
+	if (!conversion)
 		return (NULL);
-	c->conversion = conversion_get(str);
-	c->func_index = conversion_get_func_index(c->conversion);
-	conversion_set_handlers(c);
-	return (c);
+	conversion->c = conversion_get(str);
+	conversion->func_index = conversion_get_func_index(conversion->c);
+	conversion_set_handlers(conversion);
+	return (conversion);
 }

@@ -20,7 +20,7 @@
 
 typedef struct	s_convertion
 {
-	char		conversion;
+	char		c;
 	int			func_index;
 	void		(*func[NB_CONVERSIONS]) (void *f, va_list ap, int *len);
 }				t_conversion;
@@ -30,8 +30,8 @@ void			conversion_del(t_conversion **conversion);
 char			conversion_get(char *str);
 int				conversion_get_func_index(char c);
 
-char			*conversion_arg_oux(void *ff, va_list ap, char *base);
-char			*conversion_arg_di(void *ff, va_list ap);
+char			*modifier_handle_oux(void *ff, va_list ap, char *base);
+char			*modifier_handle_di(void *ff, va_list ap);
 
 void			conversion_handle_s(void *f, va_list ap, int *len);
 void			conversion_handle_big_s(void *f, va_list ap, int *len);

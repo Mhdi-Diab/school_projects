@@ -19,10 +19,10 @@ void	conversion_handle_x(void *ff, va_list ap, int *len)
 	char		*str;
 
 	f = (t_format *)ff;
-	if (f->conversion->conversion == 'X')
-		str = conversion_arg_oux(ff, ap, "0123456789ABCDEF");
+	if (f->conversion->c == 'X')
+		str = modifier_handle_oux(ff, ap, "0123456789ABCDEF");
 	else
-		str = conversion_arg_oux(ff, ap, "0123456789abcdef");
+		str = modifier_handle_oux(ff, ap, "0123456789abcdef");
 	*len = ft_strlen(str);
 	ft_putstr(str);
 	ft_strdel(&str);

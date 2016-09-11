@@ -17,7 +17,7 @@ void	conversion_handle_o(void *ff, va_list ap, int *len)
 {
 	char	*str;
 
-	str = conversion_arg_oux(ff, ap, "01234567");
+	str = modifier_handle_oux(ff, ap, "01234567");
 	*len = ft_strlen(str);
 	ft_putstr(str);
 	ft_strdel(&str);

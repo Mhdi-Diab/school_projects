@@ -18,7 +18,7 @@ void	conversion_handle_p(void *ff, va_list ap, int *len)
 	char				*arg;
 	char				*hexa;
 
-	arg = conversion_arg_oux(ff, ap, "0123456789abcdef");
+	arg = modifier_handle_oux(ff, ap, "0123456789abcdef");
 	hexa = ft_strjoin("0x", arg);
 	ft_strdel(&arg);
 	*len = ft_strlen(hexa);
