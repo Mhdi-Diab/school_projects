@@ -80,7 +80,7 @@ check:
 
 test:
 	@$(MAKE) -j
-	@gcc $(CC_FLAGS) $(NAME) tests/main.c $(CC_HEADERS)
+	@gcc $(NAME) tests/main.c $(CC_HEADERS)
 	@./a.out && rm a.out && rm -rf a.out.dSYM
 
 .PHONY: all clean fclean re

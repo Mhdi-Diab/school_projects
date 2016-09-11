@@ -19,6 +19,7 @@
 # include "option.h"
 
 # define START_FORMAT '%'
+# define FORMAT_ACCEPTED " +-#.1234567890%"
 
 typedef struct	s_format
 {
