@@ -30,18 +30,4 @@ void			conversion_del(t_conversion **conversion);
 char			conversion_parse(char *str);
 int				conversion_parse_func_index(char c);
 
-char			*modifier_handle_oux(void *ff, va_list ap, char *base);
-char			*modifier_handle_di(void *ff, va_list ap);
-
-void			conversion_handle_s(void *f, va_list ap, int *len);
-void			conversion_handle_big_s(void *f, va_list ap, int *len);
-void			conversion_handle_big_c(void *f, va_list ap, int *len);
-void			conversion_handle_p(void *f, va_list ap, int *len);
-void			conversion_handle_d(void *f, va_list ap, int *len);
-void			conversion_handle_x(void *f, va_list ap, int *len);
-void			conversion_handle_o(void *ff, va_list ap, int *len);
-void			conversion_handle_u(void *ff, va_list ap, int *len);
-void			conversion_handle_c(void *ff, va_list ap, int *len);
-void			conversion_handle_bad_char(void *ff, int *len);
-
 #endif

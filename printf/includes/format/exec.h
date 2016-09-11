@@ -10,15 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "conversion.h"
-#include "format.h"
+#ifndef EXEC_H
+# define EXEC_H
 
-void	conversion_handle_o(void *ff, va_list ap, int *len)
-{
-	char	*str;
+# include "printf.h"
 
-	str = modifier_handle_oux(ff, ap, "01234567");
-	*len = ft_strlen(str);
-	ft_putstr(str);
-	ft_strdel(&str);
-}
+void			exec_s(void *f, va_list ap, int *len);
+void			exec_big_s(void *f, va_list ap, int *len);
+void			exec_big_c(void *f, va_list ap, int *len);
+void			exec_p(void *f, va_list ap, int *len);
+void			exec_d(void *f, va_list ap, int *len);
+void			exec_x(void *f, va_list ap, int *len);
+void			exec_o(void *ff, va_list ap, int *len);
+void			exec_u(void *ff, va_list ap, int *len);
+void			exec_c(void *ff, va_list ap, int *len);
+void			exec_bad_char(void *ff, int *len);
+
+#endif

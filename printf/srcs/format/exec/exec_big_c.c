@@ -12,18 +12,20 @@
 
 #include "conversion.h"
 #include "format.h"
-#include "width.h"
+#include "utils.h"
 
-void	conversion_handle_p(void *ff, va_list ap, int *len)
+void	exec_big_c(void *ff, va_list ap, int *len)
 {
-	char				*arg;
-	char				*hexa;
+	int			l;
+	wint_t		win;
+	t_format	*f;
 
-	arg = modifier_handle_oux(ff, ap, "0123456789abcdef");
-	hexa = ft_strjoin("0x", arg);
-	hexa = width_handle((t_format *)ff, hexa);
-	ft_strdel(&arg);
-	*len = ft_strlen(hexa);
-	ft_putstr(hexa);
-	ft_strdel(&hexa);
+	f = (t_format *)ff;
+	win = va_arg(ap, wint_t);
+	l = ft_count_binary_len(win) / 7 + 1;
+	if (!f->options[OPT_MINUS])
+		*len += ft_print_xtimes(f->options[OPT_ZERO] ? '0' : ' ', l < f->width);
+	*len = ft_putwchar(win);
+	if (f->options[OPT_MINUS])
+		*len += ft_print_xtimes(f->options[OPT_ZERO] ? '0' : ' ', l < f->width);
 }

@@ -18,9 +18,9 @@ static int	count_to_end(char *format)
 
 	count = 0;
 	while (format[count] && ft_strchr(FORMAT_STR, format[count]) &&
-		!ft_strchr(CONVERSION_FORMAT, format[count]))
+		!ft_strchr(CONVERSION_FORMAT, format[count])) //TODO: a ameliorer
 	{
-		if (format[count] == START_FORMAT)
+		if (format[count] == FORMAT_CHAR)
 			return (count + 1);
 		count++;
 	}

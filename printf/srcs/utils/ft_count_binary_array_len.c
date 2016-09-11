@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_unicode2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atamano <atamano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/01 18:13:00 by atamano           #+#    #+#             */
-/*   Updated: 2014/12/20 19:37:38 by atamano          ###   ########.fr       */
+/*   Created: 2014/12/20 13:54:56 by atamano           #+#    #+#             */
+/*   Updated: 2014/12/20 13:55:19 by atamano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "conversion.h"
-#include "format.h"
+#include "utils.h"
 
-void	conversion_handle_s(void *ff, va_list ap, int *len)
+int		ft_count_binary_array_len(wchar_t *str)
 {
-	t_format	*f;
-	char		*arg;
-	char		*str;
+	int nb;
 
-	f = (t_format *)ff;
-	if (f->modifier == L)
-		return (conversion_handle_big_s(ff, ap, len));
-	arg = va_arg(ap, char *);
-	str = ft_strdup(arg ? arg : "(null)");
-	*len = ft_strlen(str);
-	ft_putstr(str);
-	ft_strdel(&str);
+	nb = 0;
+	while (*str)
+	{
+		nb += ft_count_binary_len(*str) / 7 + 1;
+		str++;
+	}
+
+	return (nb);
 }

@@ -17,9 +17,9 @@ static int	count_to_end(char *format)
 	int count;
 
 	count = 0;
-	if (format[count] == START_FORMAT)
+	if (format[count] == FORMAT_CHAR)
 		count++;
-	while (format[count] && format[count] != START_FORMAT)
+	while (format[count] && format[count] != FORMAT_CHAR)
 		count++;
 	return (count);
 }

@@ -10,20 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "conversion.h"
+#include "exec.h"
 #include "format.h"
-#include "utils.h"
 #include "width.h"
 
-void	conversion_handle_bad_char(void *ff, int *len)
+void	exec_s(void *ff, va_list ap, int *len)
 {
-	char	*str;
 	t_format	*f;
+	char		*arg;
+	char		*str;
 
 	f = (t_format *)ff;
-	str = ft_memalloc(sizeof(char) * 2);
-	str[0] = f->conversion->c;
-	str = width_handle(f, str);
-	*len = ft_putstrlen(str);
+	if (f->modifier == L)
+		return (exec_big_s(ff, ap, len));
+	arg = va_arg(ap, char *);
+	if (arg)
+	{
+		str = ft_strdup(arg);
+		str = width_handle((t_format *)ff, str);
+	}
+	else
+		str = ft_strdup("(null)");
+	*len = ft_strlen(str);
+	ft_putstr(str);
 	ft_strdel(&str);
 }

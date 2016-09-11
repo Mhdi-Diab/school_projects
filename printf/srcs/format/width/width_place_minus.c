@@ -11,14 +11,21 @@
 /* ************************************************************************** */
 
 #include "conversion.h"
-#include "format.h"
-#include "utils.h"
 
-void	conversion_handle_big_s(void *ff, va_list ap, int *len)
+void	width_place_minus(char *str)
 {
-	wchar_t	*s;
+	int		i;
+	char	c;
 
-	(void)ff;
-	s = va_arg(ap, wchar_t *);
-	*len = s ? ft_putwstr(s) : ft_putstrlen("(null)");
+	i = 0;
+	c = str[0];
+	while (str[i])
+	{
+		if (str[i] == '-')
+		{
+			str[i] = c;
+			str[0] = '-';
+		}
+		i++;
+	}
 }

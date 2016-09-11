@@ -8,9 +8,9 @@ int main()
 	int i;
 	int c = 42121;
 
-	i = printf("{% %}");
+	i = printf("{%010d}", -42);
 	P("\n%d\n", i);
-	i = ft_printf("{% %}");
+	i = ft_printf("{%010d}", -42);
 	P("\n%d\n", i);
 	return (0);
 }

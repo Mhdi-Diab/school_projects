@@ -10,40 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "conversion.h"
 #include "format.h"
-#include "option.h"
-#include "precision.h"
-#include "modifier.h"
-#include "exec.h"
+#include "utils.h"
 
-static int		format_do_exec(t_format *f, va_list ap)
+void	exec_big_s(void *ff, va_list ap, int *len)
 {
-	t_conversion	*c;
-	int				len;
+	wchar_t		*s;
+	int			l;
+	t_format	*f;
 
-	c = f->conversion;
-	len = 0;
-	if (c->func_index != -1)
+	f = (t_format *)ff;
+	s = va_arg(ap, wchar_t *);
+	// P("LEN: %d\n", l);
+	// P("WIDTH: %d\n", f->width);
+	if (s)
 	{
-		c->func[c->func_index](f, ap, &len);
+		l = ft_count_binary_array_len(s);
+		if (!f->options[OPT_MINUS] && f->width > l)
+			*len += ft_print_xtimes(f->options[OPT_ZERO] ?
+				'0' : ' ', f->width - l);
+		*len += ft_putwstr(s);
+		if (f->options[OPT_MINUS] && f->width > l)
+			*len += ft_print_xtimes(f->options[OPT_ZERO] ?
+				'0' : ' ', f->width - l);
 	}
 	else
-	{
-		exec_bad_char(f, &len);
-	}
-	return (len);
-}
+		*len = ft_putstrlen("(null)");
 
-int				format_exec(char *str, va_list ap)
-{
-	t_format	*f;
-	int			len;
-
-	f = format_new();
-	format_parse(f, str);
-	if (DEBUG)
-		format_print(f);
-	len = format_do_exec(f, ap);
-	format_del(&f);
-	return (len);
 }

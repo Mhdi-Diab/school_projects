@@ -10,40 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
-#include "option.h"
-#include "precision.h"
-#include "modifier.h"
 #include "exec.h"
+#include "format.h"
+#include "width.h"
+#include "utils.h"
 
-static int		format_do_exec(t_format *f, va_list ap)
+void	exec_c(void *ff, va_list ap, int *len)
 {
-	t_conversion	*c;
-	int				len;
-
-	c = f->conversion;
-	len = 0;
-	if (c->func_index != -1)
-	{
-		c->func[c->func_index](f, ap, &len);
-	}
-	else
-	{
-		exec_bad_char(f, &len);
-	}
-	return (len);
-}
-
-int				format_exec(char *str, va_list ap)
-{
+	char		c;
+	char		*str;
 	t_format	*f;
-	int			len;
 
-	f = format_new();
-	format_parse(f, str);
-	if (DEBUG)
-		format_print(f);
-	len = format_do_exec(f, ap);
-	format_del(&f);
-	return (len);
+	f = (t_format *)ff;
+	if (f->modifier == L)
+		return (exec_big_c(ff, ap, len));
+	str = ft_memalloc(sizeof(char) * 2);
+	c = (char)va_arg(ap, int);
+	if (c == 0 && f->width != 0)
+		f->width -= 1;
+	str[0] = c;
+	str = width_handle(f, str);
+	*len = ft_putstrlen(str);
+	*len += c == 0  ? ft_putcharlen(c) : 0;
+	ft_strdel(&str);
 }

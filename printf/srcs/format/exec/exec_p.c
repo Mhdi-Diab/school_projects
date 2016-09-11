@@ -10,40 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "conversion.h"
 #include "format.h"
-#include "option.h"
-#include "precision.h"
-#include "modifier.h"
-#include "exec.h"
+#include "width.h"
 
-static int		format_do_exec(t_format *f, va_list ap)
+void	exec_p(void *ff, va_list ap, int *len)
 {
-	t_conversion	*c;
-	int				len;
+	char				*arg;
+	char				*hexa;
 
-	c = f->conversion;
-	len = 0;
-	if (c->func_index != -1)
-	{
-		c->func[c->func_index](f, ap, &len);
-	}
-	else
-	{
-		exec_bad_char(f, &len);
-	}
-	return (len);
-}
-
-int				format_exec(char *str, va_list ap)
-{
-	t_format	*f;
-	int			len;
-
-	f = format_new();
-	format_parse(f, str);
-	if (DEBUG)
-		format_print(f);
-	len = format_do_exec(f, ap);
-	format_del(&f);
-	return (len);
+	arg = modifier_handle_oux(ff, ap, "0123456789abcdef");
+	hexa = ft_strjoin("0x", arg);
+	hexa = width_handle((t_format *)ff, hexa);
+	ft_strdel(&arg);
+	*len = ft_strlen(hexa);
+	ft_putstr(hexa);
+	ft_strdel(&hexa);
 }

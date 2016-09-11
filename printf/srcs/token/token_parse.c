@@ -16,7 +16,7 @@ void		token_parse(t_ast *ast, char *format)
 {
 	while (*format)
 	{
-		if (*format == START_FORMAT)
+		if (*format == FORMAT_CHAR)
 		{
 			format++;
 			if (*format)

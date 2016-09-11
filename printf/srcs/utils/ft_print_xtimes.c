@@ -10,27 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "conversion.h"
-#include "format.h"
-#include "width.h"
 #include "utils.h"
 
-void	conversion_handle_c(void *ff, va_list ap, int *len)
+int			ft_print_xtimes(char c, int len)
 {
-	char		c;
-	char		*str;
-	t_format	*f;
+	int i;
 
-	f = (t_format *)ff;
-	if (f->modifier == L)
-		return (conversion_handle_big_c(ff, ap, len));
-	str = ft_memalloc(sizeof(char) * 2);
-	c = (char)va_arg(ap, int);
-	if (c == 0 && f->width != 0)
-		f->width -= 1;
-	str[0] = c;
-	str = width_handle(f, str);
-	*len = ft_putstrlen(str);
-	*len += c == 0  ? ft_putcharlen(c) : 0;
-	ft_strdel(&str);
+	i = -1;
+	while (++i < len)
+		ft_putchar(c);
+	return (len);
 }

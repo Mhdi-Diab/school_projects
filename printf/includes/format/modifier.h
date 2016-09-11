@@ -29,5 +29,7 @@ typedef enum	e_modifier
 }				t_enum_modifier;
 
 t_enum_modifier		modifier_get(char *str);
+char				*modifier_handle_oux(void *ff, va_list ap, char *base);
+char				*modifier_handle_di(void *ff, va_list ap);
 
 #endif

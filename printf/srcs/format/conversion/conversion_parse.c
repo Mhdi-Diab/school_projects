@@ -18,7 +18,7 @@ char	conversion_parse(char *str)
 	while (str && *str)
 	{
 		if (ft_strchr(CONVERSION_FORMAT, *str) || !ft_strchr(FORMAT_STR, *str)
-			|| *str == START_FORMAT)
+			|| *str == FORMAT_CHAR)
 			return (*str);
 		str++;
 	}

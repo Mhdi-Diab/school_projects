@@ -11,23 +11,24 @@
 /* ************************************************************************** */
 
 #include "conversion.h"
+#include "exec.h"
 
 static void		conversion_set_handlers(t_conversion *c)
 {
-	c->func[0] = conversion_handle_s;
-	c->func[1] = conversion_handle_big_s;
-	c->func[2] = conversion_handle_p;
-	c->func[3] = conversion_handle_d;
-	c->func[4] = conversion_handle_d;
-	c->func[5] = conversion_handle_d;
-	c->func[6] = conversion_handle_o;
-	c->func[7] = conversion_handle_o;
-	c->func[8] = conversion_handle_u;
-	c->func[9] = conversion_handle_u;
-	c->func[10] = conversion_handle_x;
-	c->func[11] = conversion_handle_x;
-	c->func[12] = conversion_handle_c;
-	c->func[13] = conversion_handle_big_c;
+	c->func[0] = exec_s;
+	c->func[1] = exec_big_s;
+	c->func[2] = exec_p;
+	c->func[3] = exec_d;
+	c->func[4] = exec_d;
+	c->func[5] = exec_d;
+	c->func[6] = exec_o;
+	c->func[7] = exec_o;
+	c->func[8] = exec_u;
+	c->func[9] = exec_u;
+	c->func[10] = exec_x;
+	c->func[11] = exec_x;
+	c->func[12] = exec_c;
+	c->func[13] = exec_big_c;
 }
 
 t_conversion	*conversion_new(char *str)

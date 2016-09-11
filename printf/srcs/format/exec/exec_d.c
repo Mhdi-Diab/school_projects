@@ -12,13 +12,15 @@
 
 #include "conversion.h"
 #include "format.h"
-#include "utils.h"
+#include "width.h"
 
-void	conversion_handle_big_c(void *ff, va_list ap, int *len)
+void	exec_d(void *ff, va_list ap, int *len)
 {
-	wint_t	c;
+	char	*str;
 
-	(void)ff;
-	c = va_arg(ap, wint_t);
-	*len = ft_putwchar(c);
+	str = modifier_handle_di(ff, ap);
+	str = width_handle((t_format *)ff, str);
+	*len = ft_strlen(str);
+	ft_putstr(str);
+	ft_strdel(&str);
 }

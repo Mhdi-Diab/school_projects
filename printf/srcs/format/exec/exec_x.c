@@ -12,17 +12,17 @@
 
 #include "conversion.h"
 #include "format.h"
+#include "width.h"
 
-void	conversion_handle_x(void *ff, va_list ap, int *len)
+void	exec_x(void *ff, va_list ap, int *len)
 {
 	t_format	*f;
 	char		*str;
 
 	f = (t_format *)ff;
-	if (f->conversion->c == 'X')
-		str = modifier_handle_oux(ff, ap, "0123456789ABCDEF");
-	else
-		str = modifier_handle_oux(ff, ap, "0123456789abcdef");
+	str = modifier_handle_oux(ff, ap, f->conversion->c == 'X' ?
+		"0123456789ABCDEF" : "0123456789abcdef");
+	str = width_handle((t_format *)ff, str);
 	*len = ft_strlen(str);
 	ft_putstr(str);
 	ft_strdel(&str);

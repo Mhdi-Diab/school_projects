@@ -18,7 +18,7 @@
 # include "conversion.h"
 # include "option.h"
 
-# define START_FORMAT '%'
+# define FORMAT_CHAR '%'
 # define FORMAT_STR " +-#.1234567890%hljz"
 
 typedef struct	s_format
