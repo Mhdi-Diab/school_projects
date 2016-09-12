@@ -21,6 +21,6 @@ char	*exec_big_s(void *ff, va_list ap)
 
 	f = (t_format *)ff;
 	s = va_arg(ap, wchar_t *);
-	return(s ? ft_getwstr(s) : ft_strdup("(null)"));
+	return(s ? conversion_getwstr(f->conversion, s) : ft_strdup("(null)"));
 
 }

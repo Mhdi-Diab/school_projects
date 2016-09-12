@@ -39,6 +39,7 @@ t_conversion	*conversion_new(char *str)
 	if (!conversion)
 		return (NULL);
 	conversion->c = conversion_parse(str);
+	conversion->input_length = NULL;
 	conversion->func_index = conversion_parse_func_index(conversion->c);
 	conversion_set_handlers(conversion);
 	return (conversion);

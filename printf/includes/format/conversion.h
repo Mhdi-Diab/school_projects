@@ -23,11 +23,14 @@ typedef struct	s_convertion
 	char		c;
 	int			func_index;
 	char		*(*func[NB_CONVERSIONS]) (void *f, va_list ap);
+	void		*input_length;
 }				t_conversion;
 
 t_conversion	*conversion_new(char *str);
 void			conversion_del(t_conversion **conversion);
 char			conversion_parse(char *str);
 int				conversion_parse_func_index(char c);
+char			*conversion_getwstr(t_conversion *c, wchar_t *str);
+char			*conversion_getwchar(wint_t wchar);
 
 #endif

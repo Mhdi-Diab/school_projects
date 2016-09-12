@@ -17,12 +17,15 @@
 char	*exec_big_c(void *ff, va_list ap)
 {
 	wint_t		win;
+	int			len;
 	t_format	*f;
 	char		*str;
 
 	f = (t_format *)ff;
 	win = va_arg(ap, wint_t);
-	str = ft_getwchar(win);
+	str = conversion_getwchar(win);
+	len = (int)ft_strlen(str);
+	f->conversion->input_length = &len;
 	if (*str == 0)
 	{
 		f->width -= 1;

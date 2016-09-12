@@ -87,7 +87,7 @@ static char		**get_octal_strings(char *bin)
 	return (split_octal(tab[index]));
 }
 
-char			*ft_getwchar(wint_t wchar)
+char			*conversion_getwchar(wint_t wchar)
 {
 	char			**grid;
 	char			*bin;
