@@ -10,17 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
-#include "option.h"
 #include "precision.h"
-#include "modifier.h"
-#include "width.h"
 
-void		format_parse(t_format *f, char *str)
+int	precision_parse(char *str)
 {
-	f->modifier = modifier_get(str);
-	f->conversion = conversion_new(str);
-	f->precision = precision_parse(str);
-	f->width = width_parse(str);
-	options_parse(&f->options, str);
+	char	*sub_str;
+	int		prec;
+
+	sub_str = ft_strchr(str, '.');
+	prec = 0;
+	if (!sub_str)
+		return (0);
+	if (++sub_str && (!ft_isdigit(*sub_str) || *sub_str == '0'))
+		prec = -1;
+	else if (sub_str)
+		prec = ft_atoi(sub_str);
+	return (prec);
 }

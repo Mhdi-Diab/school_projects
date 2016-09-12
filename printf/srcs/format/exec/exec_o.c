@@ -16,12 +16,10 @@
 
 char	*exec_o(void *ff, va_list ap)
 {
-	char	*str;
+	char		*str;
 	t_format	*f;
 
 	f = (t_format *)ff;
 	str = modifier_handle_oux(ff, ap, "01234567");
-	if (f->options[OPT_SHARP] && f->precision < (int)ft_strlen(str))
-		f->precision = ft_strlen(str) + 1;
 	return (str);
 }

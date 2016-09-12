@@ -51,14 +51,21 @@ static char		*options_handle_d(char *str)
 char			*options_handle(void *ff, char *str)
 {
 	t_format	*f;
+	char		conversion;
 
 	f = (t_format *)ff;
+	conversion = f->conversion->c;
 	if (f->options[OPT_ZERO])
 	{
-		if (f->conversion->c == 'p' && f->width > 2)
+		if (conversion == 'p' && f->width > 2)
 			return (options_handle_p(str));
-		if (f->conversion->c == 'd')
+		if (conversion == 'd')
 			return (options_handle_d(str));
+	}
+	if (f->options[OPT_SHARP])
+	{
+		if (conversion == 'o' && f->precision < (int)ft_strlen(str))
+			f->precision = ft_strlen(str) + 1;
 	}
 	return (str);
 }

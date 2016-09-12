@@ -10,17 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
-#include "option.h"
-#include "precision.h"
-#include "modifier.h"
 #include "width.h"
+#include "option.h"
 
-void		format_parse(t_format *f, char *str)
+char			*precision_handle_diouxX(t_format *f, char *str)
 {
-	f->modifier = modifier_get(str);
-	f->conversion = conversion_new(str);
-	f->precision = precision_parse(str);
-	f->width = width_parse(str);
-	options_parse(&f->options, str);
+	int		len;
+	char	*new_str;
+	char	*tmp;
+
+	len = ft_strlen(str);
+	if (*str == '-')
+		f->precision += 1;
+	if (f->precision > len)
+	{
+		new_str = ft_strnew(f->precision - len + 1);
+		ft_memset(new_str, '0', f->precision - len);
+		if (*str != '-')
+			str = ft_strfjoin(new_str, str);
+		else
+		{
+			tmp = &str[1];
+			str = ft_strjoin(new_str, tmp);
+			str = ft_strfjoin("-", str);
+		}
+		ft_strdel(&new_str);
+	}
+	return (str);
 }

@@ -10,17 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
-#include "option.h"
-#include "precision.h"
-#include "modifier.h"
 #include "width.h"
+#include "precision.h"
+#include "option.h"
 
-void		format_parse(t_format *f, char *str)
+char			*precision_handle(t_format *f, char *str)
 {
-	f->modifier = modifier_get(str);
-	f->conversion = conversion_new(str);
-	f->precision = precision_parse(str);
-	f->width = width_parse(str);
-	options_parse(&f->options, str);
+	int		len;
+
+	len = ft_strlen(str);
+	if (ft_strchr("diouxOUX", f->conversion->c))
+		str = precision_handle_diouxX(f, str);
+	else if (ft_strchr("sS", f->conversion->c))
+		str = precision_handle_sS(f, str);
+	else if (f->conversion->c == 'p')
+		str = precision_handle_p(f, str);
+	return (str);
 }

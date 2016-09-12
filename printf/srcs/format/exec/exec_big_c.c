@@ -24,6 +24,9 @@ char	*exec_big_c(void *ff, va_list ap)
 	win = va_arg(ap, wint_t);
 	str = ft_getwchar(win);
 	if (*str == 0)
+	{
+		f->width -= 1;
 		f->print_zero = true;
+	}
 	return (str);
 }

@@ -14,9 +14,14 @@
 # define PRECISION_H
 
 # include "printf.h"
+# include "format.h"
 
 # define PRECISION_STR "."
 
-int	precision_get(char *str);
+int				precision_parse(char *str);
+char			*precision_handle(t_format *ff, char *str);
+char			*precision_handle_diouxX(t_format *f, char *str);
+char			*precision_handle_sS(t_format *f, char *str);
+char			*precision_handle_p(t_format *f, char *str);
 
 #endif

@@ -18,6 +18,20 @@
 #include "utils.h"
 #include "width.h"
 
+static char		*check_zero(t_format *f, char *str)
+{
+	if (str && f->precision == -1)
+	{
+		if ((ft_strchr("diouxpOUX", f->conversion->c) && ft_atoi(str) == 0) ||
+			ft_strchr("sS", f->conversion->c))
+		{
+			ft_strdel(&str);
+			return (f->conversion->c != 'p' ? ft_strdup("") : ft_strdup("0x"));
+		}
+	}
+	return (str);
+}
+
 static int		format_do_exec(t_format *f, va_list ap)
 {
 	t_conversion	*c;
@@ -28,6 +42,8 @@ static int		format_do_exec(t_format *f, va_list ap)
 	c = f->conversion;
 	str = NULL;
 	str = c->func_index != -1 ? c->func[c->func_index](f, ap) : exec_bad_char(f);
+	str = check_zero(f, str);
+	str = precision_handle(f, str);
 	str = width_handle(f, str);
 	str = options_handle(f, str);
 	if (str)

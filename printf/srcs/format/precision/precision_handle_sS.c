@@ -10,14 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "precision.h"
+#include "width.h"
+#include "option.h"
 
-int	precision_get(char *str)
+char			*precision_handle_sS(t_format *f, char *str)
 {
-	char	*sub_str;
+	int		len;
+	char	*new_str;
 
-	sub_str = ft_strchr(str, '.');
-	if (!sub_str)
-		return (0);
-	return (ft_atoi(++sub_str));
+	len = ft_strlen(str);
+	if (f->precision < len && f->precision > 0)
+	{
+		new_str = ft_strsub(str, 0, f->precision);
+		ft_strdel(&str);
+		return (new_str);
+	}
+	return (str);
 }

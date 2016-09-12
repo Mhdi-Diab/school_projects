@@ -17,8 +17,8 @@
 
 char	*exec_p(void *ff, va_list ap)
 {
-	char				*arg;
-	t_format			*f;
+	char			*arg;
+	t_format		*f;
 
 	f = (t_format *)ff;
 	arg = modifier_handle_oux(ff, ap, "0123456789abcdef");
