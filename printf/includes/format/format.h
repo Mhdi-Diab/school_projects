@@ -28,6 +28,7 @@ typedef struct	s_format
 	t_enum_modifier	modifier;
 	int				precision;
 	int				width;
+	bool			print_zero;
 }				t_format;
 
 t_format		*format_new(void);

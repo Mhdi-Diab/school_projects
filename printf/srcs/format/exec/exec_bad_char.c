@@ -15,15 +15,13 @@
 #include "utils.h"
 #include "width.h"
 
-void	exec_bad_char(void *ff, int *len)
+char	*exec_bad_char(void *ff)
 {
-	char	*str;
+	char		*str;
 	t_format	*f;
 
 	f = (t_format *)ff;
 	str = ft_memalloc(sizeof(char) * 2);
 	str[0] = f->conversion->c;
-	str = width_handle(f, str);
-	*len = ft_putstrlen(str);
-	ft_strdel(&str);
+	return (str);
 }

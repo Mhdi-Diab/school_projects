@@ -29,5 +29,6 @@ typedef enum	e_option
 }				t_enum_option;
 
 void	options_parse(bool (*options)[NB_OPTIONS], char *str);
+char	*options_handle(void *f, char *str);
 
 #endif

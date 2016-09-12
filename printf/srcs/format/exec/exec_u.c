@@ -14,13 +14,10 @@
 #include "format.h"
 #include "width.h"
 
-void	exec_u(void *ff, va_list ap, int *len)
+char	*exec_u(void *ff, va_list ap)
 {
 	char	*str;
 
 	str = modifier_handle_oux(ff, ap, "0123456789");
-	str = width_handle((t_format *)ff, str);
-	*len = ft_strlen(str);
-	ft_putstr(str);
-	ft_strdel(&str);
+	return (str);
 }

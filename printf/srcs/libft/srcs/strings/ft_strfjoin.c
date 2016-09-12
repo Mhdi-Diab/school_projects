@@ -33,7 +33,7 @@ char	*ft_strfjoin(char const *s1, char const *s2)
 	while (s2[j])
 		tab[i++] = s2[j++];
 	tab[i] = '\0';
-	if (*s1)
-		ft_strdel((char **)&s1);
+	if (*s2)
+		ft_strdel((char **)&s2);
 	return (tab);
 }

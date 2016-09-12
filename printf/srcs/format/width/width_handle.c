@@ -23,11 +23,10 @@ char	*width_handle(t_format *f, char *str)
 	if (f->width != 0 && f->width > len)
 	{
 		c = f->options[OPT_ZERO] ? '0' : ' ';
-		new_str = ft_memalloc(sizeof(char) * (f->width + 1));
+		new_str = ft_memalloc(sizeof(char) * (f->width - len + 1));
 		ft_memset(new_str, c, f->width - len);
-		new_str[f->width - len] = '\0';
 		new_str = f->options[OPT_MINUS] ?
-			ft_strfjoin(str, new_str) : ft_strfjoin(new_str, str);
+			ft_strfjoin(str, new_str) : ft_strjoin(new_str, str);
 		return (new_str);
 	}
 	return (str);

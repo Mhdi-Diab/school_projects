@@ -15,21 +15,27 @@
 #include "precision.h"
 #include "modifier.h"
 #include "exec.h"
+#include "utils.h"
+#include "width.h"
 
 static int		format_do_exec(t_format *f, va_list ap)
 {
 	t_conversion	*c;
+	char			*str;
 	int				len;
 
-	c = f->conversion;
 	len = 0;
-	if (c->func_index != -1)
+	c = f->conversion;
+	str = NULL;
+	str = c->func_index != -1 ? c->func[c->func_index](f, ap) : exec_bad_char(f);
+	str = width_handle(f, str);
+	str = options_handle(f, str);
+	if (str)
 	{
-		c->func[c->func_index](f, ap, &len);
-	}
-	else
-	{
-		exec_bad_char(f, &len);
+		len = ft_putstrlen(str);
+		if (f->print_zero)
+			len += ft_putcharlen(0);
+		ft_strdel(&str);
 	}
 	return (len);
 }

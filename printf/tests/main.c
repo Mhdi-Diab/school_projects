@@ -8,9 +8,9 @@ int main()
 	int i;
 	int c = 42121;
 
-	i = printf("{%010d}", -42);
+	i = printf("lui: {%05p}", 0);
 	P("\n%d\n", i);
-	i = ft_printf("{%010d}", -42);
+	i = ft_printf("moi: {%05p}", 0);
 	P("\n%d\n", i);
 	return (0);
 }

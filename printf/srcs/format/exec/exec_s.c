@@ -14,24 +14,14 @@
 #include "format.h"
 #include "width.h"
 
-void	exec_s(void *ff, va_list ap, int *len)
+char	*exec_s(void *ff, va_list ap)
 {
 	t_format	*f;
 	char		*arg;
-	char		*str;
 
 	f = (t_format *)ff;
 	if (f->modifier == L)
-		return (exec_big_s(ff, ap, len));
+		return (exec_big_s(ff, ap));
 	arg = va_arg(ap, char *);
-	if (arg)
-	{
-		str = ft_strdup(arg);
-		str = width_handle((t_format *)ff, str);
-	}
-	else
-		str = ft_strdup("(null)");
-	*len = ft_strlen(str);
-	ft_putstr(str);
-	ft_strdel(&str);
+	return (ft_strdup(arg ? arg : "(null)"));
 }

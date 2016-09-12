@@ -22,7 +22,7 @@ typedef struct	s_convertion
 {
 	char		c;
 	int			func_index;
-	void		(*func[NB_CONVERSIONS]) (void *f, va_list ap, int *len);
+	char		*(*func[NB_CONVERSIONS]) (void *f, va_list ap);
 }				t_conversion;
 
 t_conversion	*conversion_new(char *str);

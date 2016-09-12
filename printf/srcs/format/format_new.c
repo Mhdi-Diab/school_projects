@@ -26,5 +26,6 @@ t_format	*format_new(void)
 	format->modifier = NO_MODIFIER;
 	format->precision = 0;
 	format->width = 0;
+	format->print_zero = false;
 	return (format);
 }

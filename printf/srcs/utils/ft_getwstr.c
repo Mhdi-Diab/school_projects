@@ -12,15 +12,17 @@
 
 #include "utils.h"
 
-int		ft_putwstr(wchar_t *str)
+char		*ft_getwstr(wchar_t *str)
 {
-	int total;
+	int		total;
+	char	*new_str;
 
 	total = 0;
+	new_str = ft_strnew(1);
 	while (*str)
 	{
-		total += ft_putwchar(*str);
+		new_str = ft_strfjoin(new_str, ft_getwchar(*str));
 		str++;
 	}
-	return (total);
+	return (new_str);
 }

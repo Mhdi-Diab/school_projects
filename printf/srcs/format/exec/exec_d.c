@@ -14,13 +14,15 @@
 #include "format.h"
 #include "width.h"
 
-void	exec_d(void *ff, va_list ap, int *len)
+char	*exec_d(void *ff, va_list ap)
 {
-	char	*str;
+	char		*str;
+	t_format	*f;
 
+	f = (t_format *)ff;
 	str = modifier_handle_di(ff, ap);
-	str = width_handle((t_format *)ff, str);
-	*len = ft_strlen(str);
-	ft_putstr(str);
-	ft_strdel(&str);
+	str = width_handle(f, str);
+	if (f->options[OPT_ZERO])
+		width_place_minus(str);
+	return (str);
 }

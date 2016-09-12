@@ -49,19 +49,24 @@ static char		*fill_unicode_mask(char *mask, char *bin, int bin_len)
 	return (mask);
 }
 
-static int		print_wchart(char **grid)
+char			*get_wchart_string(char **grid)
 {
-	int grid_len;
-	int index;
+	char	*str;
+	int		grid_len;
+	int		len;
+	int		index;
 
 	index = 0;
+	len = 0;
 	grid_len = ft_tablen(grid);
+	str = ft_memalloc(sizeof(char) * (grid_len + 1));
 	while (index < grid_len)
 	{
-		ft_putchar(ft_binary_string_to_decimal(grid[index]));
+		str[index] = ft_binary_string_to_decimal(grid[index]);
 		index++;
 	}
-	return (index);
+	str[index] = 0;
+	return (str);
 }
 
 static char		**get_octal_strings(char *bin)
@@ -82,27 +87,29 @@ static char		**get_octal_strings(char *bin)
 	return (split_octal(tab[index]));
 }
 
-int				ft_putwchar(wint_t wchar)
+char			*ft_getwchar(wint_t wchar)
 {
 	char			**grid;
 	char			*bin;
-	int				print_len;
+	char			*str;
+	char			buf[2];
 	unsigned int	i;
 
 	i = (unsigned int)wchar;
-	print_len = 0;
 	bin = ft_get_binary_string(i);
+	ft_bzero(buf, 2);
 	if (ft_strlen(bin) < 8)
 	{
-		ft_putchar(i);
-		return (1);
+		buf[0] = i;
+		return (ft_strdup(buf));
 	}
 	grid = get_octal_strings(bin);
 	if (grid)
 	{
-		print_len = print_wchart(grid);
+		str = get_wchart_string(grid);
 		ft_strdel(&bin);
+		return (str);
 	}
 	ft_tabdel(grid);
-	return (print_len);
+	return (NULL);
 }

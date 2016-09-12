@@ -14,7 +14,7 @@
 #include "format.h"
 #include "width.h"
 
-void	exec_x(void *ff, va_list ap, int *len)
+char	*exec_x(void *ff, va_list ap)
 {
 	t_format	*f;
 	char		*str;
@@ -22,8 +22,5 @@ void	exec_x(void *ff, va_list ap, int *len)
 	f = (t_format *)ff;
 	str = modifier_handle_oux(ff, ap, f->conversion->c == 'X' ?
 		"0123456789ABCDEF" : "0123456789abcdef");
-	str = width_handle((t_format *)ff, str);
-	*len = ft_strlen(str);
-	ft_putstr(str);
-	ft_strdel(&str);
+	return (str);
 }

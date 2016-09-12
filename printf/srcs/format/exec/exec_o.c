@@ -14,13 +14,14 @@
 #include "format.h"
 #include "width.h"
 
-void	exec_o(void *ff, va_list ap, int *len)
+char	*exec_o(void *ff, va_list ap)
 {
 	char	*str;
+	t_format	*f;
 
+	f = (t_format *)ff;
 	str = modifier_handle_oux(ff, ap, "01234567");
-	str = width_handle((t_format *)ff, str);
-	*len = ft_strlen(str);
-	ft_putstr(str);
-	ft_strdel(&str);
+	if (f->options[OPT_SHARP] && f->precision < (int)ft_strlen(str))
+		f->precision = ft_strlen(str) + 1;
+	return (str);
 }

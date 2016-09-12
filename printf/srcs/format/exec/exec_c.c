@@ -15,7 +15,7 @@
 #include "width.h"
 #include "utils.h"
 
-void	exec_c(void *ff, va_list ap, int *len)
+char	*exec_c(void *ff, va_list ap)
 {
 	char		c;
 	char		*str;
@@ -23,14 +23,13 @@ void	exec_c(void *ff, va_list ap, int *len)
 
 	f = (t_format *)ff;
 	if (f->modifier == L)
-		return (exec_big_c(ff, ap, len));
+		return (exec_big_c(ff, ap));
 	str = ft_memalloc(sizeof(char) * 2);
 	c = (char)va_arg(ap, int);
 	if (c == 0 && f->width != 0)
 		f->width -= 1;
+	if (c == 0)
+		f->print_zero = true;
 	str[0] = c;
-	str = width_handle(f, str);
-	*len = ft_putstrlen(str);
-	*len += c == 0  ? ft_putcharlen(c) : 0;
-	ft_strdel(&str);
+	return (str);
 }

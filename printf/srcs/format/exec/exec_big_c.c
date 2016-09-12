@@ -14,18 +14,16 @@
 #include "format.h"
 #include "utils.h"
 
-void	exec_big_c(void *ff, va_list ap, int *len)
+char	*exec_big_c(void *ff, va_list ap)
 {
-	int			l;
 	wint_t		win;
 	t_format	*f;
+	char		*str;
 
 	f = (t_format *)ff;
 	win = va_arg(ap, wint_t);
-	l = ft_count_binary_len(win) / 7 + 1;
-	if (!f->options[OPT_MINUS])
-		*len += ft_print_xtimes(f->options[OPT_ZERO] ? '0' : ' ', l < f->width);
-	*len = ft_putwchar(win);
-	if (f->options[OPT_MINUS])
-		*len += ft_print_xtimes(f->options[OPT_ZERO] ? '0' : ' ', l < f->width);
+	str = ft_getwchar(win);
+	if (*str == 0)
+		f->print_zero = true;
+	return (str);
 }
