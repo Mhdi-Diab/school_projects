@@ -20,6 +20,5 @@
 
 int		width_parse(char *str);
 char	*width_handle(t_format *f, char *str);
-void	width_place_minus(char *str);
 
 #endif

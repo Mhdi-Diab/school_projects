@@ -26,10 +26,11 @@ char	*exec_c(void *ff, va_list ap)
 		return (exec_big_c(ff, ap));
 	str = ft_memalloc(sizeof(char) * 2);
 	c = (char)va_arg(ap, int);
-	if (c == 0 && f->width != 0)
-		f->width -= 1;
 	if (c == 0)
+	{
+		f->width -= 1;
 		f->print_zero = true;
+	}
 	str[0] = c;
 	return (str);
 }

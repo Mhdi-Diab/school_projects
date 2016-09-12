@@ -21,8 +21,5 @@ char	*exec_d(void *ff, va_list ap)
 
 	f = (t_format *)ff;
 	str = modifier_handle_di(ff, ap);
-	str = width_handle(f, str);
-	if (f->options[OPT_ZERO])
-		width_place_minus(str);
 	return (str);
 }
