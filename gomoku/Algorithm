@@ -1,0 +1,33 @@
+THREAT-SPACE SEARCH:
+
+FOUR: is defined as a line of five squares, of which the attacker has occupied any four, with the
+	fifth square empty;
+STRAIGHT FOUR: a line of six squares, of which the attacker has occupied the four center squares,
+	while the two outer squares are empty;
+THREE: is either a line of seven squares of which the three center squares are occupied by the attacker,
+	and the remaining four squares are empty, or a line of six squares, with three consecutive squares
+	of the four center squares occupied by the attacker, and the remaining three squares empty;
+BROKEN THREE: is a line of six squares of which the attacker has occupied three non-consecutive squares
+	of the four center squares, while the other three
+
+	squares are empty.
+GAIN SQUARE: of a threat is the square played by the attacker.
+COST SQUARE: of a threat are the squares played by the defender, in response to the threat.
+REST SQUARE: of a threat are the squares containing a threat possibility; the gain square excepted.
+
+DEPENDENCY: Threat A is dependent on threat B, if a rest square of A is the gain square of B.
+DEPENDENCY TREE: of a threat A is the tree with root A and consisting of dependent nodes only, viz.
+	the children of each node J are the threats dependent on J.
+DEPENDENCY CONFLICT: Two dependency trees P and Q are in conflict, if within dependency tree P a threat A exists and
+	within dependency tree Q a threat B, in such a way that (1) the gain square of A is cost square in
+	B, or (2) vice versa, or (3) a cost square in A is
+	also cost square in B.
+
+If no winning line had been found => PROOF-NUMBER SEARCH is started
+Then all defensive moves must be investigated in order to guarantee a correct evaluation of internal nodes
+
+RESULT:
+1. the tree must be split in a few hundred subtrees.
+2. the results of each calculation (the solution of a subtree) has to be stored in a database;
+3. the results of all calculations must be merged into a final tree, containing the solution;
+4. the solution in the final tree must be inspected on consistency and completeness.
