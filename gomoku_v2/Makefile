@@ -1,6 +1,6 @@
 CC = clang++
 CFLAGS = -Wextra -Wall -Werror -O3 -I./includes -I ~/.brew/include
-SRC = main.cpp Window.cpp Board.cpp Render.cpp Solver.cpp UI.cpp Rectangle.cpp
+SRC = main.cpp Board.cpp Solver.cpp Rectangle.cpp Player.cpp Game.cpp
 
 NAME = gomoku
 
