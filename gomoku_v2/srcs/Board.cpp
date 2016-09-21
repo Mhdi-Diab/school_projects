@@ -23,3 +23,11 @@ void Board::print(void) {
 		cout << endl;
 	}
 }
+
+bool Board::placePiece(int x, int y, t_piece piece) {
+	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY) {
+		board[y][x] = piece;
+		return true;
+	}
+	return false;
+}

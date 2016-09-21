@@ -21,6 +21,7 @@ public:
 
 	void clear(void);
 	void print(void);
+	bool placePiece(int x, int y, t_piece piece);
 
 };
 #endif

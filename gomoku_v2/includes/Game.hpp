@@ -1,7 +1,10 @@
 #ifndef GAME_HPP
 # define GAME_HPP
 
+
+
 #include <iostream>
+#include <string>
 using namespace std;
 
 # include "Rectangle.hpp"
@@ -12,6 +15,7 @@ using namespace std;
 # define INV(X) (X) == (BLACK) ? (WHITE) : (BLACK)
 
 class Board;
+class Solver;
 class Game {
 
 public:
@@ -20,9 +24,11 @@ public:
 	Player			*player[2];
 	t_player_color	currentPlayer;
 
-	Game(void);
-	// Game(Game &rhs);
-	~Game(void);
-	void loop(void);
+					Game(void);
+					// Game(Game &rhs);
+					~Game(void);
+	void 			loop(void);
+	void 			getPlayerMove();
+	pair<int,int>	getPlayerInput();
 };
 #endif
