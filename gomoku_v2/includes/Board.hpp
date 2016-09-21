@@ -2,8 +2,10 @@
 # define BOARD_HPP
 
 # define BOARD_SIZE 19
-# include "Game.hpp"
+
+# include "Rectangle.hpp"
 # include <vector>
+using namespace std;
 
 typedef enum 	e_piece {
 	BLACK = 'x',
@@ -11,12 +13,24 @@ typedef enum 	e_piece {
 	EMPTY = '.'
 }				t_piece;
 
-class Board {
+typedef enum 	s_orientation {
+	N = 0,
+	S,
+	E,
+	W,
+	NW,
+	NE,
+	SW,
+	SE
+}				t_orientation;
 
+class Rectangle;
+class Board {
 public:
-	char			board[BOARD_SIZE][BOARD_SIZE];
-	int				score;
-	pair<int,int>	previousMove;
+	char					board[BOARD_SIZE][BOARD_SIZE];
+	int						score;
+	pair<int,int>			lastMove;
+	std::vector<Rectangle *> rectangles;
 
 	Board(void);
 	// Board(Board &rhs);
@@ -25,7 +39,9 @@ public:
 	void clear(void);
 	void print(void);
 	bool placePiece(int x, int y, t_piece piece);
+	t_piece getPiece(int x, int y);
+	bool hasXPiecesInRow(int x, int y, int nb);
 	vector<Board *> listAllMoves();
-
 };
+
 #endif

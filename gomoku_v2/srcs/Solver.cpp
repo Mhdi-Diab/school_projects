@@ -12,13 +12,11 @@ pair<int, int> Solver::solve(Board *board) {
 	// move = minMaxAlphaBeta(board, 1, -MAX_VALUE, MAX_VALUE);
 	cout << "SOLVER" << endl;
 	return make_pair(rand() % 19, rand() % 19);
-	// return move->previousMove;
+	// return move->lastMove;
 }
 
 bool Solver::isGameFinished(Board *board) {
-	(void)board;
-
-	return false;
+	return board->hasXPiecesInRow(get<0>(board->lastMove), get<1>(board->lastMove), 5);
 }
 
 Board *Solver::minMaxAlphaBeta(Board *board, int depth, int alpha, int beta) {

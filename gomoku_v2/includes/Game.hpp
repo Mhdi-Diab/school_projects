@@ -7,7 +7,6 @@
 #include <string>
 using namespace std;
 
-# include "Rectangle.hpp"
 # include "Board.hpp"
 # include "Player.hpp"
 # include "Solver.hpp"
@@ -24,11 +23,14 @@ public:
 	Player			*player[2];
 	t_player_color	currentPlayer;
 
-					Game(void);
-					// Game(Game &rhs);
-					~Game(void);
+	Game(void);
+	// Game(Game &rhs);
+	~Game(void);
+
 	void 			loop(void);
 	void 			getPlayerMove();
+	void			getAIMove();
 	pair<int,int>	getPlayerInput();
 };
+
 #endif

@@ -17,15 +17,21 @@ void	Game::loop(void) {
 	while(1) {
 		board->print();
 		if (player[currentPlayer]->type == P_AI) {
-			xy = solver->solve(board);
-			cout << "MOVED -> x: " << get<0>(xy) << " y: " << get<1>(xy) << endl;
-			board->placePiece(get<0>(xy), get<1>(xy), PIECE(currentPlayer));
+			getAIMove();
 		}
 		else {
 			getPlayerMove();
 		}
 		currentPlayer = OPPONENT(currentPlayer);
 	}
+}
+
+void	Game::getAIMove() {
+	pair<int,int>	ret;
+
+	ret = solver->solve(board);
+	cout << "MOVED -> x: " << get<0>(ret) << " y: " << get<1>(ret) << endl;
+	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
 }
 
 void 	Game::getPlayerMove() {
