@@ -30,7 +30,7 @@ public:
 	char					board[BOARD_SIZE][BOARD_SIZE];
 	int						score;
 	pair<int,int>			lastMove;
-	std::vector<Rectangle *> rectangles;
+	std::vector<Rectangle *> *rectangles;
 
 	Board(void);
 	// Board(Board &rhs);
@@ -42,6 +42,7 @@ public:
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb);
 	vector<Board *> listAllMoves();
+	void computeRectangles(int x, int y);
 };
 
 #endif

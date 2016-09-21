@@ -30,7 +30,6 @@ public:
 	void 			loop(void);
 	void 			getPlayerMove();
 	void			getAIMove();
-	pair<int,int>	getPlayerInput();
 };
 
 #endif

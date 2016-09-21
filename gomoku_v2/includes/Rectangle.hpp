@@ -5,6 +5,7 @@
 # include <vector>
 # include <map>
 # include <iostream>
+using namespace std;
 
 class Rectangle {
 
@@ -23,6 +24,10 @@ public:
 	Rectangle(Rectangle &rhs);
 	~Rectangle(void);
 
+	vector<Rectangle *> getConnectedRectangles(vector<Rectangle *> *rectangles, int x, int y);
+	void mergeRectangles(vector<Rectangle *> *rectangles, vector<Rectangle *> vec, int x, int y);
+	void mergeRectanglesInside(vector<Rectangle *> *rectangles, Rectangle *rect);
+	void removeRectangle(vector<Rectangle *> *rectangles, Rectangle *r1);
 	bool isInsideRectangle(int x, int y);
 	void resize(int x, int y);
 	void bigResize(int minX, int minY, int width, int height);
@@ -32,6 +37,7 @@ public:
 	int getBottomRightY() const;
 	int getWidth() const;
 	int getHeight() const;
+	bool hasPieceInside(Rectangle *rect);
 	bool shouldIncreaseBottomX(int x);
 	bool shouldIncreaseBottomY(int y);
 	bool shouldDecreaseTopX(int x);

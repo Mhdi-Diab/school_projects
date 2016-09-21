@@ -52,6 +52,90 @@ void Rectangle::resize(int x, int y) {
 	this->hasMoreThanOnePiece = true;
 }
 
+vector<Rectangle *> Rectangle::getConnectedRectangles(vector<Rectangle *> *rectangles, int x, int y) {
+	vector<Rectangle *> vec;
+
+	for (vector<Rectangle *>::iterator iter = rectangles->begin(); iter != rectangles->end(); iter++) {
+		if ((*iter)->isInsideRectangle(x, y)) {
+			vec.push_back(*iter);
+		}
+	}
+	return (vec);
+}
+
+void	Rectangle::mergeRectangles(vector<Rectangle *> *rectangles, vector<Rectangle *> vec, int x, int y) {
+	Rectangle *rect;
+	int minX, minY, maxX, maxY;
+
+	minX = BOARD_SIZE;
+	minY = BOARD_SIZE;
+	maxX = -1;
+	maxY = -1;
+	for (vector<Rectangle *>::iterator iter = vec.begin(); iter != vec.end(); iter++) {
+		if ((*iter)->getTopLeftX() < minX)
+			minX = (*iter)->getTopLeftX();
+		if ((*iter)->getTopLeftY() < minY)
+			minY = (*iter)->getTopLeftY();
+		if ((*iter)->getBottomRightY() > maxY)
+			maxY = (*iter)->getBottomRightY();
+		if ((*iter)->getBottomRightX() > maxX)
+			maxX = (*iter)->getBottomRightX();
+		removeRectangle(rectangles, *iter);
+	}
+	rect = new Rectangle(x, y);
+	rect->bigResize(minX, minY, maxX, maxY);
+	rectangles->push_back(rect);
+	mergeRectanglesInside(rectangles, rect);
+}
+
+void 	Rectangle::mergeRectanglesInside(vector<Rectangle *> *rectangles, Rectangle *rect) {
+	int TLrectX, TLrectY, BRrectX, BRrectY, TLiterX, TLiterY, BRiterX, BRiterY;
+
+	TLrectX = rect->getTopLeftX();
+	TLrectY = rect->getTopLeftY();
+	BRrectX = rect->getBottomRightX();
+	BRrectY = rect->getBottomRightY();
+	for (vector<Rectangle *>::iterator iter = rectangles->begin(); iter != rectangles->end(); iter++) {
+		if (*iter != rect && (*iter)->hasPieceInside(rect)) {
+			TLiterX = (*iter)->getTopLeftX();
+			TLiterY = (*iter)->getTopLeftY();
+			BRiterX = (*iter)->getBottomRightX();
+			BRiterY = (*iter)->getBottomRightY();
+			if (TLrectX > TLiterX)
+				rect->setTopLeftX(TLiterX);
+			if (TLrectY > TLiterY)
+				rect->setTopLeftY(TLiterY);
+			if (BRrectX < BRiterX)
+				rect->setBottomRightX(BRiterX);
+			if (BRrectY < BRiterY)
+				rect->setBottomRightY(BRiterY);
+			removeRectangle(rectangles, *iter);
+			mergeRectanglesInside(rectangles, rect);
+			break ;
+		}
+	}
+}
+
+bool Rectangle::hasPieceInside(Rectangle *rect) {
+	for (int y = this->topLeftY; y <= this->bottomRightY; y++) {
+		for (int x = this->topLeftX; x <= this->bottomRightX; x++) {
+			// if (pieces.count(std::make_pair(x,y)) && pieces[std::make_pair(x,y)] != EMPTY && rect->isInsideRectangle(x, y)) {
+				// return true;
+			// }
+		}
+	}
+	return false;
+}
+
+void 	Rectangle::removeRectangle(vector<Rectangle *> *rectangles, Rectangle *r1) {
+	for (vector<Rectangle *>::iterator iter = rectangles->begin(); iter != rectangles->end(); iter++) {
+		if (*iter == r1) {
+			rectangles->erase(iter);
+			break;
+		}
+	}
+}
+
 bool Rectangle::shouldIncreaseBottomX(int x) {
 	return (x > this->bottomRightX - 2 && this->bottomRightX < BOARD_SIZE);
 }

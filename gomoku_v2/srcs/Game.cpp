@@ -35,19 +35,12 @@ void	Game::getAIMove() {
 }
 
 void 	Game::getPlayerMove() {
-	pair<int,int>	ret;
-
-	ret = getPlayerInput();
-	if (!board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer))) {
-		getPlayerMove();
-	}
-}
-
-pair<int,int> Game::getPlayerInput() {
 	string 			x;
 	string 			y;
 
 	getline(cin, x);
 	getline(cin, y);
-	return make_pair(atoi(x.c_str()), atoi(y.c_str()));
+	if (!board->placePiece(atoi(x.c_str()), atoi(y.c_str()), PIECE(currentPlayer))) {
+		getPlayerMove();
+	}
 }

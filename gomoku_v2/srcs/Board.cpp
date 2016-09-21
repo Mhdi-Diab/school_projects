@@ -2,8 +2,9 @@
 
 Board::Board() {
 	lastMove = make_pair(-1, -1);
+	rectangles = new vector<Rectangle *>();
 	score = 0;
-	this->clear();
+	clear();
 }
 
 Board::~Board(void) {
@@ -50,4 +51,25 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 
 t_piece Board::getPiece(int x, int y) {
 	return (t_piece)board[y][x];
+}
+
+void 		Board::computeRectangles(int x, int y) {
+	vector<Rectangle *>	vec;
+	Rectangle	*rect;
+
+	rect = new Rectangle(x, y);
+	if (rectangles->size() == 0) {
+		rectangles->push_back(rect);
+	} else {
+		vec = rect->getConnectedRectangles(rectangles, x, y);
+		if (vec.size() == 0) {
+			rectangles->push_back(rect);
+		} else if (vec.size() == 1) {
+			rect = vec.front();
+			rect->resize(x, y);
+		} else if (vec.size() > 1) {
+			rectangles->push_back(rect);
+			rect->mergeRectangles(rectangles, vec, x, y);
+		}
+	}
 }
