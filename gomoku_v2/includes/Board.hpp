@@ -30,7 +30,8 @@ public:
 	char					board[BOARD_SIZE][BOARD_SIZE];
 	int						score;
 	pair<int,int>			lastMove;
-	std::vector<Rectangle *> *rectangles;
+	vector<Rectangle *> 	*rectangles;
+	static map<t_orientation, pair<int, int> > orientationInc;
 
 	Board(void);
 	// Board(Board &rhs);
@@ -40,9 +41,23 @@ public:
 	void print(void);
 	bool placePiece(int x, int y, t_piece piece);
 	t_piece getPiece(int x, int y);
-	bool hasXPiecesInRow(int x, int y, int nb);
+	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
 	vector<Board *> listAllMoves();
 	void computeRectangles(int x, int y);
+	int countConnectedPieces(int x, int y, t_piece piece, t_orientation ori);
+
+	static map<t_orientation, pair<int, int > > initOrientationInc() {
+		 map<t_orientation, pair<int, int > > myMap;
+		 myMap[NW] = make_pair(-1, -1);
+		 myMap[N] = make_pair(0, -1);
+		 myMap[NE] = make_pair(1, -1);
+		 myMap[E] = make_pair(1, 0);
+		 myMap[SE] = make_pair(1, 1);
+		 myMap[S] = make_pair(0, 1);
+		 myMap[SW] = make_pair(-1, 1);
+		 myMap[W] = make_pair(-1, 0);
+		 return myMap;
+	 }
 };
 
 #endif

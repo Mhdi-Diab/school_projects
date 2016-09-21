@@ -36,5 +36,9 @@ void			format_del(t_format **format);
 int				format_exec(char *str, va_list ap);
 void			format_parse(t_format *f, char *str);
 void			format_print(t_format *f);
+char			*format_check_zero(t_format *f, char *str);
+char			*format_check_d(char *str);
+char			*format_check_p(char *str);
+char			*format_check_all(t_format *f, char *str);
 
 #endif

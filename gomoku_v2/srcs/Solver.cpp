@@ -1,5 +1,10 @@
 #include "Solver.hpp"
 
+static bool superiorCmp(int a, int b) {
+	cout << "CMP " << a << " " << b << endl;
+	return a >= b;
+}
+
 Solver::Solver() {
 }
 
@@ -16,7 +21,7 @@ pair<int, int> Solver::solve(Board *board) {
 }
 
 bool Solver::isGameFinished(Board *board) {
-	return board->hasXPiecesInRow(get<0>(board->lastMove), get<1>(board->lastMove), 5);
+	return board->hasXPiecesInRow(get<0>(board->lastMove), get<1>(board->lastMove), 5, superiorCmp);
 }
 
 Board *Solver::minMaxAlphaBeta(Board *board, int depth, int alpha, int beta) {

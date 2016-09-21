@@ -1,5 +1,7 @@
 #include "Board.hpp"
 
+map<t_orientation, pair<int, int> >Board::orientationInc = initOrientationInc();
+
 Board::Board() {
 	lastMove = make_pair(-1, -1);
 	rectangles = new vector<Rectangle *>();
@@ -33,10 +35,27 @@ vector<Board *> Board::listAllMoves() {
 	return moves;
 }
 
-bool Board::hasXPiecesInRow(int x, int y, int nb) {
+int	 Board::countConnectedPieces(int x, int y, t_piece piece, t_orientation ori) {
+	pair<int, int> inc = orientationInc[ori];
+
+	if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE || this->getPiece(x, y) != piece) {
+		return (0);
+	}
+	return (1 + this->countConnectedPieces(x + get<0>(inc), y + get<1>(inc), piece, ori));
+}
+
+bool Board::hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int)) {
+	int i = 0;
 	t_piece piece = getPiece(x, y);
-	(void)nb;
-	(void)piece;
+	t_orientation ori[8] = {NW, SE, N, S, W, E, SW, NE};
+
+	while (i < 8) {
+		if ((*f)(countConnectedPieces(x, y, piece, ori[i]) +
+			countConnectedPieces(x, y, piece, ori[i + 1]) - 1, nb)) {
+			return true;
+		}
+		i += 2;
+	}
 	return false;
 }
 

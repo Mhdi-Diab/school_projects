@@ -8,9 +8,9 @@ int main()
 	int i;
 	int c = 42121;
 
-	i = printf("%.4S", L"我是一只猫。");
+	i = printf("%#o", 0);
 	P("\n%d\n", i);
-	i = ft_printf("%.4S", L"我是一只猫。");
+	i = ft_printf("%#o", 0);
 	P("\n%d\n", i);
 	return (0);
 }

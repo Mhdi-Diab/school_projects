@@ -22,6 +22,9 @@ void	Game::loop(void) {
 		else {
 			getPlayerMove();
 		}
+		if (solver->isGameFinished(board)) {
+			cout << "GAME FINISHED" << endl;
+		}
 		currentPlayer = OPPONENT(currentPlayer);
 	}
 }
