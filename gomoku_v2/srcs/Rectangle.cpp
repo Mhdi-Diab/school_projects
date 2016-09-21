@@ -96,7 +96,7 @@ void 	Rectangle::mergeRectanglesInside(vector<Rectangle *> *rectangles, Rectangl
 	BRrectX = rect->getBottomRightX();
 	BRrectY = rect->getBottomRightY();
 	for (vector<Rectangle *>::iterator iter = rectangles->begin(); iter != rectangles->end(); iter++) {
-		if (*iter != rect && (*iter)->hasPieceInside(rect)) {
+		if (*iter != rect) {
 			TLiterX = (*iter)->getTopLeftX();
 			TLiterY = (*iter)->getTopLeftY();
 			BRiterX = (*iter)->getBottomRightX();
@@ -116,16 +116,13 @@ void 	Rectangle::mergeRectanglesInside(vector<Rectangle *> *rectangles, Rectangl
 	}
 }
 
-bool Rectangle::hasPieceInside(Rectangle *rect) {
-	for (int y = this->topLeftY; y <= this->bottomRightY; y++) {
-		for (int x = this->topLeftX; x <= this->bottomRightX; x++) {
-			// if (pieces.count(std::make_pair(x,y)) && pieces[std::make_pair(x,y)] != EMPTY && rect->isInsideRectangle(x, y)) {
-				// return true;
-			// }
-		}
-	}
-	return false;
-}
+// bool Rectangle::hasPieceInside(Rectangle *rect) {
+// 	for (int y = this->topLeftY; y <= this->bottomRightY; y++) {
+// 		for (int x = this->topLeftX; x <= this->bottomRightX; x++) {
+// 		}
+// 	}
+// 	return false;
+// }
 
 void 	Rectangle::removeRectangle(vector<Rectangle *> *rectangles, Rectangle *r1) {
 	for (vector<Rectangle *>::iterator iter = rectangles->begin(); iter != rectangles->end(); iter++) {

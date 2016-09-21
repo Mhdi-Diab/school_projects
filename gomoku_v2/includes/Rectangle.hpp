@@ -37,7 +37,6 @@ public:
 	int getBottomRightY() const;
 	int getWidth() const;
 	int getHeight() const;
-	bool hasPieceInside(Rectangle *rect);
 	bool shouldIncreaseBottomX(int x);
 	bool shouldIncreaseBottomY(int y);
 	bool shouldDecreaseTopX(int x);

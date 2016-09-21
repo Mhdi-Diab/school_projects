@@ -10,6 +10,7 @@ using namespace std;
 # include "Board.hpp"
 # include "Player.hpp"
 # include "Solver.hpp"
+# include "Render.hpp"
 
 # define INV(X) (X) == (BLACK) ? (WHITE) : (BLACK)
 
@@ -19,6 +20,7 @@ class Game {
 
 public:
 	Board			*board;
+	Render			*render;
 	Solver			*solver;
 	Player			*player[2];
 	t_player_color	currentPlayer;

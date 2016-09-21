@@ -5,6 +5,7 @@
 
 # include "Rectangle.hpp"
 # include <vector>
+# include <map>
 using namespace std;
 
 typedef enum 	e_piece {

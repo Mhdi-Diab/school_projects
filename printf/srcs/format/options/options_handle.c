@@ -22,7 +22,8 @@ char			*options_handle(void *ff, char *str)
 	conversion = f->conversion->c;
 	if (f->options[OPT_SHARP])
 	{
-		if (conversion == 'o' && f->precision < (int)ft_strlen(str) && ft_atoi(str) != 0)
+		if (conversion == 'o' && f->precision < (int)ft_strlen(str) &&
+		ft_atoi(str) != 0) //TODO: a ameliorer
 			f->precision = ft_strlen(str) + 1;
 	}
 	return (str);

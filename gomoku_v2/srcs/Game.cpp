@@ -3,9 +3,11 @@
 Game::Game(void) {
 	board = new Board();
 	solver = new Solver();
+	render = new Render();
 	currentPlayer = P_BLACK;
 	player[P_BLACK] = new Player(P_BLACK, P_PLAYER);
 	player[P_WHITE] = new Player(P_WHITE, P_AI);
+
 }
 
 Game::~Game(void) {
@@ -15,15 +17,16 @@ void	Game::loop(void) {
 	pair<int, int> xy;
 
 	while(1) {
-		board->print();
 		if (player[currentPlayer]->type == P_AI) {
 			getAIMove();
 		}
 		else {
 			getPlayerMove();
 		}
+		board->print();
 		if (solver->isGameFinished(board)) {
 			cout << "GAME FINISHED" << endl;
+			break ;
 		}
 		currentPlayer = OPPONENT(currentPlayer);
 	}

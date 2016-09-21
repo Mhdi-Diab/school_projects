@@ -84,6 +84,7 @@ void 		Board::computeRectangles(int x, int y) {
 		if (vec.size() == 0) {
 			rectangles->push_back(rect);
 		} else if (vec.size() == 1) {
+			delete rect;
 			rect = vec.front();
 			rect->resize(x, y);
 		} else if (vec.size() > 1) {

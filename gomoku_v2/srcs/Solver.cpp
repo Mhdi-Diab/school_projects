@@ -1,7 +1,6 @@
 #include "Solver.hpp"
 
 static bool superiorCmp(int a, int b) {
-	cout << "CMP " << a << " " << b << endl;
 	return a >= b;
 }
 
