@@ -11,19 +11,19 @@ std::map<t_orientation, std::pair<int, int> >Board::orientationInc = init_orient
 std::map<std::pair<t_color, t_threat>, int>Board::threatNameAndValues = init_threatNameAndValues();
 std::map<t_option, bool>Board::options = init_options();
 
-Board::Board(Window *win) : Render(win) {
+Board::Board() {
 	this->turn_ = 1;
 	this->winner_ = EMPTY;
 	this->curPieceMouseY_ = -1;
 	this->curPieceMouseX_ = -1;
 	this->curTurn = BLACK;
 	this->data_[WHITE] = new t_data();
-	this->data_[WHITE]->nbCaptures = 0;
-	this->data_[WHITE]->totalTime = milliseconds(0);
+	this->data_[WHITE]->nbCaptures = 0; //A REMOVE
+	this->data_[WHITE]->totalTime = milliseconds(0); //A REMOVE
 	this->data_[BLACK] = new t_data();
 	this->data_[BLACK]->nbCaptures = 0;
-	this->data_[BLACK]->lastStartTime = Clock::now();
-	this->data_[BLACK]->totalTime = milliseconds(0);
+	this->data_[BLACK]->lastStartTime = Clock::now(); //A REMOVE
+	this->data_[BLACK]->totalTime = milliseconds(0);  //A REMOVE
 	this->mode = NOMOD;
 	this->temp_mode_ = NOMOD;
 	this->ClearBoard();
@@ -58,11 +58,7 @@ Board::~Board(void) {
 /************************      GAMEPLAY			*************************/
 /************************************************************************/
 
-void Board::placePiece(int mouseX, int mouseY) {
-	int x, y;
-
-	y = (mouseY - PADDING_Y + 35) / 70;
-	x = (mouseX - PADDING_X + 35) / 70;
+void Board::placePiece(int x, int y) {
 	if (x >= 0 && x < SIZE && y >= 0 && y < SIZE && this->board[y][x] == EMPTY)
 	{
 		if (!this->placePieceWithoutRender(x, y, this->curTurn))
@@ -558,7 +554,7 @@ void 	Board::removeRectangle(Rectangle *r1) {
 /************************      INIT 			*************************/
 /************************************************************************/
 
-void Board::ClearBoard(void){
+void Board::ClearBoard(void) {
 	for (int y = 0; y < SIZE; y++) {
 		for (int x = 0; x < SIZE; x++) {
 			board[y][x] = EMPTY;
@@ -566,120 +562,17 @@ void Board::ClearBoard(void){
 	}
 }
 
-void Board::InitTurn()
-{
+void Board::placeIAPiece() {
 	std::pair<int,int> ret;
-	int x, y;
 
-	if (this->data_[this->curTurn]->type == IA) {
-		this->curPieceMouseY_ = -1;
-		this->curPieceMouseX_ = -1;
-		ret = this->solver_.solve(this, this->curTurn);
-		x = std::get<0>(ret) * 70 + PADDING_X - 35;
-		y = std::get<1>(ret) * 70 + PADDING_Y - 35;
-		this->placePiece(x,y);
-	}
+	this->curPieceMouseY_ = -1;
+	this->curPieceMouseX_ = -1;
+	this->solver_.solve(this, this->curTurn);
 }
 
 /************************************************************************/
 /************************      MOUSE EVENTS			*************************/
 /************************************************************************/
-
-void Board::HandleInput(SDL_Event e)
-{
-	std::pair<int,int> ret;
-	int x, y;
-
-	if (e.key.keysym.scancode == SDL_SCANCODE_P)
-	{
-		if (this->data_[this->curTurn]->type == MAN)
-		{
-			this->curPieceMouseY_ = -1;
-			this->curPieceMouseX_ = -1;
-			ret = this->solver_.solve(this, this->curTurn);
-			x = std::get<0>(ret) * 70 + PADDING_X - 35;
-			y = std::get<1>(ret) * 70 + PADDING_Y - 35;
-			this->placePiece(x,y);
-		}
-	}
-}
-
-void Board::ChoseMode(void){
-	this->mode = this->temp_mode_;
-	if (this->temp_mode_ == MANVSMAN){
-		this->data_[BLACK]->type = MAN;
-		this->data_[WHITE]->type = MAN;
-	}
-	else if (this->mode == MANVSIA){
-		this->mode = CHOSE_COLOR;
-	}
-	else{
-		this->data_[WHITE]->type = IA;
-		this->data_[BLACK]->type = IA;
-	}
-}
-
-void Board::ChoseColor(void){
-	if (this->temp_color_ == BLACK){
-		this->data_[BLACK]->type = MAN;
-		this->data_[WHITE]->type = IA;
-	}
-	else{
-		this->data_[BLACK]->type = IA;
-		this->data_[WHITE]->type = MAN;
-	}
-	this->mode = MANVSIA;
-}
-
-void Board::RestartGame(void){
-	this->curPieceMouseY_ = -1;
-	this->curPieceMouseX_ = -1;
-	this->curTurn = BLACK;
-	Board::threatNameAndValues = init_threatNameAndValues();
-	this->data_[WHITE]->nbCaptures = 0;
-	this->data_[WHITE]->totalTime = milliseconds(0);
-	this->data_[WHITE]->lastTurnTime = milliseconds(0);
-	this->data_[BLACK]->nbCaptures = 0;
-	this->data_[BLACK]->lastStartTime = Clock::now();
-	this->data_[BLACK]->totalTime = milliseconds(0);
-	this->data_[BLACK]->lastTurnTime = milliseconds(0);
-	this->mode = NOMOD;
-	this->temp_mode_ = NOMOD;
-	this->ClearBoard();
-	this->rectangles.clear();
-	this->turn_ = 0;
-}
-
-void Board::AutoRestartGame(void){
-	t_mode temp;
-
-	temp = this->mode;
-	this->RestartGame();
-	this->mode = temp;
-}
-
-void Board::HandleClick(int x, int y){
-	if(this->mode == END)
-	{
-		if (x > 1800 && y > 1200){
-			this->RestartGame();
-		}
-	}
-	else if (this->mode == NOMOD){
-		this->ChoseMode();
-	}
-	else if (this->mode == CHOSE_COLOR){
-		this->ChoseColor();
-	}
-	else {
-		if (x > 1800 && y > 1200){
-			this->RestartGame();
-		}
-		else {
-			this->placePiece(x, y);
-		}
-	}
-}
 
 void Board::setCurPiecePosition(int mouseX, int mouseY)
 {
@@ -698,116 +591,4 @@ void Board::setCurPiecePosition(int mouseX, int mouseY)
 		this->curPieceMouseY_ = -1;
 		this->curPieceMouseX_ = -1;
 	}
-}
-
-void Board::lightChosenMode(int x, int y)
-{
-	if (x < WINDOW_X / 2 && y < 700)
-		this->temp_mode_ = MANVSIA;
-	else if (x >= WINDOW_X / 2 && y < 700)
-		this->temp_mode_ = MANVSMAN;
-	else
-		this->temp_mode_ = IAVSIA;
-}
-
-void Board::lightChosenColor(int x, int y)
-{
-	if (x < WINDOW_X / 2)
-		this->temp_color_ = BLACK;
-	else
-		this->temp_color_ = WHITE;
-}
-
-void Board::HandleMove(int x, int y){
-
-	if (this->mode == NOMOD){
-		this->lightChosenMode(x, y);
-	}
-	else if (this->mode == CHOSE_COLOR){
-		this->lightChosenColor(x, y);
-	}
-	else if (this->mode != END){
-		this->setCurPiecePosition(x, y);
-	}
-}
-
-/************************************************************************/
-/************************      GRAPHICS			*************************/
-/************************************************************************/
-
-void Board::InitBoard(Window *win) {
-	this->ui_ = new UI(this->win_);
-	this->ui_->InitStaticTextures();
-}
-
-void Board::renderCurPiece()
-{
-	if (this->curPieceMouseX_ >= PADDING_X - 35 && this->curPieceMouseX_ <= WINDOW_X - PADDING_X + 35)
-	{
-		if (this->curTurn == BLACK)
-			this->renderTextureWithPointer(this->ui_->black_light_, this->curPieceMouseX_, this->curPieceMouseY_);
-		else
-			this->renderTextureWithPointer(this->ui_->white_light_, this->curPieceMouseX_, this->curPieceMouseY_);
-	}
-}
-
-void Board::renderPieces(void){
-	int i = 0, j = 0;
-	int x, y;
-
-	while (i < SIZE)
-	{
-		j = 0;
-		y = i * 70 - 30 + PADDING_Y;
-		while (j < SIZE)
-		{
-			x = j * 70 - 30 + PADDING_X;
-			if (this->board[i][j] == BLACK)
-				this->renderTextureWithPointer(this->ui_->black_, x, y);
-			else if (this->board[i][j] == WHITE)
-				this->renderTextureWithPointer(this->ui_->white_, x, y);
-			j++;
-		}
-		i++;
-	}
-	this->renderCurPiece();
-}
-
-void Board::renderRectangles(void){
-	for (std::vector<Rectangle *>::iterator iter = this->rectangles.begin(); iter != this->rectangles.end(); iter++) {
-		(*iter)->RenderRectangle();
-	}
-}
-
-
-void Board::renderGame(void)
-{
-	this->ui_->renderBackground();
-	if (this->mode == END){
-		this->ui_->RenderTurn(std::to_string(this->turn_));
-		this->renderPieces();
-		this->ui_->RenderTextures(this->data_);
-		this->ui_->RenderWinner(this->data_, this->winner_);
-	}
-	else if (this->mode == NOMOD){
-		this->ui_->renderMenu(this->temp_mode_);
-	}
-	else if (this->mode == CHOSE_COLOR)
-	{
-		this->ui_->RenderChoseColor(this->temp_color_);
-	}
-	else{
-		if (Board::options[DEBUG] == true)
-		{
-			this->renderRectangles();
-		}
-		this->renderPieces();
-		this->ui_->RenderTurn(std::to_string(this->turn_));
-		this->ui_->RenderTextures(this->data_);
-	}
-}
-
-void Board::freeDynamicTexture()
-{
-	this->ui_->freeDynamicTexture();
 }

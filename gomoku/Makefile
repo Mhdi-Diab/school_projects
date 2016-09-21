@@ -1,7 +1,5 @@
 CC = clang++
-CFLAGS = -Wextra -Wall -Werror -O3 -I./includes -I ~/.brew/include `sdl2-config --cflags`
-LFLAGS = `sdl2-config --libs` -lSDL2_image -ljpeg -lpng -lSDL2_ttf
-#export LD_LIBRARY_PATH=~/.brew/lib
+CFLAGS = -Wextra -Wall -Werror -O3 -I./includes -I ~/.brew/include
 SRC = main.cpp Window.cpp Board.cpp Render.cpp Solver.cpp UI.cpp Rectangle.cpp
 
 NAME = gomoku

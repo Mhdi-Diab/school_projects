@@ -10,42 +10,39 @@
 * Debug print
 */
 
+static void 	handleArguments(char **av) {
+	for(int i = 0; i < ac; i++){
+		temp = av[i];
+		if (temp == "-l"){
+			Board::options[DEBUG] = true;
+		}
+		else if (temp == "-e"){
+			Board::options[EASY] = true;
+		}
+		else if (temp == "-a"){
+			Board::options[INFINITE] = true;
+		}
+	}
+}
+
 int main(int ac, char **av) {
 	(void)ac;
 	(void)av;
 	int	programShouldQuit = false;
 	std::string temp;
 
-	Window *win = new Window();
-	Board *board = new Board(win);
-	if (win->Init() == 0)
-	{
-		srand (time(NULL));
-		if (ac > 1){
-			for(int i = 0; i < ac; i++){
-				temp = av[i];
-				if (temp == "-l"){
-					Board::options[DEBUG] = true;
-				}
-				else if (temp == "-e"){
-					Board::options[EASY] = true;
-				}
-				else if (temp == "-a"){
-					Board::options[INFINITE] = true;
-				}
-			}
+	Board *board = new Board();
+	Solver *solver = new Solver();
+	srand(time(NULL));
+	// if (ac > 1){
+	// 	handleArguments(av);
+	// }
+	board->InitBoard();
+	while (1) {
+		if (board->data_[board->curTurn]->type == IA) {
+			board->placeIAPiece();
+			solver->solve(board);
 		}
-		board->InitBoard(win);
-		while (!programShouldQuit){
-			SDL_RenderClear(win->getRenderer());
-			if (board->mode == MANVSIA || board->mode == IAVSIA)
-				board->InitTurn();
-			board->renderGame();
-			SDL_RenderPresent(win->getRenderer());
-			board->freeDynamicTexture();
-			programShouldQuit = win->handleEvents(board);
-		}
-		win->Clean();
 	}
-	return 0;
+	return (0);
 }

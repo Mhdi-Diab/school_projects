@@ -11,17 +11,15 @@
 # include <stdlib.h>
 # include <regex>
 # include <chrono>
-# include "Render.hpp"
 # include "Rectangle.hpp"
-# include "UI.hpp"
 # include "Global.hpp"
 # include "Solver.hpp"
 # include <pthread.h>
 
 # define INV(X) (X) == (BLACK) ? (WHITE) : (BLACK)
-// # define SHOW_DEBUG 1 
+// # define SHOW_DEBUG 1
 
-class Board : public Render {
+class Board {
 
 public:
 	/** ALGORITHME **/
@@ -57,21 +55,7 @@ public:
 	int evaluateBoard(t_color color);
 	void 	printBoard();
 	void 	printThreats();
-	/** RENDER **/
-	static std::map<t_option, bool>	options;
-	t_mode mode;
-	std::map<t_color, t_data*>	data_;
-
-	void InitBoard(Window *win);
-	void setCurPiecePosition(int mouseX, int mouseY);
-	void renderGame(void);
-	void freeDynamicTexture(void);
-	void lightChosenMode(int x, int y);
-	void ChoseMode(void);
-	void HandleClick(int x, int y);
-	void HandleMove(int x, int y);
-	void HandleInput(SDL_Event 	e);
-	void InitTurn();
+	void placeIAPiece();
 
 private:
 	/** ALGORITHME **/
@@ -88,31 +72,6 @@ private:
 	void	renderRectangles(void);
 	void 	mergeRectanglesInside(Rectangle *rect);
 	bool 	isTwoTwo(int x, int y, t_color color, t_orientation ori);
-
-	/** RENDER **/
-	t_mode						temp_mode_;
-	UI							*ui_;
-	int 						curPieceMouseX_;
-	int 						curPieceMouseY_;
-	t_color						winner_;
-	t_color						temp_color_;
-	unsigned int				turn_;
-	Solver						solver_;
-	void 	loadPieceTextures(void);
-	void 	renderCurPiece();
-	void 	renderPieces();
-	void 	RestartGame(void);
-	void 	ClearBoard(void);
-	void	ChoseColor(void);
-	void	lightChosenColor(int x, int y);
-	void	AutoRestartGame(void);
-
-	static std::map<t_option, bool> init_options() {
-		 std::map<t_option, bool> some_map;
-		 some_map[DEBUG] = false;
-		 some_map[EASY] = false;
-		 return some_map;
-	 }
 
 	 static std::map<t_orientation, std::pair<int, int > > init_orientationInc() {
 		 std::map<t_orientation, std::pair<int, int > > myMap;
