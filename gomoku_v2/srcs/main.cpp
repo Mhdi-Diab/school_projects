@@ -1,13 +1,4 @@
-#include "Global.hpp"
-#include "Board.hpp"
-
-/* BONUS
-* Affichage des rectangles
-* IA VS IA
-* Aide de l'IA
-* Restart
-* Debug print
-*/
+#include "Game.hpp"
 
 int main() {
 

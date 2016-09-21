@@ -19,5 +19,6 @@ public:
 	Game(void);
 	// Game(Game &rhs);
 	~Game(void);
+	void loop(void);
 };
 #endif
