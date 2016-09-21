@@ -1,6 +1,8 @@
 #include "Board.hpp"
 
 Board::Board() {
+	previousMove = make_pair(-1, -1);
+	score = 0;
 	this->clear();
 }
 
@@ -24,9 +26,16 @@ void Board::print(void) {
 	}
 }
 
+vector<Board *> Board::listAllMoves() {
+	vector<Board *> moves;
+
+	return moves;
+}
+
 bool Board::placePiece(int x, int y, t_piece piece) {
 	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY) {
 		board[y][x] = piece;
+		previousMove = make_pair(x, y);
 		return true;
 	}
 	return false;

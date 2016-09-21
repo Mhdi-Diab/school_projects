@@ -12,25 +12,27 @@ Game::~Game(void) {
 }
 
 void	Game::loop(void) {
+	pair<int, int> xy;
+
 	while(1) {
 		board->print();
 		if (player[currentPlayer]->type == P_AI) {
-			solver->solve(board);
+			xy = solver->solve(board);
+			cout << "MOVED -> x: " << get<0>(xy) << " y: " << get<1>(xy) << endl;
+			board->placePiece(get<0>(xy), get<1>(xy), PIECE(currentPlayer));
 		}
 		else {
 			getPlayerMove();
 		}
-		this->currentPlayer = OPPONENT(this->currentPlayer);
+		currentPlayer = OPPONENT(currentPlayer);
 	}
 }
 
 void 	Game::getPlayerMove() {
 	pair<int,int>	ret;
-	t_piece			piece;
 
-	piece = currentPlayer == P_BLACK ? BLACK : WHITE;
 	ret = getPlayerInput();
-	if (!board->placePiece(get<0>(ret), get<1>(ret), piece)) {
+	if (!board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer))) {
 		getPlayerMove();
 	}
 }

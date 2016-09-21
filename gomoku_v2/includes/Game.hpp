@@ -1,7 +1,7 @@
 #ifndef GAME_HPP
 # define GAME_HPP
 
-
+# define PIECE(X) (X) == (P_BLACK) ? (BLACK) : (WHITE)
 
 #include <iostream>
 #include <string>
