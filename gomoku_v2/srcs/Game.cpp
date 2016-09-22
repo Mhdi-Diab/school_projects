@@ -13,48 +13,61 @@ Game::Game(void) {
 Game::~Game(void) {
 }
 
-void Game::playOneTurn(Event *event) {
+bool Game::playOneTurn(Event *event) {
+	bool hasPlayed = false;
+
 	if (player[currentPlayer]->type == P_AI) {
-		getAIMove();
+		hasPlayed = getAIMove();
 	}
 	else {
-		getPlayerMove(event);
+		hasPlayed = getPlayerMove(event);
 	}
-	if (solver->isGameFinished(board)) {
-		isFinished = true;
+	if (hasPlayed) {
+		board->removeCaptures();
+		if (solver->isGameFinished(board)) {
+			isFinished = true;
+		}
+		board->computeRectangles();
 	}
-	board->removeCaptures();
+	return hasPlayed;
 }
 
 void	Game::loop(void) {
-	pair<int, int> xy;
-	Event		event;
+	bool			firstTurn;
+	bool			hasPlayed;
+	pair<int, int>	xy;
+	Event			event;
 
+	firstTurn = true;
 	while (render->window.isOpen()) {
 		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
 			render->window.close();
 		}
 		if (!isFinished)
-			playOneTurn(&event);
+			hasPlayed = playOneTurn(&event);
 		while (render->window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				render->window.close();
 		}
-		render->window.clear();
-		render->drawBoard(board);
-		render->window.display();
+		if (hasPlayed || firstTurn) {
+			render->window.clear();
+			render->drawBoard(board);
+			render->window.display();
+		}
+		firstTurn = false;
 	}
 }
 
-void	Game::getAIMove() {
+bool	Game::getAIMove() {
 	pair<int,int>	ret;
 
 	ret = solver->solve(board);
 	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
 	currentPlayer = OPPONENT(currentPlayer);
+	return true;
 }
 
-void 	Game::getPlayerMove(Event *event) {
+bool 	Game::getPlayerMove(Event *event) {
 	int 			x;
 	int 			y;
 
@@ -66,7 +79,9 @@ void 	Game::getPlayerMove(Event *event) {
 			y = (event->mouseButton.y - POSB) / POSA;
 			if (board->placePiece(y , x, PIECE(currentPlayer))) {
 				currentPlayer = OPPONENT(currentPlayer);
+				return true;
 			}
 		}
 	}
+	return false;
 }

@@ -18,6 +18,7 @@ private:
 	int height;
 
 public:
+	int color[3];
 	bool hasMoreThanOnePiece;
 
 	Rectangle(int x, int y);

@@ -6,6 +6,7 @@ Board::Board() {
 	lastMove = make_pair(-1, -1);
 	rectangles = new vector<Rectangle *>();
 	score = 0;
+	lastMoveIsCapture = false;
 	clear();
 }
 
@@ -19,12 +20,14 @@ void Board::removeCaptures() {
 	t_piece piece = getPiece(x, y);
 	t_orientation ori[8] = {NW, SE, N, S, W, E, SW, NE};
 
+	lastMoveIsCapture = false;
 	for (int i = 0; i < 8; i++) {
 		inc = orientationInc[ori[i]];
 		if (countConnectedPieces(x + get<0>(inc), y + get<1>(inc), INV(piece), ori[i]) == 2 &&
 			rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), piece, ori[i])) {
 			removePiece(x + get<0>(inc), y + get<1>(inc));
 			removePiece(x + get<0>(inc) * 2, y + get<1>(inc) * 2);
+			lastMoveIsCapture = true;
 		}
 	}
 }
@@ -105,10 +108,13 @@ t_piece Board::getPiece(int x, int y) {
 	return (t_piece)board[y][x];
 }
 
-void 		Board::computeRectangles(int x, int y) {
+void 		Board::computeRectangles() {
+	int x, y;
 	vector<Rectangle *>	vec;
 	Rectangle	*rect;
 
+	x = get<0>(lastMove);
+	y = get<1>(lastMove);
 	rect = new Rectangle(x, y);
 	if (rectangles->size() == 0) {
 		rectangles->push_back(rect);

@@ -29,6 +29,7 @@ typedef enum 	s_orientation {
 class Rectangle;
 class Board {
 public:
+	bool					lastMoveIsCapture;
 	char					board[BOARD_SIZE][BOARD_SIZE];
 	int						score;
 	pair<int,int>			lastMove;
@@ -45,7 +46,7 @@ public:
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
 	vector<Board *> listAllMoves();
-	void computeRectangles(int x, int y);
+	void computeRectangles();
 	int countConnectedPieces(int x, int y, t_piece piece, t_orientation ori);
 	bool rowEndsWithPiece(int x, int y, t_piece piece, t_orientation ori);
 	void removeCaptures();

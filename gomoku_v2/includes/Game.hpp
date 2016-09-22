@@ -28,10 +28,10 @@ public:
 	// Game(Game &rhs);
 	~Game(void);
 
-	void 			playOneTurn(Event *event);
+	bool 			playOneTurn(Event *event);
 	void 			loop(void);
-	void 			getPlayerMove(Event *event);
-	void			getAIMove();
+	bool 			getPlayerMove(Event *event);
+	bool			getAIMove();
 };
 
 #endif
