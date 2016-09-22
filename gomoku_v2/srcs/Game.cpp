@@ -41,6 +41,13 @@ void	Game::loop(void) {
 		// playOneTurn();
 		render->window.clear();
 		render->window.draw(render->board);
+		for (int i = 0; i < 19; i++) {
+			for (int j = 0; j < 19; j++) {
+				render->whitePiece.setPosition(i * POSA + POSB, j * POSA + POSB);
+				render->window.draw(render->whitePiece);
+			}
+		}
+
 		render->window.display();
 	}
 }
