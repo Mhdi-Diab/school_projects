@@ -61,7 +61,7 @@ void	Game::loop(void) {
 bool	Game::getAIMove() {
 	pair<int,int>	ret;
 
-	ret = solver->solve(board);
+	ret = solver->solve(board, currentPlayer);
 	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
 	currentPlayer = OPPONENT(currentPlayer);
 	return true;

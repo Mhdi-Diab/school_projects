@@ -3,8 +3,10 @@
 
 # define BOARD_SIZE 19
 # define INV(X) ((X) == (BLACK) ? (WHITE) : (BLACK))
+# define PIECE(X) (X) == (P_BLACK) ? (BLACK) : (WHITE)
 
 # include "Rectangle.hpp"
+# include "Player.hpp"
 # include <vector>
 # include <map>
 using namespace std;
@@ -45,7 +47,7 @@ public:
 	bool placePiece(int x, int y, t_piece piece);
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
-	vector<Board *> listAllMoves();
+	vector<Board *> listAllMoves(t_player_color color);
 	void computeRectangles();
 	int countConnectedPieces(int x, int y, t_piece piece, t_orientation ori);
 	bool rowEndsWithPiece(int x, int y, t_piece piece, t_orientation ori);

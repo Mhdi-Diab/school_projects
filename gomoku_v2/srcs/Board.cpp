@@ -49,10 +49,26 @@ void Board::print(void) {
 	}
 }
 
-vector<Board *> Board::listAllMoves() {
-	vector<Board *> moves;
+vector<Board *> Board::listAllMoves(t_player_color color) {
+	vector <Board *> vec;
 
-	return moves;
+	for (vector<Rectangle *>::iterator iter = rectangles->begin(); iter != rectangles->end(); iter++) {
+		for (int y = (*iter)->getTopLeftY(); y <= (*iter)->getBottomRightY(); y++) {
+			for (int x = (*iter)->getTopLeftX(); x <= (*iter)->getBottomRightX(); x++) {
+				if (board[y][x] == EMPTY) {
+					Board *board = new Board(*this);
+					if (board->placePiece(x, y, PIECE(color))) {
+						// board->score = board->evaluateBoard(color) - board->evaluateBoard(INV(color));
+						vec.push_back(board);
+					}
+					else
+						delete board;
+				}
+			}
+		}
+	}
+	// sort (vec.begin(), vec.end(), sortBoardsByScore);
+	return vec;
 }
 
 int	 Board::countConnectedPieces(int x, int y, t_piece piece, t_orientation ori) {
@@ -123,7 +139,7 @@ void 		Board::computeRectangles() {
 		if (vec.size() == 0) {
 			rectangles->push_back(rect);
 		} else if (vec.size() == 1) {
-			delete rect;
+			// delete rect; TODO: check leaks
 			rect = vec.front();
 			rect->resize(x, y);
 		} else if (vec.size() > 1) {

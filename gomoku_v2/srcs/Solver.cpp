@@ -10,19 +10,18 @@ Solver::Solver() {
 Solver::~Solver(void) {
 }
 
-pair<int, int> Solver::solve(Board *board) {
-	// Board *move;
+pair<int, int> Solver::solve(Board *board, t_player_color color) {
+	Board *move;
 
-	// move = minMaxAlphaBeta(board, 1, -MAX_VALUE, MAX_VALUE);
-	return make_pair(rand() % 19, rand() % 19);
-	// return move->lastMove;
+	move = minMaxAlphaBeta(board, color, 2, -MAX_VALUE, MAX_VALUE);
+	return move->lastMove;
 }
 
 bool Solver::isGameFinished(Board *board) {
 	return board->hasXPiecesInRow(get<0>(board->lastMove), get<1>(board->lastMove), 5, superiorCmp);
 }
 
-Board *Solver::minMaxAlphaBeta(Board *board, int depth, int alpha, int beta) {
+Board *Solver::minMaxAlphaBeta(Board *board, t_player_color color, int depth, int alpha, int beta) {
 	int bestMoveValue = -MAX_VALUE;
 	Board *move = NULL;
 	Board *bestMove = NULL;
@@ -32,12 +31,12 @@ Board *Solver::minMaxAlphaBeta(Board *board, int depth, int alpha, int beta) {
 		return board;
 	}
 	else {
-		moves = board->listAllMoves();
+		moves = board->listAllMoves(color);
 		for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
 			if (isGameFinished(*it)) {
 				return (*it);
 			}
-			move = minMaxAlphaBeta((*it), depth - 1, -beta, -alpha);
+			move = minMaxAlphaBeta((*it), color, depth - 1, -beta, -alpha);
 			if (move)
 			{
 				if (isGameFinished(move))
