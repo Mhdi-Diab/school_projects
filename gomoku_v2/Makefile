@@ -1,5 +1,7 @@
 CC = clang++
-CFLAGS = -Wextra -Wall -Werror -O3 -I./includes -I ~/.brew/include -I./minilibx_macos
+CFLAGS = -Wextra -Wall -Werror -O3 -I./includes -I ~/.brew/include -I./SFML/include
+LFLAGS = -L ./SFML -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+
 SRC = main.cpp Board.cpp Solver.cpp Rectangle.cpp Render.cpp Player.cpp Game.cpp
 
 NAME = gomoku
@@ -8,10 +10,10 @@ OBJ = $(SRCS:.cpp=.o)
 
 SRCS = $(addprefix srcs/, $(SRC))
 
-all : make_minilibx $(NAME)
+all : $(NAME)
 
 $(NAME): $(OBJ)
-		$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+		$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) -o $(NAME)
 
 %.o: %.cpp
 		$(CC) -o $@ -c $< -I $(CFLAGS)

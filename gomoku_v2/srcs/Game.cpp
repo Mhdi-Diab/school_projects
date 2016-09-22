@@ -13,22 +13,34 @@ Game::Game(void) {
 Game::~Game(void) {
 }
 
+void Game::playOneTurn() {
+	if (player[currentPlayer]->type == P_AI) {
+		getAIMove();
+	}
+	else {
+		getPlayerMove();
+	}
+	board->print();
+	if (solver->isGameFinished(board)) {
+		cout << "GAME FINISHED" << endl;
+	}
+	currentPlayer = OPPONENT(currentPlayer);
+}
+
 void	Game::loop(void) {
 	pair<int, int> xy;
 
-	while(1) {
-		if (player[currentPlayer]->type == P_AI) {
-			getAIMove();
+	while (render->window.isOpen())
+	{
+		Event event;
+		while (render->window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				render->window.close();
 		}
-		else {
-			getPlayerMove();
-		}
-		board->print();
-		if (solver->isGameFinished(board)) {
-			cout << "GAME FINISHED" << endl;
-			break ;
-		}
-		currentPlayer = OPPONENT(currentPlayer);
+		playOneTurn();
+		render->window.clear();
+		render->window.display();
 	}
 }
 

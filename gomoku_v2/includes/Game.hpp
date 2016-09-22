@@ -29,6 +29,7 @@ public:
 	// Game(Game &rhs);
 	~Game(void);
 
+	void 			playOneTurn();
 	void 			loop(void);
 	void 			getPlayerMove();
 	void			getAIMove();
