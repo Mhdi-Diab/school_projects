@@ -13,41 +13,33 @@ Game::Game(void) {
 Game::~Game(void) {
 }
 
-void Game::playOneTurn() {
+void Game::playOneTurn(Event *event) {
 	if (player[currentPlayer]->type == P_AI) {
 		getAIMove();
 	}
 	else {
-		getPlayerMove();
+		getPlayerMove(event);
 	}
-	board->print();
+	// board->print();
 	if (solver->isGameFinished(board)) {
 		cout << "GAME FINISHED" << endl;
 	}
-	currentPlayer = OPPONENT(currentPlayer);
 }
 
 void	Game::loop(void) {
 	pair<int, int> xy;
+	Event		event;
 
 	while (render->window.isOpen())
 	{
-		Event event;
+		playOneTurn(&event);
 		while (render->window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
 				render->window.close();
 		}
-		// playOneTurn();
 		render->window.clear();
-		render->window.draw(render->board);
-		for (int i = 0; i < 19; i++) {
-			for (int j = 0; j < 19; j++) {
-				render->whitePiece.setPosition(i * POSA + POSB, j * POSA + POSB);
-				render->window.draw(render->whitePiece);
-			}
-		}
-
+		render->drawBoard(board);
 		render->window.display();
 	}
 }
@@ -56,17 +48,23 @@ void	Game::getAIMove() {
 	pair<int,int>	ret;
 
 	ret = solver->solve(board);
-	cout << "MOVED -> x: " << get<0>(ret) << " y: " << get<1>(ret) << endl;
 	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
+	currentPlayer = OPPONENT(currentPlayer);
 }
 
-void 	Game::getPlayerMove() {
-	string 			x;
-	string 			y;
+void 	Game::getPlayerMove(Event *event) {
+	int 			x;
+	int 			y;
 
-	getline(cin, x);
-	getline(cin, y);
-	if (!board->placePiece(atoi(x.c_str()), atoi(y.c_str()), PIECE(currentPlayer))) {
-		getPlayerMove();
+	x = -1;
+	y = -1;
+	if (event->type == sf::Event::MouseButtonPressed) {
+		if (event->mouseButton.button == sf::Mouse::Left) {
+			x = (event->mouseButton.x - POSB) / POSA;
+			y = (event->mouseButton.y - POSB) / POSA;
+			if (board->placePiece(y , x, PIECE(currentPlayer))) {
+				currentPlayer = OPPONENT(currentPlayer);
+			}
+		}
 	}
 }

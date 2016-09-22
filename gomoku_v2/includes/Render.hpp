@@ -7,11 +7,13 @@
 # define POSB 9
 
 #include <iostream>
+#include "Board.hpp"
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
 using namespace std;
 
+class Board;
 class Render {
 
 public:
@@ -27,6 +29,7 @@ public:
 	Render(void);
 	~Render(void);
 	int loadTextures();
+	void drawBoard(Board *board);
 };
 
 #endif

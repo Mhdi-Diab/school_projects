@@ -29,9 +29,9 @@ public:
 	// Game(Game &rhs);
 	~Game(void);
 
-	void 			playOneTurn();
+	void 			playOneTurn(Event *event);
 	void 			loop(void);
-	void 			getPlayerMove();
+	void 			getPlayerMove(Event *event);
 	void			getAIMove();
 };
 
