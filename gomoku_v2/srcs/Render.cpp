@@ -35,7 +35,7 @@ void Render::drawRectangles(Board *board) {
 		sizeY = (*iter)->getBottomRightY() - (*iter)->getTopLeftY();
 		rectangle.setSize(sf::Vector2f(sizeY * POSA, sizeX * POSA));
 		rectangle.setPosition((*iter)->getTopLeftY() * POSA + 4 * POSB, (*iter)->getTopLeftX() * POSA + 4 * POSB);
-		rectangle.setFillColor(Color((*iter)->color[0], (*iter)->color[1], (*iter)->color[2], 100));
+		rectangle.setFillColor(Color((*iter)->color[0], (*iter)->color[1], (*iter)->color[2], 50));
 		window.draw(rectangle);
 	}
 }

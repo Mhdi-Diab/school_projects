@@ -17,6 +17,8 @@ public:
 	bool isGameFinished(Board *board);
 	Board *minMaxAlphaBeta(Board *board, t_player_color c, int depth, int alpha, int beta);
 	pair<int, int> solve(Board *board, t_player_color color);
+	int	computeScore(Board *board);
+	vector<Board *> listAllMoves(Board *b, t_player_color color);
 };
 
 #endif

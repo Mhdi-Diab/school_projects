@@ -2,10 +2,6 @@
 
 map<t_orientation, pair<int, int> >Board::orientationInc = initOrientationInc();
 
-bool sortBoardsByScore (Board *a, Board *b) {
-	return a->score > b->score;
-}
-
 Board::Board() {
 	lastMove = make_pair(-1, -1);
 	rectangles = new vector<Rectangle *>();
@@ -54,27 +50,6 @@ void Board::clear(void) {
 			board[y][x] = EMPTY;
 		}
 	}
-}
-
-vector<Board *> Board::listAllMoves(t_player_color color) {
-	vector <Board *> vec;
-
-	for (vector<Rectangle *>::iterator iter = rectangles->begin(); iter != rectangles->end(); iter++) {
-		for (int y = (*iter)->getTopLeftY(); y <= (*iter)->getBottomRightY(); y++) {
-			for (int x = (*iter)->getTopLeftX(); x <= (*iter)->getBottomRightX(); x++) {
-				if (board[y][x] == EMPTY) {
-					Board *board = new Board(*this);
-					if (board->placePiece(x, y, PIECE(color))) {
-						vec.push_back(board);
-					}
-					else
-						delete board;
-				}
-			}
-		}
-	}
-	sort(vec.begin(), vec.end(), sortBoardsByScore);
-	return vec;
 }
 
 int	 Board::countConnectedPieces(int x, int y, t_piece piece, t_orientation ori) {

@@ -43,7 +43,6 @@ public:
 	bool placePiece(int x, int y, t_piece piece);
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
-	vector<Board *> listAllMoves(t_player_color color);
 	void computeRectangles();
 	int countConnectedPieces(int x, int y, t_piece piece, t_orientation ori);
 	bool rowEndsWithPiece(int x, int y, t_piece piece, t_orientation ori);
