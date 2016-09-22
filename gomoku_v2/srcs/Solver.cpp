@@ -14,7 +14,6 @@ pair<int, int> Solver::solve(Board *board) {
 	// Board *move;
 
 	// move = minMaxAlphaBeta(board, 1, -MAX_VALUE, MAX_VALUE);
-	cout << "SOLVER" << endl;
 	return make_pair(rand() % 19, rand() % 19);
 	// return move->lastMove;
 }

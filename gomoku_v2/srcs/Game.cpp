@@ -30,11 +30,12 @@ void	Game::loop(void) {
 	pair<int, int> xy;
 	Event		event;
 
-	while (render->window.isOpen())
-	{
+	while (render->window.isOpen()) {
+		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
+			render->window.close();
+		}
 		playOneTurn(&event);
-		while (render->window.pollEvent(event))
-		{
+		while (render->window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				render->window.close();
 		}
