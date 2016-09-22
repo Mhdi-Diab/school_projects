@@ -2,6 +2,10 @@
 
 map<t_orientation, pair<int, int> >Board::orientationInc = initOrientationInc();
 
+bool sortBoardsByScore (Board *a, Board *b) {
+	return a->score > b->score;
+}
+
 Board::Board() {
 	lastMove = make_pair(-1, -1);
 	rectangles = new vector<Rectangle *>();
@@ -11,6 +15,18 @@ Board::Board() {
 }
 
 Board::~Board(void) {
+}
+
+
+Board::Board(Board &rhs) {
+	rectangles = new vector<Rectangle *>();
+
+	memcpy(board, rhs.board, sizeof(char[BOARD_SIZE][BOARD_SIZE]));
+	for (vector<Rectangle *>::iterator iter = rhs.rectangles->begin(); iter != rhs.rectangles->end(); iter++) {
+		rectangles->push_back(new Rectangle(**iter));
+	}
+	lastMove = rhs.lastMove;
+	lastMoveIsCapture = rhs.lastMoveIsCapture;
 }
 
 void Board::removeCaptures() {
@@ -40,15 +56,6 @@ void Board::clear(void) {
 	}
 }
 
-void Board::print(void) {
-	for (int y = 0; y < BOARD_SIZE; y++) {
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			cout << board[y][x];
-		}
-		cout << endl;
-	}
-}
-
 vector<Board *> Board::listAllMoves(t_player_color color) {
 	vector <Board *> vec;
 
@@ -58,7 +65,6 @@ vector<Board *> Board::listAllMoves(t_player_color color) {
 				if (board[y][x] == EMPTY) {
 					Board *board = new Board(*this);
 					if (board->placePiece(x, y, PIECE(color))) {
-						// board->score = board->evaluateBoard(color) - board->evaluateBoard(INV(color));
 						vec.push_back(board);
 					}
 					else
@@ -67,7 +73,7 @@ vector<Board *> Board::listAllMoves(t_player_color color) {
 			}
 		}
 	}
-	// sort (vec.begin(), vec.end(), sortBoardsByScore);
+	sort(vec.begin(), vec.end(), sortBoardsByScore);
 	return vec;
 }
 
@@ -111,13 +117,18 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY) {
 		board[y][x] = piece;
 		lastMove = make_pair(x, y);
+		pieces[make_pair(x, y)] = new Piece(x, y, piece);
 		return true;
 	}
 	return false;
 }
 
 void Board::removePiece(int x, int y) {
+	map< pair<int, int>, Piece *>::iterator it;
+
 	board[y][x] = EMPTY;
+	it = pieces.find(make_pair(x, y));
+	pieces.erase(it);
 }
 
 t_piece Board::getPiece(int x, int y) {

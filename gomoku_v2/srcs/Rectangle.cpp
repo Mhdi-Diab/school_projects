@@ -1,10 +1,10 @@
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle(int x, int y) {
-	topLeftX = (x - 2 >= 0 ? x - 2 : (x - 1 >= 0 ? x - 1 : x));
-	topLeftY = (y - 2 >= 0 ? y - 2 : (y - 1 >= 0 ? y - 1 : y));
-	bottomRightX = (x + 2 < BOARD_SIZE ? x + 2 : (x + 1 < BOARD_SIZE ? x + 1 : x));
-	bottomRightY = (y + 2 < BOARD_SIZE ? y + 2 : (y + 1 < BOARD_SIZE ? y + 1 : y));
+	topLeftX = (x - RECT_PADDING >= 0 ? x - RECT_PADDING : (x - 1 >= 0 ? x - 1 : x));
+	topLeftY = (y - RECT_PADDING >= 0 ? y - RECT_PADDING : (y - 1 >= 0 ? y - 1 : y));
+	bottomRightX = (x + RECT_PADDING < BOARD_SIZE ? x + RECT_PADDING : (x + 1 < BOARD_SIZE ? x + 1 : x));
+	bottomRightY = (y + RECT_PADDING < BOARD_SIZE ? y + RECT_PADDING : (y + 1 < BOARD_SIZE ? y + 1 : y));
 	width = bottomRightX - topLeftX;
 	height = bottomRightY - topLeftY;
 	hasMoreThanOnePiece = false;
@@ -118,14 +118,6 @@ void 	Rectangle::mergeRectanglesInside(vector<Rectangle *> *rectangles, Rectangl
 		}
 	}
 }
-
-// bool Rectangle::hasPieceInside(Rectangle *rect) {
-// 	for (int y = topLeftY; y <= bottomRightY; y++) {
-// 		for (int x = topLeftX; x <= bottomRightX; x++) {
-// 		}
-// 	}
-// 	return false;
-// }
 
 void 	Rectangle::removeRectangle(vector<Rectangle *> *rectangles, Rectangle *r1) {
 	for (vector<Rectangle *>::iterator iter = rectangles->begin(); iter != rectangles->end(); iter++) {

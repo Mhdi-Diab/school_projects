@@ -7,6 +7,8 @@
 # include <iostream>
 using namespace std;
 
+#define RECT_PADDING 2
+
 class Rectangle {
 
 private:
