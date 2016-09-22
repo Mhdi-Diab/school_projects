@@ -1,13 +1,13 @@
 #include "Game.hpp"
 
 Game::Game(void) {
+	isFinished = false;
 	board = new Board();
 	solver = new Solver();
 	render = new Render();
 	currentPlayer = P_BLACK;
 	player[P_BLACK] = new Player(P_BLACK, P_PLAYER);
 	player[P_WHITE] = new Player(P_WHITE, P_AI);
-
 }
 
 Game::~Game(void) {
@@ -20,10 +20,10 @@ void Game::playOneTurn(Event *event) {
 	else {
 		getPlayerMove(event);
 	}
-	// board->print();
 	if (solver->isGameFinished(board)) {
-		cout << "GAME FINISHED" << endl;
+		isFinished = true;
 	}
+	board->removeCaptures();
 }
 
 void	Game::loop(void) {
@@ -34,7 +34,8 @@ void	Game::loop(void) {
 		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
 			render->window.close();
 		}
-		playOneTurn(&event);
+		if (!isFinished)
+			playOneTurn(&event);
 		while (render->window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				render->window.close();

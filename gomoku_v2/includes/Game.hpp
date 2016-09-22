@@ -12,13 +12,12 @@ using namespace std;
 # include "Solver.hpp"
 # include "Render.hpp"
 
-# define INV(X) (X) == (BLACK) ? (WHITE) : (BLACK)
-
 class Board;
 class Solver;
 class Game {
 
 public:
+	bool			isFinished;
 	Board			*board;
 	Render			*render;
 	Solver			*solver;

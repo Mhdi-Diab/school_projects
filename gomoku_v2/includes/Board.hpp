@@ -2,6 +2,7 @@
 # define BOARD_HPP
 
 # define BOARD_SIZE 19
+# define INV(X) ((X) == (BLACK) ? (WHITE) : (BLACK))
 
 # include "Rectangle.hpp"
 # include <vector>
@@ -46,6 +47,9 @@ public:
 	vector<Board *> listAllMoves();
 	void computeRectangles(int x, int y);
 	int countConnectedPieces(int x, int y, t_piece piece, t_orientation ori);
+	bool rowEndsWithPiece(int x, int y, t_piece piece, t_orientation ori);
+	void removeCaptures();
+	void removePiece(int x, int y);
 
 	static map<t_orientation, pair<int, int > > initOrientationInc() {
 		 map<t_orientation, pair<int, int > > myMap;
