@@ -38,8 +38,9 @@ void	Game::loop(void) {
 			if (event.type == Event::Closed)
 				render->window.close();
 		}
-		playOneTurn();
+		// playOneTurn();
 		render->window.clear();
+		render->window.draw(render->board);
 		render->window.display();
 	}
 }
