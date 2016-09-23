@@ -17,6 +17,11 @@ Board::Board(Board &rhs) {
 	memcpy(board, rhs.board, sizeof(char[BOARD_SIZE][BOARD_SIZE]));
 	lastMove = rhs.lastMove;
 	lastMoveIsCapture = rhs.lastMoveIsCapture;
+	for (unordered_map<string, pair<int, int> >::iterator it = rhs.pieces.begin(); it != rhs.pieces.end(); ++it) {
+		pieces[(*it).first] = (*it).second;
+	}
+	blackThreats = rhs.blackThreats;
+	whiteThreats = rhs.whiteThreats;
 }
 
 void Board::removeCaptures() {
@@ -85,7 +90,6 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 		board[y][x] = piece;
 		lastMove = make_pair(x, y);
 		pieces[myHash(x, y)] = make_pair(x, y);
-		computeThreats(x, y);
 		return true;
 	}
 	return false;
@@ -101,18 +105,4 @@ void Board::removePiece(int x, int y) {
 
 t_piece Board::getPiece(int x, int y) {
 	return (t_piece)board[y][x];
-}
-
-void		Board::computeThreats(int x, int y) {
-	if (hasXPiecesInRow(x, y, 5, equalCmp)) {
-		threatsCount["FIVE"] += 1;
-	}
-	if (hasXPiecesInRow(x, y, 4, equalCmp)) {
-		threatsCount["FOUR"] += 1;
-	}
-	if (hasXPiecesInRow(x, y, 3, equalCmp)) {
-		threatsCount["THREE"] += 1;
-	}
-	score = threatsCount["FIVE"] * threatsScore["FIVE"] +
-	threatsCount["FOUR"] * threatsScore["FOUR"] + threatsCount["THREE"] * threatsCount["THREE"];
 }

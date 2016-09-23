@@ -37,7 +37,6 @@ public:
 	bool placePiece(int x, int y, t_piece piece);
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
-	void computeThreats(int x, int y);
 	int countConnectedPieces(int x, int y, t_piece piece, string ori);
 	bool rowEndsWithPiece(int x, int y, t_piece piece, string ori);
 	void removeCaptures();

@@ -23,7 +23,9 @@ bool Game::playOneTurn(Event *event) {
 		hasPlayed = getPlayerMove(event);
 	}
 	if (hasPlayed) {
+		currentPlayer = OPPONENT(currentPlayer);
 		board->removeCaptures();
+		solver->computeThreats(board, currentPlayer);
 		if (solver->isGameFinished(board)) {
 			isFinished = true;
 		}
@@ -64,7 +66,6 @@ bool	Game::getAIMove() {
 	start = clock();
 	ret = solver->solve(board, currentPlayer);
 	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
-	currentPlayer = OPPONENT(currentPlayer);
 	end = clock();
 	cout << "Time required for execution: " << (double)(end-start)/CLOCKS_PER_SEC << " seconds." << endl;
 	return true;
@@ -81,7 +82,7 @@ bool 	Game::getPlayerMove(Event *event) {
 			x = (event->mouseButton.x - POSB) / POSA;
 			y = (event->mouseButton.y - POSB) / POSA;
 			if (board->placePiece(y , x, PIECE(currentPlayer))) {
-				currentPlayer = OPPONENT(currentPlayer);
+				solver->computeThreats(board, currentPlayer);
 				return true;
 			}
 		}
