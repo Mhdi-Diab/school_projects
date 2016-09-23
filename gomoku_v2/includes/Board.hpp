@@ -5,7 +5,6 @@
 # define INV(X) ((X) == (BLACK) ? (WHITE) : (BLACK))
 # define PIECE(X) (X) == (P_BLACK) ? (BLACK) : (WHITE)
 
-# include "Rectangle.hpp"
 # include "Player.hpp"
 # include "Piece.hpp"
 # include "AThreat.hpp"
@@ -14,14 +13,12 @@
 # include <unordered_map>
 using namespace std;
 
-class Rectangle;
 class Board : public AThreat {
 public:
 	bool						lastMoveIsCapture;
 	char						board[BOARD_SIZE][BOARD_SIZE];
 	int							score;
 	pair<int,int>				lastMove;
-	vector<Rectangle *> 		*rectangles;
 	unordered_map<string, Piece *>	pieces;
 
 	static string *orientation;
@@ -36,7 +33,6 @@ public:
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
 	void computeThreats(int x, int y);
-	void computeRectangles(int x, int y);
 	int countConnectedPieces(int x, int y, t_piece piece, string ori);
 	bool rowEndsWithPiece(int x, int y, t_piece piece, string ori);
 	void removeCaptures();

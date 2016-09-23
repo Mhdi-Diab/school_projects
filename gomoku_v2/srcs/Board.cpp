@@ -5,7 +5,6 @@ unordered_map<string, pair<int, int> >Board::orientationInc = initOrientationInc
 
 Board::Board() {
 	lastMove = make_pair(-1, -1);
-	rectangles = new vector<Rectangle *>();
 	score = 0;
 	lastMoveIsCapture = false;
 	clear();
@@ -15,12 +14,8 @@ Board::~Board(void) {
 }
 
 Board::Board(Board &rhs) {
-	rectangles = new vector<Rectangle *>();
 
 	memcpy(board, rhs.board, sizeof(char[BOARD_SIZE][BOARD_SIZE]));
-	for (vector<Rectangle *>::iterator iter = rhs.rectangles->begin(); iter != rhs.rectangles->end(); iter++) {
-		rectangles->push_back(new Rectangle(**iter));
-	}
 	lastMove = rhs.lastMove;
 	lastMoveIsCapture = rhs.lastMoveIsCapture;
 }
@@ -91,7 +86,6 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 		board[y][x] = piece;
 		lastMove = make_pair(x, y);
 		pieces[myHash(x, y)] = new Piece(x, y, piece);
-		computeRectangles(x, y);
 		computeThreats(x, y);
 		return true;
 	}
@@ -122,26 +116,4 @@ void		Board::computeThreats(int x, int y) {
 	}
 	score = threatsCount["FIVE"] * threatsScore["FIVE"] +
 	threatsCount["FOUR"] * threatsScore["FOUR"] + threatsCount["THREE"] * threatsCount["THREE"];
-}
-
-void 		Board::computeRectangles(int x, int y) {
-	vector<Rectangle *>	vec;
-	Rectangle	*rect;
-
-	rect = new Rectangle(x, y);
-	if (rectangles->size() == 0) {
-		rectangles->push_back(rect);
-	} else {
-		vec = rect->getConnectedRectangles(rectangles, x, y);
-		if (vec.size() == 0) {
-			rectangles->push_back(rect);
-		} else if (vec.size() == 1) {
-			// delete rect; TODO: check leaks
-			rect = vec.front();
-			rect->resize(x, y);
-		} else if (vec.size() > 1) {
-			rectangles->push_back(rect);
-			rect->mergeRectangles(rectangles, vec, x, y);
-		}
-	}
 }

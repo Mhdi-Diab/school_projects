@@ -30,7 +30,6 @@ public:
 	~Render(void);
 	int loadTextures();
 	void drawBoard(Board *board);
-	void drawRectangles(Board *board);
 };
 
 #endif

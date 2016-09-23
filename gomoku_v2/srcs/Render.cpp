@@ -21,23 +21,6 @@ void Render::drawBoard(Board *board) {
 			}
 		}
 	}
-	if (true) {
-		drawRectangles(board);
-	}
-}
-
-void Render::drawRectangles(Board *board) {
-	int sizeX, sizeY;
-	RectangleShape rectangle;
-
-	for (vector<Rectangle *>::iterator iter = board->rectangles->begin(); iter != board->rectangles->end(); iter++) {
-		sizeX = (*iter)->getBottomRightX() - (*iter)->getTopLeftX();
-		sizeY = (*iter)->getBottomRightY() - (*iter)->getTopLeftY();
-		rectangle.setSize(sf::Vector2f(sizeY * POSA, sizeX * POSA));
-		rectangle.setPosition((*iter)->getTopLeftY() * POSA + 4 * POSB, (*iter)->getTopLeftX() * POSA + 4 * POSB);
-		rectangle.setFillColor(Color((*iter)->color[0], (*iter)->color[1], (*iter)->color[2], 50));
-		window.draw(rectangle);
-	}
 }
 
 int Render::loadTextures() {

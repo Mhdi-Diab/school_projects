@@ -12,17 +12,13 @@ Solver::~Solver(void) {
 
 vector<Board *> Solver::listAllMoves(Board *b, t_player_color color) {
 	vector <Board *> vec;
-
-	for (vector<Rectangle *>::iterator iter = b->rectangles->begin(); iter != b->rectangles->end(); iter++) {
-		for (int y = (*iter)->getTopLeftY(); y <= (*iter)->getBottomRightY(); y++) {
-			for (int x = (*iter)->getTopLeftX(); x <= (*iter)->getBottomRightX(); x++) {
-				if (b->board[y][x] == EMPTY) {
-					Board *board = new Board(*b);
-					if (board->placePiece(x, y, PIECE(color))) {
-						vec.push_back(board);
-					}
-				}
-			}
+	int x = 0;
+	int y = 0;
+//TODO: a changer
+	if (b->board[y][x] == EMPTY) {
+		Board *board = new Board(*b);
+		if (board->placePiece(x, y, PIECE(color))) {
+			vec.push_back(board);
 		}
 	}
 	sort(vec.begin(), vec.end(), sortBoardsByScore);
