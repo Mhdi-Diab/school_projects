@@ -1,6 +1,7 @@
 #include "Board.hpp"
 
 map<t_orientation, pair<int, int> >Board::orientationInc = initOrientationInc();
+map<t_threat, int>AThreat::threatsScore = initThreat();
 
 Board::Board() {
 	lastMove = make_pair(-1, -1);
@@ -12,7 +13,6 @@ Board::Board() {
 
 Board::~Board(void) {
 }
-
 
 Board::Board(Board &rhs) {
 	rectangles = new vector<Rectangle *>();
@@ -93,6 +93,8 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 		board[y][x] = piece;
 		lastMove = make_pair(x, y);
 		pieces[make_pair(x, y)] = new Piece(x, y, piece);
+		computeRectangles(x, y);
+		computeThreats(x, y);
 		return true;
 	}
 	return false;
@@ -110,13 +112,24 @@ t_piece Board::getPiece(int x, int y) {
 	return (t_piece)board[y][x];
 }
 
-void 		Board::computeRectangles() {
-	int x, y;
+void		Board::computeThreats(int x, int y) {
+	if (hasXPiecesInRow(x, y, 5, equalCmp)) {
+		threatsCount[FIVE] += 1;
+	}
+	if (hasXPiecesInRow(x, y, 4, equalCmp)) {
+		threatsCount[FOUR] += 1;
+	}
+	if (hasXPiecesInRow(x, y, 3, equalCmp)) {
+		threatsCount[THREE] += 1;
+	}
+	score = threatsCount[FIVE] * threatsScore[FIVE] +
+	threatsCount[FOUR] * threatsScore[FOUR] + threatsCount[THREE] * threatsCount[THREE];
+}
+
+void 		Board::computeRectangles(int x, int y) {
 	vector<Rectangle *>	vec;
 	Rectangle	*rect;
 
-	x = get<0>(lastMove);
-	y = get<1>(lastMove);
 	rect = new Rectangle(x, y);
 	if (rectangles->size() == 0) {
 		rectangles->push_back(rect);

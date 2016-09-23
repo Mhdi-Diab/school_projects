@@ -27,7 +27,6 @@ bool Game::playOneTurn(Event *event) {
 		if (solver->isGameFinished(board)) {
 			isFinished = true;
 		}
-		board->computeRectangles();
 	}
 	return hasPlayed;
 }

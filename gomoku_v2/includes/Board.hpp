@@ -8,6 +8,8 @@
 # include "Rectangle.hpp"
 # include "Player.hpp"
 # include "Piece.hpp"
+# include "AThreat.hpp"
+# include "utils.hpp"
 # include <vector>
 # include <map>
 using namespace std;
@@ -24,7 +26,7 @@ typedef enum 	s_orientation {
 }				t_orientation;
 
 class Rectangle;
-class Board {
+class Board : public AThreat {
 public:
 	bool						lastMoveIsCapture;
 	char						board[BOARD_SIZE][BOARD_SIZE];
@@ -37,13 +39,14 @@ public:
 
 	Board(void);
 	Board(Board &rhs);
-	~Board(void);
+	virtual ~Board(void);
 
 	void clear(void);
 	bool placePiece(int x, int y, t_piece piece);
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
-	void computeRectangles();
+	void computeThreats(int x, int y);
+	void computeRectangles(int x, int y);
 	int countConnectedPieces(int x, int y, t_piece piece, t_orientation ori);
 	bool rowEndsWithPiece(int x, int y, t_piece piece, t_orientation ori);
 	void removeCaptures();
