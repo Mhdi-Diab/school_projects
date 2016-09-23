@@ -43,9 +43,9 @@ pair<int, int> Solver::solve(Board *board, t_player_color color) {
 }
 
 bool Solver::isGameFinished(Board *board) {
-	if (board->threatsCount[FIVE] != 0)
-		cout << board->threatsCount[FIVE] << endl;
-	return board->threatsCount[FIVE] != 0;
+	if (board->threatsCount["FIVE"] != 0)
+		cout << "Five Detected"<< endl;
+	return board->threatsCount["FIVE"] != 0;
 }
 
 Board *Solver::minMaxAlphaBeta(Board *board, t_player_color color, int depth, int alpha, int beta) {
@@ -53,11 +53,15 @@ Board *Solver::minMaxAlphaBeta(Board *board, t_player_color color, int depth, in
 	Board *move = NULL;
 	Board *bestMove = NULL;
 	vector<Board *> moves;
+	// clock_t start, end;
 
 	if (depth == 0 ) {
 		return board;
 	}
+	// start = clock();
 	moves = listAllMoves(board, color);
+	// end = clock();
+	// cout << "listAllMoves" << (double)(end-start)/CLOCKS_PER_SEC << " seconds." << endl;
 	for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
 		if (isGameFinished(*it)) {
 			return (*it);

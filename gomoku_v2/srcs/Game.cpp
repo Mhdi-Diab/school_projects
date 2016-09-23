@@ -59,10 +59,14 @@ void	Game::loop(void) {
 
 bool	Game::getAIMove() {
 	pair<int,int>	ret;
+	clock_t start, end;
 
+	start = clock();
 	ret = solver->solve(board, currentPlayer);
 	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
 	currentPlayer = OPPONENT(currentPlayer);
+	end = clock();
+	cout << "Time required for execution: " << (double)(end-start)/CLOCKS_PER_SEC << " seconds." << endl;
 	return true;
 }
 

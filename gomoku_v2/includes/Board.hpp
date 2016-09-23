@@ -11,19 +11,8 @@
 # include "AThreat.hpp"
 # include "utils.hpp"
 # include <vector>
-# include <map>
+# include <unordered_map>
 using namespace std;
-
-typedef enum 	s_orientation {
-	N = 0,
-	S,
-	E,
-	W,
-	NW,
-	NE,
-	SW,
-	SE
-}				t_orientation;
 
 class Rectangle;
 class Board : public AThreat {
@@ -33,9 +22,10 @@ public:
 	int							score;
 	pair<int,int>				lastMove;
 	vector<Rectangle *> 		*rectangles;
-	map< pair<int, int>, Piece *>			pieces;
+	unordered_map<string, Piece *>	pieces;
 
-	static map<t_orientation, pair<int, int> > orientationInc;
+	static string *orientation;
+	static unordered_map<string, pair<int, int> > orientationInc;
 
 	Board(void);
 	Board(Board &rhs);
@@ -47,21 +37,31 @@ public:
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
 	void computeThreats(int x, int y);
 	void computeRectangles(int x, int y);
-	int countConnectedPieces(int x, int y, t_piece piece, t_orientation ori);
-	bool rowEndsWithPiece(int x, int y, t_piece piece, t_orientation ori);
+	int countConnectedPieces(int x, int y, t_piece piece, string ori);
+	bool rowEndsWithPiece(int x, int y, t_piece piece, string ori);
 	void removeCaptures();
 	void removePiece(int x, int y);
 
-	static map<t_orientation, pair<int, int > > initOrientationInc() {
-		 map<t_orientation, pair<int, int > > myMap;
-		 myMap[NW] = make_pair(-1, -1);
-		 myMap[N] = make_pair(0, -1);
-		 myMap[NE] = make_pair(1, -1);
-		 myMap[E] = make_pair(1, 0);
-		 myMap[SE] = make_pair(1, 1);
-		 myMap[S] = make_pair(0, 1);
-		 myMap[SW] = make_pair(-1, 1);
-		 myMap[W] = make_pair(-1, 0);
+	static string *initOrientation() {
+		string *names = new string[8];
+		string orientation[8] = {"NW", "SE", "N", "S", "W", "E", "SW", "NE"};
+
+		for (int i = 0; i < 8; i++) {
+			names[i] = orientation[i];
+		}
+		return names;
+	}
+
+	static unordered_map<string, pair<int, int > > initOrientationInc() {
+		 unordered_map<string, pair<int, int > > myMap;
+		 myMap["NW"] = make_pair(-1, -1);
+		 myMap["N"] = make_pair(0, -1);
+		 myMap["NE"] = make_pair(1, -1);
+		 myMap["E"] = make_pair(1, 0);
+		 myMap["SE"] = make_pair(1, 1);
+		 myMap["S"] = make_pair(0, 1);
+		 myMap["SW"] = make_pair(-1, 1);
+		 myMap["W"] = make_pair(-1, 0);
 		 return myMap;
 	 }
 };

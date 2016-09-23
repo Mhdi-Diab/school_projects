@@ -1,7 +1,7 @@
 #include "Board.hpp"
 
-map<t_orientation, pair<int, int> >Board::orientationInc = initOrientationInc();
-map<t_threat, int>AThreat::threatsScore = initThreat();
+string *Board::orientation = initOrientation();
+unordered_map<string, pair<int, int> >Board::orientationInc = initOrientationInc();
 
 Board::Board() {
 	lastMove = make_pair(-1, -1);
@@ -30,13 +30,12 @@ void Board::removeCaptures() {
 	int x = get<0>(lastMove);
 	int y = get<1>(lastMove);
 	t_piece piece = getPiece(x, y);
-	t_orientation ori[8] = {NW, SE, N, S, W, E, SW, NE};
 
 	lastMoveIsCapture = false;
 	for (int i = 0; i < 8; i++) {
-		inc = orientationInc[ori[i]];
-		if (countConnectedPieces(x + get<0>(inc), y + get<1>(inc), INV(piece), ori[i]) == 2 &&
-			rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), piece, ori[i])) {
+		inc = orientationInc[orientation[i]];
+		if (countConnectedPieces(x + get<0>(inc), y + get<1>(inc), INV(piece), orientation[i]) == 2 &&
+			rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), piece, orientation[i])) {
 			removePiece(x + get<0>(inc), y + get<1>(inc));
 			removePiece(x + get<0>(inc) * 2, y + get<1>(inc) * 2);
 			lastMoveIsCapture = true;
@@ -52,7 +51,7 @@ void Board::clear(void) {
 	}
 }
 
-int	 Board::countConnectedPieces(int x, int y, t_piece piece, t_orientation ori) {
+int	 Board::countConnectedPieces(int x, int y, t_piece piece, string ori) {
 	pair<int, int> inc = orientationInc[ori];
 
 	if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE || getPiece(x, y) != piece) {
@@ -61,7 +60,7 @@ int	 Board::countConnectedPieces(int x, int y, t_piece piece, t_orientation ori)
 	return (1 + countConnectedPieces(x + get<0>(inc), y + get<1>(inc), piece, ori));
 }
 
-bool Board::rowEndsWithPiece(int x, int y, t_piece piece, t_orientation ori) {
+bool Board::rowEndsWithPiece(int x, int y, t_piece piece, string ori) {
 	pair<int, int> inc = orientationInc[ori];
 
 	if (getPiece(x, y) == piece) {
@@ -76,11 +75,10 @@ bool Board::rowEndsWithPiece(int x, int y, t_piece piece, t_orientation ori) {
 bool Board::hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int)) {
 	int i = 0;
 	t_piece piece = getPiece(x, y);
-	t_orientation ori[8] = {NW, SE, N, S, W, E, SW, NE};
 
 	while (i < 8) {
-		if ((*f)(countConnectedPieces(x, y, piece, ori[i]) +
-			countConnectedPieces(x, y, piece, ori[i + 1]) - 1, nb)) {
+		if ((*f)(countConnectedPieces(x, y, piece, orientation[i]) +
+			countConnectedPieces(x, y, piece, orientation[i + 1]) - 1, nb)) {
 			return true;
 		}
 		i += 2;
@@ -92,7 +90,7 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY) {
 		board[y][x] = piece;
 		lastMove = make_pair(x, y);
-		pieces[make_pair(x, y)] = new Piece(x, y, piece);
+		pieces[myHash(x, y)] = new Piece(x, y, piece);
 		computeRectangles(x, y);
 		computeThreats(x, y);
 		return true;
@@ -101,10 +99,10 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 }
 
 void Board::removePiece(int x, int y) {
-	map< pair<int, int>, Piece *>::iterator it;
+	unordered_map<string, Piece *>::iterator it;
 
 	board[y][x] = EMPTY;
-	it = pieces.find(make_pair(x, y));
+	it = pieces.find(myHash(x, y));
 	pieces.erase(it);
 }
 
@@ -114,16 +112,16 @@ t_piece Board::getPiece(int x, int y) {
 
 void		Board::computeThreats(int x, int y) {
 	if (hasXPiecesInRow(x, y, 5, equalCmp)) {
-		threatsCount[FIVE] += 1;
+		threatsCount["FIVE"] += 1;
 	}
 	if (hasXPiecesInRow(x, y, 4, equalCmp)) {
-		threatsCount[FOUR] += 1;
+		threatsCount["FOUR"] += 1;
 	}
 	if (hasXPiecesInRow(x, y, 3, equalCmp)) {
-		threatsCount[THREE] += 1;
+		threatsCount["THREE"] += 1;
 	}
-	score = threatsCount[FIVE] * threatsScore[FIVE] +
-	threatsCount[FOUR] * threatsScore[FOUR] + threatsCount[THREE] * threatsCount[THREE];
+	score = threatsCount["FIVE"] * threatsScore["FIVE"] +
+	threatsCount["FOUR"] * threatsScore["FOUR"] + threatsCount["THREE"] * threatsCount["THREE"];
 }
 
 void 		Board::computeRectangles(int x, int y) {

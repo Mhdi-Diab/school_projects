@@ -9,6 +9,7 @@ using namespace std;
 # include "Player.hpp"
 # include "Solver.hpp"
 # include "Render.hpp"
+# include <time.h>
 
 class Board;
 class Solver;
@@ -23,7 +24,6 @@ public:
 	t_player_color	currentPlayer;
 
 	Game(void);
-	// Game(Game &rhs);
 	~Game(void);
 
 	bool 			playOneTurn(Event *event);
