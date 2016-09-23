@@ -14,7 +14,6 @@ Board::~Board(void) {
 }
 
 Board::Board(Board &rhs) {
-
 	memcpy(board, rhs.board, sizeof(char[BOARD_SIZE][BOARD_SIZE]));
 	lastMove = rhs.lastMove;
 	lastMoveIsCapture = rhs.lastMoveIsCapture;
@@ -85,7 +84,7 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY) {
 		board[y][x] = piece;
 		lastMove = make_pair(x, y);
-		pieces[myHash(x, y)] = new Piece(x, y, piece);
+		pieces[myHash(x, y)] = make_pair(x, y);
 		computeThreats(x, y);
 		return true;
 	}
@@ -93,7 +92,7 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 }
 
 void Board::removePiece(int x, int y) {
-	unordered_map<string, Piece *>::iterator it;
+	unordered_map<string, pair <int, int> >::iterator it;
 
 	board[y][x] = EMPTY;
 	it = pieces.find(myHash(x, y));

@@ -6,12 +6,17 @@
 # define PIECE(X) (X) == (P_BLACK) ? (BLACK) : (WHITE)
 
 # include "Player.hpp"
-# include "Piece.hpp"
 # include "AThreat.hpp"
 # include "utils.hpp"
 # include <vector>
 # include <unordered_map>
 using namespace std;
+
+typedef enum 	e_piece {
+	BLACK = 'x',
+	WHITE = 'o',
+	EMPTY = '.'
+}				t_piece;
 
 class Board : public AThreat {
 public:
@@ -19,7 +24,7 @@ public:
 	char						board[BOARD_SIZE][BOARD_SIZE];
 	int							score;
 	pair<int,int>				lastMove;
-	unordered_map<string, Piece *>	pieces;
+	unordered_map<string, pair<int, int> >	pieces;
 
 	static string *orientation;
 	static unordered_map<string, pair<int, int> > orientationInc;

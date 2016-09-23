@@ -11,14 +11,24 @@ Solver::~Solver(void) {
 }
 
 vector<Board *> Solver::listAllMoves(Board *b, t_player_color color) {
+	int x, y;
 	vector <Board *> vec;
-	int x = 0;
-	int y = 0;
-//TODO: a changer
-	if (b->board[y][x] == EMPTY) {
-		Board *board = new Board(*b);
-		if (board->placePiece(x, y, PIECE(color))) {
-			vec.push_back(board);
+	unordered_map<string, bool > alreadyUsed;
+
+	for (unordered_map<string, pair<int, int> >::iterator it = b->pieces.begin(); it != b->pieces.end(); ++it ) {
+		x = get<0>(it->second);
+		y = get<1>(it->second);
+		for (int yy = y - 2; yy <= y + 2; yy++) {
+			for (int xx = x - 2; xx <= x + 2; xx++) {
+				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 &&
+					xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b->board[yy][xx] == EMPTY) {
+					Board *board = new Board(*b);
+					if (board->placePiece(xx, yy, PIECE(color))) {
+						vec.push_back(board);
+						alreadyUsed[myHash(xx, yy)] = true;
+					}
+				}
+			}
 		}
 	}
 	sort(vec.begin(), vec.end(), sortBoardsByScore);
@@ -28,13 +38,11 @@ vector<Board *> Solver::listAllMoves(Board *b, t_player_color color) {
 pair<int, int> Solver::solve(Board *board, t_player_color color) {
 	Board *move;
 	pair<int, int> res;
-
 	if (board->pieces.size() == 0) {
 		return make_pair(BOARD_SIZE / 2, BOARD_SIZE / 2);
 	}
 	move = minMaxAlphaBeta(board, color, 3, -MAX_VALUE, MAX_VALUE);
 	res = move->lastMove;
-	delete move;
 	return res;
 }
 
