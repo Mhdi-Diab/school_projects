@@ -18,8 +18,9 @@ typedef enum 	e_piece {
 	EMPTY = '.'
 }				t_piece;
 
-class Board : public AThreat {
+class Board {
 public:
+	AThreat 					*threat;
 	bool						lastMoveIsCapture;
 	char						board[BOARD_SIZE][BOARD_SIZE];
 	int							score;

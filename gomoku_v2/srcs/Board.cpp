@@ -4,6 +4,7 @@ string *Board::orientation = initOrientation();
 unordered_map<string, pair<int, int> >Board::orientationInc = initOrientationInc();
 
 Board::Board() {
+	threat = new AThreat();
 	lastMove = make_pair(-1, -1);
 	score = 0;
 	lastMoveIsCapture = false;
@@ -20,8 +21,7 @@ Board::Board(Board &rhs) {
 	for (unordered_map<string, pair<int, int> >::iterator it = rhs.pieces.begin(); it != rhs.pieces.end(); ++it) {
 		pieces[(*it).first] = (*it).second;
 	}
-	blackThreats = rhs.blackThreats;
-	whiteThreats = rhs.whiteThreats;
+	threat = rhs.threat;
 }
 
 void Board::removeCaptures() {
@@ -90,6 +90,8 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 		board[y][x] = piece;
 		lastMove = make_pair(x, y);
 		pieces[myHash(x, y)] = make_pair(x, y);
+		threat->computeThreats(this);
+		threat->printThreats(this);
 		return true;
 	}
 	return false;

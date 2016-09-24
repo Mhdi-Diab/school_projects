@@ -8,14 +8,22 @@ using namespace std;
 
 # define MAX_VALUE 1000000
 
+class Board;
 class AThreat {
 public:
 	unordered_map<string, int> blackThreats;
 	unordered_map<string, int> whiteThreats;
 
 	AThreat(void);
-	virtual ~AThreat(void);
+	AThreat(AThreat &rhs);
+	~AThreat(void);
 	void clearThreats(void);
+	bool isX(Board *board, int x, int y, int nb);
+	bool isXStraight(Board *board, int x, int y, int nb);
+	void findThreats(Board *b, int x, int y, unordered_map<string, int> *threats);
+	void computeScore(Board *b);
+	void computeThreats(Board *b);
+	void printThreats(Board *b);
 
 	static string 						*threatsName;
 	static unordered_map<string, int>	threatsScore;

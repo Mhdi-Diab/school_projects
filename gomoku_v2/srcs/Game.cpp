@@ -25,7 +25,6 @@ bool Game::playOneTurn(Event *event) {
 	if (hasPlayed) {
 		currentPlayer = OPPONENT(currentPlayer);
 		board->removeCaptures();
-		solver->computeThreats(board, currentPlayer);
 		if (solver->isGameFinished(board)) {
 			isFinished = true;
 		}
@@ -82,7 +81,6 @@ bool 	Game::getPlayerMove(Event *event) {
 			x = (event->mouseButton.x - POSB) / POSA;
 			y = (event->mouseButton.y - POSB) / POSA;
 			if (board->placePiece(y , x, PIECE(currentPlayer))) {
-				solver->computeThreats(board, currentPlayer);
 				return true;
 			}
 		}
