@@ -43,11 +43,11 @@ public:
 
 	static unordered_map<string, int> initThreat() {
 		unordered_map<string, int> threatMap;
-		threatMap["CAPTURE"] = 1200;
+		threatMap["CAPTURE"] = 1300;
 		threatMap["TWO"] = 300;
-		threatMap["THREE"] = 1600;
-		threatMap["BROKEN_THREE"] = 1300;
-		threatMap["FOUR"] = 2300;
+		threatMap["THREE"] = 1300;
+		threatMap["BROKEN_THREE"] = 1200;
+		threatMap["FOUR"] = 2700;
 		threatMap["STRAIGHT_FOUR"] = 4000;
 		threatMap["FIVE"] = MAX_VALUE;
 		return threatMap;

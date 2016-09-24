@@ -4,6 +4,8 @@
 #include "Board.hpp"
 #include <vector>
 
+#define PADDING 1
+
 class Solver {
 
 public:

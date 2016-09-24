@@ -46,7 +46,7 @@ bool AThreat::isBrokenThree(Board *b, int x, int y) {
 }
 
 void 		AThreat::printThreats(Board *b) {
-	cout << endl << "WHITE";
+	cout << "WHITE";
 	for (int i = 0; i < 7; i++) {
 		cout << " " << AThreat::threatsName[i] << ": " << whiteThreats[AThreat::threatsName[i]];
 	}
@@ -91,7 +91,8 @@ void 		AThreat::countThreats(Board *b, int x, int y, unordered_map<string, int> 
 	int maxV = 0;
 	int value = 0;
 	int oriIndex = 0;
-	bool isStraight = false;
+	bool isStraightLeft = false;
+	bool isStraightRight = false;
 
 	t_piece piece = b->getPiece(x, y);
 	while (i < 8) {
@@ -103,19 +104,19 @@ void 		AThreat::countThreats(Board *b, int x, int y, unordered_map<string, int> 
 		}
 		i += 2;
 	}
-	isStraight = b->rowEndsWithPiece(x, y, piece, EMPTY_PIECE, Board::orientation[oriIndex]) &&
-		b->rowEndsWithPiece(x, y, piece, EMPTY_PIECE, Board::orientation[oriIndex + 1]);
+	isStraightLeft = b->rowEndsWithPiece(x, y, piece, EMPTY_PIECE, Board::orientation[oriIndex]);
+	isStraightRight = b->rowEndsWithPiece(x, y, piece, EMPTY_PIECE, Board::orientation[oriIndex + 1]);
 	if (maxV >= 5) {
 		(*t)["FIVE"] += 1;
-	} else if (maxV == 4 && isStraight) {
+	} else if (maxV == 4 && isStraightLeft && isStraightRight) {
 		(*t)["STRAIGHT_FOUR"]++;
-	} else if (maxV == 4) {
+	} else if (maxV == 4 && (isStraightLeft || isStraightRight)) {
 		(*t)["FOUR"]++;
-	} else if (maxV == 3 && isStraight) {
+	} else if (maxV == 3 && isStraightLeft && isStraightRight) {
 		(*t)["THREE"]++;
 	} else if (isBrokenThree(b, x, y)) {
 		(*t)["BROKEN_THREE"]++;
-	} else if (maxV == 2 && isStraight) {
+	} else if (maxV == 2 && isStraightLeft && isStraightRight) {
 		(*t)["TWO"]++;
 	}
 	if (b->lastMoveIsCapture)
@@ -148,6 +149,6 @@ void		AThreat::computeThreats(Board *b) {
 	}
 	arrangeThreats(b, &whiteThreats);
 	arrangeThreats(b, &blackThreats);
-	printThreats(b);
+	// printThreats(b);
 	computeScore(b);
 }

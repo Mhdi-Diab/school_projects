@@ -6,11 +6,16 @@ Game::Game(void) {
 	solver = new Solver();
 	render = new Render();
 	currentPlayer = P_BLACK;
-	player[P_BLACK] = new Player(P_BLACK, P_PLAYER);
+	player[P_BLACK] = new Player(P_BLACK, P_AI);
 	player[P_WHITE] = new Player(P_WHITE, P_PLAYER);
 }
 
 Game::~Game(void) {
+	delete board;
+	delete solver;
+	delete render;
+	delete player[P_BLACK];
+	delete player[P_WHITE];
 }
 
 bool Game::playOneTurn(Event *event) {

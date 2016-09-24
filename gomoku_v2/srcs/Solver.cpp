@@ -18,9 +18,10 @@ vector<Board *> Solver::listAllMoves(Board *b, t_player_color color) {
 	for (unordered_map<string, pair<int, int> >::iterator it = b->pieces.begin(); it != b->pieces.end(); ++it) {
 		x = get<0>(it->second);
 		y = get<1>(it->second);
-		for (int yy = y - 2; yy <= y + 2; yy++) {
-			for (int xx = x - 2; xx <= x + 2; xx++) {
+		for (int yy = y - PADDING; yy <= y + PADDING; yy++) {
+			for (int xx = x - PADDING; xx <= x + PADDING; xx++) {
 				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 && xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b->board[yy][xx] == EMPTY_PIECE) {
+					cout << "x: " << xx << " y: " << yy << endl;
 					Board *board = new Board(*b);
 					board->placePiece(xx, yy, PIECE(color));
 					vec.push_back(board);
@@ -42,6 +43,7 @@ pair<int, int> Solver::solve(Board *board, t_player_color color) {
 	}
 	move = minMaxAlphaBeta(board, color, 1, -MAX_VALUE, MAX_VALUE);
 	res = move->lastMove;
+	cout << "PLAYED: x: " << get<0>(res) << " y: " << get<1>(res) << endl;
 	delete move;
 	return res;
 }
@@ -62,6 +64,7 @@ Board *Solver::minMaxAlphaBeta(Board *board, t_player_color color, int depth, in
 		return board;
 	}
 	moves = listAllMoves(board, color);
+	cout << "Nb moves: " << moves.size() << endl;
 	for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
 		if (isGameFinished(*it)) {
 			return (*it);
