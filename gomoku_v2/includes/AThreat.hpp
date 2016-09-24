@@ -25,6 +25,8 @@ public:
 	void computeScore(Board *b);
 	void computeThreats(Board *b);
 	void printThreats(Board *b);
+	bool isBrokenThree(Board *b, int x, int y);
+	void countThreats(Board *b, int x, int y, unordered_map<string, int> *t);
 
 	static string 						*threatsName;
 	static unordered_map<string, int>	threatsScore;

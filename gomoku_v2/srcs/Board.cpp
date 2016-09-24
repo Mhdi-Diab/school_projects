@@ -68,6 +68,32 @@ int	 Board::countConnectedPieces(int x, int y, t_piece piece, string ori) {
 	return (1 + countConnectedPieces(x + get<0>(inc), y + get<1>(inc), piece, ori));
 }
 
+bool Board::isBrokenRow(int x, int y, t_piece piece, string ori) {
+	if (x < 0 || y < 0|| x >= BOARD_SIZE || y >= BOARD_SIZE)
+		return false;
+	pair<int, int> inc = orientationInc[ori];
+
+	if (getPiece(x, y) == EMPTY_PIECE) {
+		x += get<0>(inc);
+		y += get<1>(inc);
+		if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE)
+			return false;
+		if (getPiece(x, y) == piece) {
+			x += get<0>(inc);
+			y += get<1>(inc);
+			if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE)
+				return false;
+			return (getPiece(x, y) == EMPTY_PIECE);
+		}
+		else
+			return false;
+	}
+	else if (getPiece(x, y) == piece) {
+		return (isBrokenRow(x + get<0>(inc), y + get<1>(inc), piece, ori));
+	}
+	return false;
+}
+
 bool Board::rowEndsWithPiece(int x, int y, t_piece initial, t_piece piece, string ori) {
 	pair<int, int> inc = orientationInc[ori];
 

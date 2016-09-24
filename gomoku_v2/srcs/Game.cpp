@@ -6,7 +6,7 @@ Game::Game(void) {
 	solver = new Solver();
 	render = new Render();
 	currentPlayer = P_BLACK;
-	player[P_BLACK] = new Player(P_BLACK, P_AI);
+	player[P_BLACK] = new Player(P_BLACK, P_PLAYER);
 	player[P_WHITE] = new Player(P_WHITE, P_PLAYER);
 }
 
