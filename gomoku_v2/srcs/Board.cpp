@@ -30,7 +30,7 @@ Board::Board(Board &rhs) {
 	for (unordered_map<string, pair<int, int> >::iterator it = rhs.pieces.begin(); it != rhs.pieces.end(); ++it) {
 		pieces[(*it).first] = (*it).second;
 	}
-	threat = rhs.threat;
+	threat = new AThreat(*rhs.threat);
 }
 
 void Board::removeCaptures() {
@@ -74,10 +74,7 @@ bool Board::rowEndsWithPiece(int x, int y, t_piece initial, t_piece piece, strin
 	if (getPiece(x, y) == piece) {
 		return true;
 	}
-	else if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) {
-		return false;
-	}
-	if (getPiece(x, y) == INV(initial)) {
+	else if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE || getPiece(x, y) != initial) {
 		return false;
 	}
 	return (rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), initial, piece, ori));

@@ -18,7 +18,8 @@ public:
 	AThreat(AThreat &rhs);
 	~AThreat(void);
 	void clearThreats(void);
-	bool isX(Board *board, int x, int y, int nb);
+	bool isFive(Board *board, int x, int y);
+	bool isXOneEnd(Board *board, int x, int y, int nb);
 	bool isXStraight(Board *board, int x, int y, int nb);
 	void findThreats(Board *b, int x, int y, unordered_map<string, int> *threats);
 	void computeScore(Board *b);
@@ -40,7 +41,7 @@ public:
 
 	static unordered_map<string, int> initThreat() {
 		 unordered_map<string, int> threatMap;
-		 threatMap["CAPTURE"] = 1200;
+		 threatMap["CAPTURE"] = 2200;
 		 threatMap["TWO"] = 300;
 		 threatMap["THREE"] = 1600;
 		 threatMap["BROKEN_THREE"] = 1300;
