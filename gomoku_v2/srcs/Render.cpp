@@ -12,10 +12,10 @@ void Render::drawBoard(Board *board) {
 	window.draw(this->board);
 	for (int i = 0; i < BOARD_SIZE; i++) {
 		for (int j = 0; j < BOARD_SIZE; j++) {
-			if (board->getPiece(j, i) == WHITE) {
+			if (board->getPiece(j, i) == WHITE_PIECE) {
 				whitePiece.setPosition(i * POSA + POSB, j * POSA + POSB);
 				window.draw(whitePiece);
-			} else if (board->getPiece(j, i) == BLACK) {
+			} else if (board->getPiece(j, i) == BLACK_PIECE) {
 				blackPiece.setPosition(i * POSA + POSB, j * POSA + POSB);
 				window.draw(blackPiece);
 			}

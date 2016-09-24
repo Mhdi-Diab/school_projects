@@ -2,8 +2,8 @@
 # define BOARD_HPP
 
 # define BOARD_SIZE 19
-# define INV(X) ((X) == (BLACK) ? (WHITE) : (BLACK))
-# define PIECE(X) (X) == (P_BLACK) ? (BLACK) : (WHITE)
+# define INV(X) ((X) == (BLACK_PIECE) ? (WHITE_PIECE) : (BLACK_PIECE))
+# define PIECE(X) ((X) == (P_BLACK) ? (BLACK_PIECE) : (WHITE_PIECE))
 
 # include "Player.hpp"
 # include "AThreat.hpp"
@@ -13,9 +13,9 @@
 using namespace std;
 
 typedef enum 	e_piece {
-	BLACK = 'x',
-	WHITE = 'o',
-	EMPTY = '.'
+	BLACK_PIECE = 'x',
+	WHITE_PIECE = 'o',
+	EMPTY_PIECE = '.'
 }				t_piece;
 
 class Board {
@@ -35,11 +35,12 @@ public:
 	virtual ~Board(void);
 
 	void clear(void);
+	void print();
 	bool placePiece(int x, int y, t_piece piece);
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
 	int countConnectedPieces(int x, int y, t_piece piece, string ori);
-	bool rowEndsWithPiece(int x, int y, t_piece piece, string ori);
+	bool rowEndsWithPiece(int x, int y, t_piece initial, t_piece piece, string ori);
 	void removeCaptures();
 	void removePiece(int x, int y);
 

@@ -14,6 +14,15 @@ Board::Board() {
 Board::~Board(void) {
 }
 
+void Board::print() {
+	for (int i = 0; i < BOARD_SIZE; i++) {
+		for (int j = 0; j < BOARD_SIZE; j++) {
+			cout << board[j][i];
+		}
+		cout << endl;
+	}
+}
+
 Board::Board(Board &rhs) {
 	memcpy(board, rhs.board, sizeof(char[BOARD_SIZE][BOARD_SIZE]));
 	lastMove = rhs.lastMove;
@@ -34,7 +43,7 @@ void Board::removeCaptures() {
 	for (int i = 0; i < 8; i++) {
 		inc = orientationInc[orientation[i]];
 		if (countConnectedPieces(x + get<0>(inc), y + get<1>(inc), INV(piece), orientation[i]) == 2 &&
-			rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), piece, orientation[i])) {
+			rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), INV(piece), piece, orientation[i])) {
 			removePiece(x + get<0>(inc), y + get<1>(inc));
 			removePiece(x + get<0>(inc) * 2, y + get<1>(inc) * 2);
 			lastMoveIsCapture = true;
@@ -45,7 +54,7 @@ void Board::removeCaptures() {
 void Board::clear(void) {
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
-			board[y][x] = EMPTY;
+			board[y][x] = EMPTY_PIECE;
 		}
 	}
 }
@@ -59,16 +68,19 @@ int	 Board::countConnectedPieces(int x, int y, t_piece piece, string ori) {
 	return (1 + countConnectedPieces(x + get<0>(inc), y + get<1>(inc), piece, ori));
 }
 
-bool Board::rowEndsWithPiece(int x, int y, t_piece piece, string ori) {
+bool Board::rowEndsWithPiece(int x, int y, t_piece initial, t_piece piece, string ori) {
 	pair<int, int> inc = orientationInc[ori];
 
 	if (getPiece(x, y) == piece) {
 		return true;
 	}
-	else if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE || getPiece(x, y) != INV(piece)) {
+	else if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) {
 		return false;
 	}
-	return (rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), piece, ori));
+	if (getPiece(x, y) == INV(initial)) {
+		return false;
+	}
+	return (rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), initial, piece, ori));
 }
 
 bool Board::hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int)) {
@@ -86,7 +98,7 @@ bool Board::hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int)) {
 }
 
 bool Board::placePiece(int x, int y, t_piece piece) {
-	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY) {
+	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY_PIECE) {
 		board[y][x] = piece;
 		lastMove = make_pair(x, y);
 		pieces[myHash(x, y)] = make_pair(x, y);
@@ -100,7 +112,7 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 void Board::removePiece(int x, int y) {
 	unordered_map<string, pair <int, int> >::iterator it;
 
-	board[y][x] = EMPTY;
+	board[y][x] = EMPTY_PIECE;
 	it = pieces.find(myHash(x, y));
 	pieces.erase(it);
 }

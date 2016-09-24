@@ -20,7 +20,7 @@ vector<Board *> Solver::listAllMoves(Board *b, t_player_color color) {
 		y = get<1>(it->second);
 		for (int yy = y - 2; yy <= y + 2; yy++) {
 			for (int xx = x - 2; xx <= x + 2; xx++) {
-				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 && xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b->board[yy][xx] == EMPTY) {
+				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 && xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b->board[yy][xx] == EMPTY_PIECE) {
 					Board *board = new Board(*b);
 					board->placePiece(xx, yy, PIECE(color));
 					vec.push_back(board);
