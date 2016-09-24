@@ -123,6 +123,10 @@ bool Board::hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int)) {
 bool Board::placePiece(int x, int y, t_piece piece) {
 	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY_PIECE) {
 		board[y][x] = piece;
+		if (threat->isBrokenThree(this, x, y) && threat-> isXStraight(this, x, y, 3)) {
+			board[y][x] = EMPTY_PIECE;
+			return false;
+		}
 		lastMove = make_pair(x, y);
 		pieces[myHash(x, y)] = make_pair(x, y);
 		threat->computeThreats(this);
