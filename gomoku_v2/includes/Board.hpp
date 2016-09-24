@@ -15,7 +15,8 @@ using namespace std;
 typedef enum 	e_piece {
 	BLACK_PIECE = 'x',
 	WHITE_PIECE = 'o',
-	EMPTY_PIECE = '.'
+	EMPTY_PIECE = '.',
+	OUT_OF_BOARD = '\0'
 }				t_piece;
 
 class Board {
@@ -39,7 +40,6 @@ public:
 	bool placePiece(int x, int y, t_piece piece);
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
-	bool isBrokenRow(int x, int y, t_piece piece, string ori);
 	int countConnectedPieces(int x, int y, t_piece piece, string ori);
 	bool rowEndsWithPiece(int x, int y, t_piece initial, t_piece piece, string ori);
 	void removeCaptures();
