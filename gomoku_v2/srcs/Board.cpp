@@ -13,6 +13,7 @@ Board::Board() {
 }
 
 Board::~Board(void) {
+	delete threat;
 }
 
 void Board::print() {

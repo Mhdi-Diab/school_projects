@@ -1,11 +1,12 @@
 #include "Game.hpp"
 
+t_player_color Game::currentPlayer = P_BLACK;
+
 Game::Game(void) {
 	isFinished = false;
 	board = new Board();
 	solver = new Solver();
 	render = new Render();
-	currentPlayer = P_BLACK;
 	player[P_BLACK] = new Player(P_BLACK, P_AI);
 	player[P_WHITE] = new Player(P_WHITE, P_PLAYER);
 }

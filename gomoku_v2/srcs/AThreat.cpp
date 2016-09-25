@@ -1,5 +1,6 @@
 #include "AThreat.hpp"
 #include "Board.hpp"
+#include "Game.hpp"
 
 string *AThreat::threatsName = initThreatsNames();
 unordered_map<string, int>AThreat::threatsScore = initThreat();
@@ -74,13 +75,14 @@ bool AThreat::isXStraight(Board *b, int x, int y, int nb) {
 void 		AThreat::computeScore(Board *b) {
 	int whiteScore = 0;
 	int blackScore = 0;
-	// t_piece piece = b->getPiece(get<0>(b->lastMove), get<1>(b->lastMove));
 
 	for (int i = 0; i < NUMBER_THREATS; i++) {
 		whiteScore += whiteThreats[AThreat::threatsName[i]] * threatsScore[AThreat::threatsName[i]];
 		blackScore += blackThreats[AThreat::threatsName[i]] * threatsScore[AThreat::threatsName[i]];
 	}
 	b->score = blackScore - whiteScore;
+	if (Game::currentPlayer != P_BLACK)
+		b->score *= -1;
 }
 
 void 		AThreat::countThreats(Board *b, int x, int y, unordered_map<string, int> *t) {

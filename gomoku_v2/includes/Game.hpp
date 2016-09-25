@@ -21,7 +21,7 @@ public:
 	Render			*render;
 	Solver			*solver;
 	Player			*player[2];
-	t_player_color	currentPlayer;
+	static t_player_color	currentPlayer;
 
 	Game(void);
 	~Game(void);

@@ -1,12 +1,5 @@
 #include "Solver.hpp"
-
-bool sortBoardsByScore(Board *a, Board *b) {
-	return a->score > b->score;
-}
-
-bool sortBoardsByScoreRev(Board *a, Board *b) {
-	return a->score < b->score;
-}
+#include "utils.hpp"
 
 Solver::Solver() {
 }
@@ -44,17 +37,33 @@ pair<int, int> Solver::solve(Board *board) {
 		return make_pair(BOARD_SIZE / 2, BOARD_SIZE / 2);
 	}
 	move = AlphaBetaMaxMove(board, 3, -MAX_VALUE, MAX_VALUE);
-	res = move->lastMove;
-	delete move;
+	if (move) {
+		res = move->lastMove;
+		delete move;
+	} else {
+		while (42) {
+			res = make_pair(rand() % 19, rand() % 19);
+			if (board->getPiece(get<0>(res), get<1>(res) == EMPTY_PIECE))
+				break ;
+		}
+	}
 	return res;
 }
 
 bool Solver::isGameFinished(Board *board) {
-	if (board->threat->whiteThreats["FIVE"] != 0)
-		cout << "White Five Detected"<< endl;
-	if (board->threat->blackThreats["FIVE"] != 0)
-		cout << "Black Five Detected"<< endl;
 	return board->threat->whiteThreats["FIVE"] != 0 || board->threat->blackThreats["FIVE"] != 0;
+}
+
+Board *Solver::deleteMovesAndReturn(vector<Board *> moves, Board *save) {
+	Board *copy;
+
+	if (!save)
+		return save;
+	copy = new Board(*save);
+	for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
+		delete *it;
+	}
+	return copy;
 }
 
 Board *Solver::AlphaBetaMaxMove(Board *board, short int depth, int alpha, int beta) {
@@ -63,29 +72,29 @@ Board *Solver::AlphaBetaMaxMove(Board *board, short int depth, int alpha, int be
 	Board *move = NULL;
 
 	if (depth == 0) {
-		return board;
+		return new Board(*board);
 	}
 	moves = listAllMoves(board);
 	sort(moves.begin(), moves.end(), sortBoardsByScore);
 	for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
 		if (isGameFinished(*it)) {
-			cout <<"BLACK FINISH: " << (*it)->score << " depth: " << depth <<endl;
-			(*it)->print();
-			return (*it);
+			// (*it)->print();
+			return deleteMovesAndReturn(moves, *it);
 		}
 		move = AlphaBetaMinMove(*it, depth - 1, alpha, beta);
 		if (move) {
  			if (move->score > alpha) {
 				bestMove = *it;
 				alpha = move->score;
-				if (beta <= alpha) {
-					cout << "beta: " << beta << " alpha: " << alpha <<endl;
-					return bestMove;
+				if (beta < alpha) {
+					// cout << " max depth "<< depth << " beta: " << beta << " alpha: " << alpha << endl;
+					return deleteMovesAndReturn(moves, bestMove);
 				}
 			}
+			delete move;
 		}
 	}
-	return bestMove;
+	return deleteMovesAndReturn(moves, bestMove);
 }
 
 Board *Solver::AlphaBetaMinMove(Board* board, short int depth, int alpha, int beta) {
@@ -94,26 +103,27 @@ Board *Solver::AlphaBetaMinMove(Board* board, short int depth, int alpha, int be
 	Board *move = NULL;
 
 	if (depth == 0) {
-		return board;
+		return new Board(*board);
 	}
 	moves = listAllMoves(board);
 	sort(moves.begin(), moves.end(), sortBoardsByScoreRev);
 	for (vector<Board*>::iterator it = moves.begin(); it != moves.end(); it++) {
 		if (isGameFinished(*it)) {
-			cout <<"WHITE FINISH: " << (*it)->score << " depth: " << depth <<endl;
-			(*it)->print();
-			return (*it);
+			// (*it)->print();
+			return deleteMovesAndReturn(moves, *it);
 		}
 		move = AlphaBetaMaxMove(*it, depth - 1, alpha, beta);
 		if (move) {
 			if (move->score < beta) {
 				beta = move->score;
 				bestMove = *it;
-				if (beta <= alpha) {
-					return bestMove;
+				if (beta < alpha) {
+					// cout << " min depth "<< depth << " beta: " << beta << " alpha: " << alpha << endl;
+					return deleteMovesAndReturn(moves, bestMove);
 				}
 			}
+			delete move;
 		}
 	}
-	return bestMove;
+	return deleteMovesAndReturn(moves, bestMove);
 }

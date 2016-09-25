@@ -11,3 +11,11 @@ bool equalCmp(int a, int b) {
 string myHash(int x, int y) {
 	return to_string(x) + to_string(y);
 }
+
+bool sortBoardsByScore(Board *a, Board *b) {
+	return a->score > b->score;
+}
+
+bool sortBoardsByScoreRev(Board *a, Board *b) {
+	return a->score < b->score;
+}
