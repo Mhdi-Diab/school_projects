@@ -36,7 +36,7 @@ pair<int, int> Solver::solve(Board *board) {
 	if (board->pieces.size() == 0) {
 		return make_pair(BOARD_SIZE / 2, BOARD_SIZE / 2);
 	}
-	move = AlphaBetaMaxMove(board, 3, -MAX_VALUE, MAX_VALUE);
+	move = AlphaBetaMaxMove(board, MAX_DEPTH, -MAX_VALUE, MAX_VALUE);
 	if (move) {
 		res = move->lastMove;
 		delete move;

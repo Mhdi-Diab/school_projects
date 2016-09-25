@@ -5,7 +5,7 @@
 #include <vector>
 
 #define PADDING 1
-#define MAX_DEPTH 3
+#define MAX_DEPTH 2
 
 class Solver {
 

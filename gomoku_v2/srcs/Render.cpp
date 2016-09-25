@@ -13,11 +13,17 @@ void Render::drawBoard(Board *board) {
 	for (int i = 0; i < BOARD_SIZE; i++) {
 		for (int j = 0; j < BOARD_SIZE; j++) {
 			if (board->getPiece(j, i) == WHITE_PIECE) {
+				if (j == get<0>(board->lastMove) && i == get<1>(board->lastMove))
+					whitePiece.setColor(sf::Color(255, 200, 100));
 				whitePiece.setPosition(i * POSA + POSB, j * POSA + POSB);
 				window.draw(whitePiece);
+				whitePiece.setColor(sf::Color(255, 255, 255));
 			} else if (board->getPiece(j, i) == BLACK_PIECE) {
+				if (j == get<0>(board->lastMove) && i == get<1>(board->lastMove))
+					blackPiece.setColor(sf::Color(255, 200, 100));
 				blackPiece.setPosition(i * POSA + POSB, j * POSA + POSB);
 				window.draw(blackPiece);
+				blackPiece.setColor(sf::Color(255, 255, 255));
 			}
 		}
 	}

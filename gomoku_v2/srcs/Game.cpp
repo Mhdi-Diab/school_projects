@@ -54,11 +54,9 @@ void	Game::loop(void) {
 			if (event.type == Event::Closed)
 				render->window.close();
 		}
-		if (hasPlayed || firstTurn) {
-			render->window.clear();
-			render->drawBoard(board);
-			render->window.display();
-		}
+		render->window.clear();
+		render->drawBoard(board);
+		render->window.display();
 		firstTurn = false;
 	}
 }
