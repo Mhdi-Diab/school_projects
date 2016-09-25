@@ -20,7 +20,6 @@ public:
 	t_player_type	type;
 
 	Player(t_player_color color, t_player_type type);
-	// Player(Player &rhs);
 	~Player(void);
 };
 #endif

@@ -1,4 +1,5 @@
 #include "Render.hpp"
+#include "Game.hpp"
 
 Render::Render() {
 	window.create(sf::VideoMode(WIN_X, WIN_Y, 32), "Gomoku");

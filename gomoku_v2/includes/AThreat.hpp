@@ -29,18 +29,8 @@ public:
 	bool isBrokenThree(Board *b, int x, int y);
 	void countThreats(Board *b, int x, int y, unordered_map<string, int> *t);
 
-	static string 						*threatsName;
+	static string 						threatsName[NUMBER_THREATS];
 	static unordered_map<string, int>	threatsScore;
-
-	static string *initThreatsNames() {
-		string *names = new string[NUMBER_THREATS];
-		string threats[NUMBER_THREATS] = {"CAPTURE", "THREE", "BROKEN_THREE", "FOUR", "STRAIGHT_FOUR", "FIVE"};
-
-		for (int i = 0; i < NUMBER_THREATS; i++) {
-			names[i] = threats[i];
-		}
-		return names;
-	}
 
 	static unordered_map<string, int> initThreat() {
 		unordered_map<string, int> threatMap;

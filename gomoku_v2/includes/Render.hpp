@@ -29,6 +29,7 @@ public:
 	Render(void);
 	~Render(void);
 	int loadTextures();
+	void mouseMove(Board *board);
 	void drawBoard(Board *board);
 };
 

@@ -2,7 +2,7 @@
 #include "Board.hpp"
 #include "Game.hpp"
 
-string *AThreat::threatsName = initThreatsNames();
+string AThreat::threatsName[] = {"CAPTURE", "THREE", "BROKEN_THREE", "FOUR", "STRAIGHT_FOUR", "FIVE"};
 unordered_map<string, int>AThreat::threatsScore = initThreat();
 
 AThreat::AThreat() {

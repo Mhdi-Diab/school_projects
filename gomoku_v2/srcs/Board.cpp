@@ -1,6 +1,6 @@
 #include "Board.hpp"
 
-string *Board::orientation = initOrientation();
+string Board::orientation[] = {"NW", "SE", "N", "S", "W", "E", "SW", "NE"};
 unordered_map<string, pair<int, int> >Board::orientationInc = initOrientationInc();
 
 Board::Board() {

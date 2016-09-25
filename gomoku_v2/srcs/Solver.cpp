@@ -41,7 +41,7 @@ pair<int, int> Solver::solve(Board *board) {
 		res = move->lastMove;
 		delete move;
 	} else {
-		while (42) {
+		while (true) {
 			res = make_pair(rand() % 19, rand() % 19);
 			if (board->getPiece(get<0>(res), get<1>(res) == EMPTY_PIECE))
 				break ;
@@ -78,7 +78,6 @@ Board *Solver::AlphaBetaMaxMove(Board *board, short int depth, int alpha, int be
 	sort(moves.begin(), moves.end(), sortBoardsByScore);
 	for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
 		if (isGameFinished(*it)) {
-			// (*it)->print();
 			return deleteMovesAndReturn(moves, *it);
 		}
 		move = AlphaBetaMinMove(*it, depth - 1, alpha, beta);
@@ -87,7 +86,7 @@ Board *Solver::AlphaBetaMaxMove(Board *board, short int depth, int alpha, int be
 				bestMove = *it;
 				alpha = move->score;
 				if (beta < alpha) {
-					// cout << " max depth "<< depth << " beta: " << beta << " alpha: " << alpha << endl;
+					delete move;
 					return deleteMovesAndReturn(moves, bestMove);
 				}
 			}
@@ -109,7 +108,6 @@ Board *Solver::AlphaBetaMinMove(Board* board, short int depth, int alpha, int be
 	sort(moves.begin(), moves.end(), sortBoardsByScoreRev);
 	for (vector<Board*>::iterator it = moves.begin(); it != moves.end(); it++) {
 		if (isGameFinished(*it)) {
-			// (*it)->print();
 			return deleteMovesAndReturn(moves, *it);
 		}
 		move = AlphaBetaMaxMove(*it, depth - 1, alpha, beta);
@@ -118,7 +116,7 @@ Board *Solver::AlphaBetaMinMove(Board* board, short int depth, int alpha, int be
 				beta = move->score;
 				bestMove = *it;
 				if (beta < alpha) {
-					// cout << " min depth "<< depth << " beta: " << beta << " alpha: " << alpha << endl;
+					delete move;
 					return deleteMovesAndReturn(moves, bestMove);
 				}
 			}

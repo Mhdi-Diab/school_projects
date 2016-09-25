@@ -48,16 +48,19 @@ void	Game::loop(void) {
 		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
 			render->window.close();
 		}
-		if (!isFinished)
+		if (!isFinished) {
 			hasPlayed = playOneTurn(&event);
+		}
 		while (render->window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				render->window.close();
 		}
-		render->window.clear();
-		render->drawBoard(board);
-		render->window.display();
-		firstTurn = false;
+		if (hasPlayed) {
+			render->window.clear();
+			render->drawBoard(board);
+			render->window.display();
+			firstTurn = false;
+		}
 	}
 }
 
@@ -69,7 +72,7 @@ bool	Game::getAIMove() {
 	ret = solver->solve(board);
 	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
 	end = clock();
-	cout << "Time required for execution: " << (double)(end-start)/CLOCKS_PER_SEC << " seconds." << endl;
+	cout << "Time required for execution: " << (double)(end - start)/CLOCKS_PER_SEC << " seconds." << endl;
 	return true;
 }
 

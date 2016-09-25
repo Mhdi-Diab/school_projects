@@ -29,7 +29,7 @@ public:
 	t_piece						turn;
 	unordered_map<string, pair<int, int> >	pieces;
 
-	static string *orientation;
+	static string orientation[8];
 	static unordered_map<string, pair<int, int> > orientationInc;
 
 	Board(void);
@@ -45,16 +45,6 @@ public:
 	bool rowEndsWithPiece(int x, int y, t_piece initial, t_piece piece, string ori);
 	void removeCaptures();
 	void removePiece(int x, int y);
-
-	static string *initOrientation() {
-		string *names = new string[8];
-		string orientation[8] = {"NW", "SE", "N", "S", "W", "E", "SW", "NE"};
-
-		for (int i = 0; i < 8; i++) {
-			names[i] = orientation[i];
-		}
-		return names;
-	}
 
 	static unordered_map<string, pair<int, int > > initOrientationInc() {
 		 unordered_map<string, pair<int, int > > myMap;
