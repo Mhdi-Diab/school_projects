@@ -32,7 +32,8 @@ Board::Board(Board &rhs) {
 	for (unordered_map<string, pair<int, int> >::iterator it = rhs.pieces.begin(); it != rhs.pieces.end(); ++it) {
 		pieces[(*it).first] = (*it).second;
 	}
-	threat = new AThreat(*rhs.threat);
+	threat = new AThreat();
+	score = rhs.score;
 }
 
 void Board::removeCaptures() {
@@ -106,6 +107,7 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 		pieces[myHash(x, y)] = make_pair(x, y);
 		threat->computeThreats(this);
 		turn = INV(turn);
+		removeCaptures();
 		return true;
 	}
 	return false;

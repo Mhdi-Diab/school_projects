@@ -29,7 +29,6 @@ bool Game::playOneTurn(Event *event) {
 	}
 	if (hasPlayed) {
 		currentPlayer = OPPONENT(currentPlayer);
-		board->removeCaptures();
 		if (solver->isGameFinished(board)) {
 			isFinished = true;
 		}

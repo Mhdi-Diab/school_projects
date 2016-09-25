@@ -7,6 +7,7 @@
 using namespace std;
 
 # define MAX_VALUE 1000000
+# define NUMBER_THREATS 6
 
 class Board;
 class AThreat {
@@ -32,10 +33,10 @@ public:
 	static unordered_map<string, int>	threatsScore;
 
 	static string *initThreatsNames() {
-		string *names = new string[7];
-		string threats[7] = {"CAPTURE", "TWO", "THREE", "BROKEN_THREE", "FOUR", "STRAIGHT_FOUR", "FIVE"};
+		string *names = new string[NUMBER_THREATS];
+		string threats[NUMBER_THREATS] = {"CAPTURE", "THREE", "BROKEN_THREE", "FOUR", "STRAIGHT_FOUR", "FIVE"};
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < NUMBER_THREATS; i++) {
 			names[i] = threats[i];
 		}
 		return names;
@@ -43,8 +44,7 @@ public:
 
 	static unordered_map<string, int> initThreat() {
 		unordered_map<string, int> threatMap;
-		threatMap["CAPTURE"] = 1300;
-		threatMap["TWO"] = 300;
+		threatMap["CAPTURE"] = 2300;
 		threatMap["THREE"] = 1300;
 		threatMap["BROKEN_THREE"] = 1200;
 		threatMap["FOUR"] = 2700;

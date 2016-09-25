@@ -16,7 +16,7 @@ AThreat::AThreat(AThreat &rhs) {
 }
 
 void AThreat::clearThreats(void) {
-	for (int i = 0; i <= 7; i++) {
+	for (int i = 0; i <= NUMBER_THREATS; i++) {
 		this->blackThreats[threatsName[i]] = 0;
 		this->whiteThreats[threatsName[i]] = 0;
 	}
@@ -45,11 +45,11 @@ bool AThreat::isBrokenThree(Board *b, int x, int y) {
 
 void 		AThreat::printThreats(Board *b) {
 	cout << "WHITE";
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < NUMBER_THREATS; i++) {
 		cout << " " << AThreat::threatsName[i] << ": " << whiteThreats[AThreat::threatsName[i]];
 	}
 	cout << endl << "BLACK";
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < NUMBER_THREATS; i++) {
 		cout << " " << AThreat::threatsName[i] << ": " << blackThreats[AThreat::threatsName[i]];
 	}
 	cout << endl;
@@ -76,7 +76,7 @@ void 		AThreat::computeScore(Board *b) {
 	int blackScore = 0;
 	// t_piece piece = b->getPiece(get<0>(b->lastMove), get<1>(b->lastMove));
 
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < NUMBER_THREATS; i++) {
 		whiteScore += whiteThreats[AThreat::threatsName[i]] * threatsScore[AThreat::threatsName[i]];
 		blackScore += blackThreats[AThreat::threatsName[i]] * threatsScore[AThreat::threatsName[i]];
 	}
@@ -113,11 +113,11 @@ void 		AThreat::countThreats(Board *b, int x, int y, unordered_map<string, int> 
 		(*t)["THREE"]++;
 	} else if (isBrokenThree(b, x, y)) {
 		(*t)["BROKEN_THREE"]++;
-	} else if (maxV == 2 && isStraightLeft && isStraightRight) {
-		(*t)["TWO"]++;
 	}
-	if (b->lastMoveIsCapture)
+	if (b->lastMoveIsCapture) {
 		(*t)["CAPTURE"] += 1;
+	}
+
 }
 
 void 		AThreat::arrangeThreats(Board *b, unordered_map<string, int> *t) {
@@ -125,8 +125,6 @@ void 		AThreat::arrangeThreats(Board *b, unordered_map<string, int> *t) {
 	(*t)["STRAIGHT_FOUR"] /= 4;
 	(*t)["FOUR"] /= 4;
 	(*t)["THREE"] /= 3;
-	(*t)["TWO"] /= 2;
-	(*t)["TWO"] -= (*t)["BROKEN_THREE"];
 }
 
 void		AThreat::computeThreats(Board *b) {

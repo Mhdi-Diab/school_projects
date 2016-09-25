@@ -69,7 +69,7 @@ Board *Solver::AlphaBetaMaxMove(Board *board, short int depth, int alpha, int be
 	sort(moves.begin(), moves.end(), sortBoardsByScore);
 	for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
 		if (isGameFinished(*it)) {
-			// cout <<"BLACK FINISH: " << (*it)->score << " depth: " << depth <<endl;
+			cout <<"BLACK FINISH: " << (*it)->score << " depth: " << depth <<endl;
 			(*it)->print();
 			return (*it);
 		}
@@ -78,9 +78,9 @@ Board *Solver::AlphaBetaMaxMove(Board *board, short int depth, int alpha, int be
  			if (move->score > alpha) {
 				bestMove = *it;
 				alpha = move->score;
-				if (beta > alpha) {
-					return bestMove;
-				}
+				// if (beta >= alpha) {
+					// return bestMove;
+				// }
 			}
 		}
 	}
@@ -99,7 +99,7 @@ Board *Solver::AlphaBetaMinMove(Board* board, short int depth, int alpha, int be
 	sort(moves.begin(), moves.end(), sortBoardsByScoreRev);
 	for (vector<Board*>::iterator it = moves.begin(); it != moves.end(); it++) {
 		if (isGameFinished(*it)) {
-			// cout <<"WHITE FINISH: " << (*it)->score << " depth: " << depth <<endl;
+			cout <<"WHITE FINISH: " << (*it)->score << " depth: " << depth <<endl;
 			(*it)->print();
 			return (*it);
 		}
@@ -108,9 +108,9 @@ Board *Solver::AlphaBetaMinMove(Board* board, short int depth, int alpha, int be
 			if (move->score < beta) {
 				beta = move->score;
 				bestMove = *it;
-				if (beta < alpha) {
-					return bestMove;
-				}
+				// if (beta <= alpha) {
+					// return bestMove;
+				// }
 			}
 		}
 	}
