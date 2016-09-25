@@ -25,13 +25,11 @@ void AThreat::clearThreats(void) {
 bool AThreat::isBrokenThree(Board *b, int x, int y) {
 	int i = 0;
 	string ori;
-	string ori2;
 	t_piece piece = b->getPiece(x, y);
 	pair<int, int> inc;
 
 	while (i < 8) {
 		ori = Board::orientation[i];
-		ori2 = Board::orientation[i % 2 == 0 ? i : i + 1];
 		inc = Board::orientationInc[ori];
 		if (b->countConnectedPieces(x, y, piece, ori)  == 1 &&
 			b->getPiece(x + get<0>(inc), y + get<1>(inc)) == EMPTY_PIECE &&
@@ -82,7 +80,7 @@ void 		AThreat::computeScore(Board *b) {
 		whiteScore += whiteThreats[AThreat::threatsName[i]] * threatsScore[AThreat::threatsName[i]];
 		blackScore += blackThreats[AThreat::threatsName[i]] * threatsScore[AThreat::threatsName[i]];
 	}
-	b->score =  blackScore - whiteScore;
+	b->score = blackScore - whiteScore;
 }
 
 void 		AThreat::countThreats(Board *b, int x, int y, unordered_map<string, int> *t) {

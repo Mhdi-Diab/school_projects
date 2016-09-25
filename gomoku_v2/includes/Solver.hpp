@@ -17,8 +17,8 @@ public:
 	Board *minMaxAlphaBeta(Board *board, int depth, int alpha, int beta);
 	pair<int, int> solve(Board *board);
 	vector<Board *> listAllMoves(Board *b);
-	Board *AlpaBetaMaxMove(Board *board, short int depth, int alpha, int beta);
-	Board *AlpaBetaMinMove(Board* board, short int depth, int alpha, int beta);
+	Board *AlphaBetaMaxMove(Board *board, short int depth, int alpha, int beta);
+	Board *AlphaBetaMinMove(Board* board, short int depth, int alpha, int beta);
 };
 
 #endif

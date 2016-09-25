@@ -26,6 +26,7 @@ public:
 	char						board[BOARD_SIZE][BOARD_SIZE];
 	int							score;
 	pair<int,int>				lastMove;
+	t_piece						turn;
 	unordered_map<string, pair<int, int> >	pieces;
 
 	static string *orientation;
