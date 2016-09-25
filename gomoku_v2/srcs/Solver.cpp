@@ -78,9 +78,10 @@ Board *Solver::AlphaBetaMaxMove(Board *board, short int depth, int alpha, int be
  			if (move->score > alpha) {
 				bestMove = *it;
 				alpha = move->score;
-				// if (beta >= alpha) {
-					// return bestMove;
-				// }
+				if (beta <= alpha) {
+					cout << "beta: " << beta << " alpha: " << alpha <<endl;
+					return bestMove;
+				}
 			}
 		}
 	}
@@ -108,9 +109,9 @@ Board *Solver::AlphaBetaMinMove(Board* board, short int depth, int alpha, int be
 			if (move->score < beta) {
 				beta = move->score;
 				bestMove = *it;
-				// if (beta <= alpha) {
-					// return bestMove;
-				// }
+				if (beta <= alpha) {
+					return bestMove;
+				}
 			}
 		}
 	}
