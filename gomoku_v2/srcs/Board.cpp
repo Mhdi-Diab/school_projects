@@ -45,8 +45,8 @@ void Board::removeCaptures() {
 	lastMoveIsCapture = false;
 	for (int i = 0; i < 8; i++) {
 		inc = orientationInc[orientation[i]];
-		if (countConnectedPieces(x + get<0>(inc), y + get<1>(inc), turn, orientation[i]) == 2 &&
-			rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), turn, INV(turn), orientation[i])) {
+		if (countConnectedPieces(x + get<0>(inc), y + get<1>(inc), INV(turn), orientation[i]) == 2 &&
+			rowEndsWithPiece(x + get<0>(inc), y + get<1>(inc), INV(turn), turn, orientation[i])) {
 			removePiece(x + get<0>(inc), y + get<1>(inc));
 			removePiece(x + get<0>(inc) * 2, y + get<1>(inc) * 2);
 			lastMoveIsCapture = true;
@@ -106,9 +106,9 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 		}
 		lastMove = make_pair(x, y);
 		pieces[myHash(x, y)] = make_pair(x, y);
+		removeCaptures();
 		threat->computeThreats(this);
 		turn = INV(turn);
-		removeCaptures();
 		return true;
 	}
 	return false;
