@@ -104,7 +104,6 @@ bool Board::placePiece(int x, int y, t_piece piece) {
 		lastMove = make_pair(x, y);
 		pieces[myHash(x, y)] = make_pair(x, y);
 		threat->computeThreats(this);
-		threat->printThreats(this);
 		return true;
 	}
 	return false;
