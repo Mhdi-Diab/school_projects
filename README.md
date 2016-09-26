@@ -13,7 +13,8 @@ Libc rewritten library coupled with my own library of:
 - binary trees (with red & black balance)
 - hashtable dictionary
 
-## Printf (C) - In Progress
+## Printf (C)
+In progress
 
 ## Linear Regression (Python)
 Introduction to machine learning.
