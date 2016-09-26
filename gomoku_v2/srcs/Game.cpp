@@ -30,8 +30,7 @@ void	Game::loop(void) {
 	bool			hasPlayed;
 	pair<int, int>	xy;
 
-	render->window.clear();
-	render->drawBoard(board);
+	renderGame();
 	while (render->window.isOpen()) {
 		hasPlayed = false;
 		if (!isFinished && player[currentPlayer]->type == P_AI) {
@@ -49,12 +48,16 @@ void	Game::loop(void) {
 		}
 		if (hasPlayed) {
 			setNext();
-			render->window.clear();
-			render->drawBoard(board);
-			render->drawPanel(currentPlayer);
-			render->window.display();
+			renderGame();
 		}
 	}
+}
+
+void 	Game::renderGame(void) {
+	render->window.clear();
+	render->drawBoard(board);
+	render->drawPanel(currentPlayer);
+	render->window.display();
 }
 
 bool	Game::getAIMove(void) {

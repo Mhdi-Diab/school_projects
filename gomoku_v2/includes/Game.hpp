@@ -31,6 +31,7 @@ public:
 	void 			loop(void);
 	bool			getAIMove(void);
 	void 			setNext(void);
+	void 			renderGame(void);
 	bool 			playOneTurn(Event *event);
 	bool 			getPlayerMove(Event *event);
 };
