@@ -16,22 +16,46 @@ void Render::drawBoard(Board *board) {
 			if (board->getPiece(j, i) == WHITE_PIECE) {
 				if (j == get<0>(board->lastMove) && i == get<1>(board->lastMove))
 					whitePiece.setColor(Color(255, 200, 200));
-				whitePiece.setPosition(i * POSA + POSB, j * POSA + POSB);
-				window.draw(whitePiece);
+				setPieceAndRender(P_WHITE, i * POSA + POSB, j * POSA + POSB);
 				whitePiece.setColor(Color(255, 255, 255));
 			} else if (board->getPiece(j, i) == BLACK_PIECE) {
 				if (j == get<0>(board->lastMove) && i == get<1>(board->lastMove))
 					blackPiece.setColor(Color(255, 200, 200));
-				blackPiece.setPosition(i * POSA + POSB, j * POSA + POSB);
-				window.draw(blackPiece);
+				setPieceAndRender(P_BLACK, i * POSA + POSB, j * POSA + POSB);
 				blackPiece.setColor(Color(255, 255, 255));
 			}
 		}
 	}
 }
 
-void Render::drawPanel(t_player_color currentPlayer) {
+void Render::setTextAndRender(string s, int posX, int posY, int size, Color color) {
+	Text text(s, font, size);
+	text.setStyle(Text::Bold);
+	text.setPosition(posX, posY);
+	text.setColor(color);
+	window.draw(text);
+}
+
+void Render::setPieceAndRender(t_player_color player, int posX, int posY) {
+	if (player == P_BLACK) {
+		blackPiece.setPosition(posX, posY);
+		window.draw(blackPiece);
+	} else {
+		whitePiece.setPosition(posX, posY);
+		window.draw(whitePiece);
+	}
+}
+
+void Render::displayFinish(Game *game) {
+	if (game->currentPlayer == P_BLACK)
+		setTextAndRender("BLACK WINS", WIN_X / 4, WIN_Y / 3, 100, Color::White);
+	else if (game->currentPlayer == P_WHITE)
+		setTextAndRender("WHITE WINS", WIN_X / 4, WIN_Y / 3, 100, Color::White);
+}
+
+void Render::drawPanel(Game *game) {
 	RectangleShape rectangle(Vector2f(WIN_X, 100));
+
 
 	rectangle.setOutlineColor(Color(205, 133, 63));
 	rectangle.setOutlineThickness(10);
@@ -39,13 +63,16 @@ void Render::drawPanel(t_player_color currentPlayer) {
 	rectangle.setPosition(0, WIN_Y - 100);
 	window.draw(rectangle);
 
-	if (currentPlayer == P_BLACK) {
-		blackPiece.setPosition(100, WIN_Y - 80);
-		window.draw(blackPiece);
-	} else {
-		whitePiece.setPosition(100, WIN_Y - 80);
-		window.draw(whitePiece);
-	}
+	setTextAndRender("Turn: ", 30, WIN_Y - 80, 40, Color::Black);
+	setPieceAndRender(game->currentPlayer, 145, WIN_Y - 80);
+	setTextAndRender("Captures: ", 250, WIN_Y - 80, 40, Color::Black);
+	setPieceAndRender(P_BLACK, 450, WIN_Y - 80);
+	setTextAndRender(to_string(game->board->nbCaptures[P_BLACK]), 520, WIN_Y - 80, 40, Color::Black);
+	setPieceAndRender(P_WHITE, 560, WIN_Y - 80);
+	setTextAndRender(to_string(game->board->nbCaptures[P_WHITE]), 630, WIN_Y - 80, 40, Color::Black);
+
+	replay.setPosition(700, WIN_Y - 80);
+	window.draw(replay);
 }
 
 int Render::loadTextures() {
@@ -71,6 +98,13 @@ int Render::loadTextures() {
 	} else {
 		blackPiece.setTexture(blackPieceTexture);
 		blackPiece.setScale(0.9f, 0.9f);
+	}
+	if (!replayTexture.loadFromFile("./img/replay.png")) {
+		cerr << "Error while loading replay image" << endl;
+		return EXIT_FAILURE;
+	} else {
+		replay.setTexture(replayTexture);
+		replay.setScale(0.3f, 0.3f);
 	}
 	if (!font.loadFromFile("./img/arial.ttf")) {
 		cerr << "Error loading font" << endl;

@@ -13,6 +13,7 @@
 using namespace sf;
 using namespace std;
 
+class Game;
 class Board;
 class Render {
 
@@ -21,19 +22,24 @@ public:
 	Texture 	boardTexture;
 	Texture 	whitePieceTexture;
 	Texture 	blackPieceTexture;
+	Texture 	replayTexture;
 
 	Font		font;
 
 	Sprite		board;
 	Sprite		blackPiece;
 	Sprite		whitePiece;
+	Sprite		replay;
 
 	Render(void);
 	~Render(void);
 	int loadTextures();
 	void mouseMove(Board *board);
 	void drawBoard(Board *board);
-	void drawPanel(t_player_color currentPlayer);
+	void drawPanel(Game *game);
+	void setPieceAndRender(t_player_color player, int posX, int posY);
+	void setTextAndRender(string s, int posX, int posY, int size, Color color);
+	void displayFinish(Game *game);
 };
 
 #endif

@@ -3,6 +3,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <SFML/Audio.hpp>
+#include <iomanip>
 #include <iostream>
 
 
@@ -75,7 +76,7 @@ int main()
         while (sound.getStatus() == sf::Sound::Playing)
         {
             // Display the playing position
-            std::cout << "\rPlaying... " << sound.getPlayingOffset().asSeconds() << " sec        ";
+            std::cout << "\rPlaying... " << std::fixed << std::setprecision(2) << sound.getPlayingOffset().asSeconds() << " sec";
             std::cout << std::flush;
 
             // Leave some CPU time for other threads

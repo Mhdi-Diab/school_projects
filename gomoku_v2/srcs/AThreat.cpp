@@ -116,7 +116,6 @@ void 		AThreat::countThreats(Board &b, int x, int y, unordered_map<string, int> 
 	if (b.lastMoveIsCapture) {
 		(*t)["CAPTURE"] += 1;
 	}
-
 }
 
 void 		AThreat::arrangeThreats(unordered_map<string, int> *t) {

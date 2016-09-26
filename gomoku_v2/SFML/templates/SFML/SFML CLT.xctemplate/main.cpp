@@ -1,6 +1,6 @@
 
 //
-// Disclaimer:
+// Disclamer:
 // ----------
 //
 // This code will work only if you selected window, graphics and audio.
@@ -43,7 +43,7 @@ int main(int argc, char const** argv)
         return EXIT_FAILURE;
     }
     sf::Text text("Hello SFML", font, 50);
-    text.setFillColor(sf::Color::Black);
+    text.setColor(sf::Color::Black);
 
     // Load a music to play
     sf::Music music;

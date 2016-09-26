@@ -2,7 +2,9 @@
 # define BOARD_HPP
 
 # define BOARD_SIZE 19
+
 # define INV(X) ((X) == (BLACK_PIECE) ? (WHITE_PIECE) : (BLACK_PIECE))
+# define PLAYER(X) ((X) == (BLACK_PIECE) ? (P_BLACK) : (P_WHITE))
 
 # include "Player.hpp"
 # include "AThreat.hpp"
@@ -22,6 +24,7 @@ class Board {
 public:
 	AThreat 					threat;
 	bool						lastMoveIsCapture;
+	int							nbCaptures[2];
 	char						board[BOARD_SIZE][BOARD_SIZE];
 	int							score;
 	pair<int,int>				lastMove;

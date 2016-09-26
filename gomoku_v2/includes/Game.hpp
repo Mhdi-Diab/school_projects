@@ -28,12 +28,13 @@ public:
 
 	Game(void);
 	~Game(void);
-	void 			loop(void);
+	bool 			loop(void);
 	bool			getAIMove(void);
 	void 			setNext(void);
 	void 			renderGame(void);
 	bool 			playOneTurn(Event *event);
 	bool 			getPlayerMove(Event *event);
+	bool			clickedReplay(Event *event);
 };
 
 #endif

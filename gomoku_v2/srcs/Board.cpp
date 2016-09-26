@@ -6,6 +6,8 @@ unordered_map<string, pair<int, int> >Board::orientationInc = initOrientationInc
 Board::Board(void) {
 	lastMove = make_pair(-1, -1);
 	score = 0;
+	nbCaptures[P_BLACK] = 0;
+	nbCaptures[P_WHITE] = 0;
 	turn = BLACK_PIECE;
 	lastMoveIsCapture = false;
 	clear();
@@ -27,6 +29,7 @@ Board::Board(Board const &rhs) {
 	memcpy(board, rhs.board, sizeof(char[BOARD_SIZE][BOARD_SIZE]));
 	lastMove = rhs.lastMove;
 	turn = rhs.turn;
+	memcpy(nbCaptures, rhs.nbCaptures, sizeof(int[2]));
 	lastMoveIsCapture = rhs.lastMoveIsCapture;
 	for (unordered_map<string, pair<int, int> >::const_iterator it = rhs.pieces.begin(); it != rhs.pieces.end(); ++it) {
 		pieces[(*it).first] = (*it).second;
@@ -47,6 +50,8 @@ void Board::removeCaptures(void) {
 			removePiece(x + get<0>(inc), y + get<1>(inc));
 			removePiece(x + get<0>(inc) * 2, y + get<1>(inc) * 2);
 			lastMoveIsCapture = true;
+			if (lastMoveIsCapture)
+				nbCaptures[PLAYER(turn)] += 1;
 		}
 	}
 }

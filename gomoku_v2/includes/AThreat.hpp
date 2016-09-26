@@ -6,7 +6,7 @@
 # include <unordered_map>
 using namespace std;
 
-# define MAX_VALUE 1000000
+# define MAX_VALUE 100000
 # define NUMBER_THREATS 6
 
 class Board;
