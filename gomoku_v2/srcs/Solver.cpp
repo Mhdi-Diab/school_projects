@@ -11,7 +11,6 @@ Solver::~Solver(void) {
 priority_queue<Board, vector<Board>, greater<Board> > Solver::listAllMoves(Board const &b) {
 	int x, y;
 	priority_queue<Board, vector<Board>, greater<Board> > queue;
-	priority_queue<Board, vector<Board>, greater<Board> > queue2;
 	unordered_map<string, bool> alreadyUsed;
 
 	for (unordered_map<string, pair<int, int> >::const_iterator it = b.pieces.begin(); it != b.pieces.end(); ++it) {
@@ -63,10 +62,10 @@ pair<int, int> Solver::solve(Board const &board) {
 	}
 	move = AlphaBetaMaxMove(board, MAX_DEPTH, -MAX_VALUE, MAX_VALUE);
 	res = move.lastMove;
-	if (get<0>(res) == -1 || get<1>(res) == -1) {
+	if (((Board &)board).getPiece(get<0>(res), get<1>(res)) != EMPTY_PIECE) {
 		while (true) {
 			res = make_pair(rand() % 19, rand() % 19);
-			if (((Board &)board).getPiece(get<0>(res), get<1>(res) == EMPTY_PIECE))
+			if (((Board &)board).getPiece(get<0>(res), get<1>(res)) == EMPTY_PIECE)
 				break ;
 		}
 	}

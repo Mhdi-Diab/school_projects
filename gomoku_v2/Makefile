@@ -1,5 +1,6 @@
-CC = clang++
-CFLAGS = -Wextra -Wall -Werror -O3 -I./includes -I ~/.brew/include -I./SFML/include
+CC = g++
+CFLAGS = -Wextra -Wall -Werror -O3
+IFLAGS = -I./includes -I ~/.brew/include -I./SFML/include
 LFLAGS = -L ./SFML -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 SRC = main.cpp Board.cpp Solver.cpp Render.cpp Player.cpp Game.cpp \
@@ -14,10 +15,10 @@ SRCS = $(addprefix srcs/, $(SRC))
 all : $(NAME)
 
 $(NAME): $(OBJ)
-		$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) -o $(NAME)
+		$(CC) $(CFLAGS) $(IFLAGS) $(LFLAGS) $(OBJ) -o $(NAME)
 
 %.o: %.cpp
-		$(CC) -o $@ -c $< -I $(CFLAGS)
+		$(CC) -o $@ -c $< $(CFLAGS) $(IFLAGS)
 
 clean:
 		rm -f $(OBJ)

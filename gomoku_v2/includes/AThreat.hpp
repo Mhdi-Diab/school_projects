@@ -21,11 +21,11 @@ public:
 	void clearThreats(void);
 	bool isPlacedAtEnd(Board &b, int x, int y, string ori);
 	bool isXStraight(Board &board, int x, int y, int nb);
-	void arrangeThreats(Board &b, unordered_map<string, int> *t);
+	void arrangeThreats(unordered_map<string, int> *t);
 	void findThreats(Board &b, int x, int y, unordered_map<string, int> *threats);
 	void computeScore(Board &b);
 	void computeThreats(Board &b);
-	void printThreats(Board &b);
+	void printThreats(void);
 	bool isBrokenThree(Board &b, int x, int y);
 	void countThreats(Board &b, int x, int y, unordered_map<string, int> *t);
 
@@ -36,9 +36,9 @@ public:
 		unordered_map<string, int> threatMap;
 		threatMap["CAPTURE"] = 2300;
 		threatMap["THREE"] = 1300;
-		threatMap["BROKEN_THREE"] = 1200;
+		threatMap["BROKEN_THREE"] = 1300;
 		threatMap["FOUR"] = 2700;
-		threatMap["STRAIGHT_FOUR"] = 4000;
+		threatMap["STRAIGHT_FOUR"] = 10000;
 		threatMap["FIVE"] = MAX_VALUE;
 		return threatMap;
 	}

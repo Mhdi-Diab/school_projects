@@ -13,6 +13,7 @@ AThreat::~AThreat(void) {
 }
 
 AThreat::AThreat(AThreat &rhs) {
+	(void)rhs;
 	clearThreats();
 }
 
@@ -44,7 +45,7 @@ bool AThreat::isBrokenThree(Board &b, int x, int y) {
 	return false;
 }
 
-void 		AThreat::printThreats(Board &b) {
+void 		AThreat::printThreats(void) {
 	cout << "WHITE";
 	for (int i = 0; i < NUMBER_THREATS; i++) {
 		cout << " " << AThreat::threatsName[i] << ": " << whiteThreats[AThreat::threatsName[i]];
@@ -118,7 +119,7 @@ void 		AThreat::countThreats(Board &b, int x, int y, unordered_map<string, int> 
 
 }
 
-void 		AThreat::arrangeThreats(Board &b, unordered_map<string, int> *t) {
+void 		AThreat::arrangeThreats(unordered_map<string, int> *t) {
 	(*t)["FIVE"] /= 5;
 	(*t)["STRAIGHT_FOUR"] /= 4;
 	(*t)["FOUR"] /= 4;
@@ -140,7 +141,7 @@ void		AThreat::computeThreats(Board &b) {
 			countThreats(b, x, y, &blackThreats);
 		}
 	}
-	arrangeThreats(b, &whiteThreats);
-	arrangeThreats(b, &blackThreats);
+	arrangeThreats(&whiteThreats);
+	arrangeThreats(&blackThreats);
 	computeScore(b);
 }

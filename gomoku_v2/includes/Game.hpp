@@ -23,12 +23,14 @@ public:
 	Render			*render;
 	Solver			*solver;
 	Player			*player[2];
+	Event			event;
 	static t_player_color	currentPlayer;
 
 	Game(void);
 	~Game(void);
 	void 			loop(void);
 	bool			getAIMove(void);
+	void 			setNext(void);
 	bool 			playOneTurn(Event *event);
 	bool 			getPlayerMove(Event *event);
 };

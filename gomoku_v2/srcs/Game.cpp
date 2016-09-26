@@ -19,47 +19,40 @@ Game::~Game(void) {
 	delete player[P_WHITE];
 }
 
-bool Game::playOneTurn(Event *event) {
-	bool hasPlayed = false;
-
-	if (player[currentPlayer]->type == P_AI) {
-		hasPlayed = getAIMove();
+void Game::setNext(void) {
+	currentPlayer = OPPONENT(currentPlayer);
+	if (solver->isGameFinished(*board)) {
+		isFinished = true;
 	}
-	else {
-		hasPlayed = getPlayerMove(event);
-	}
-	if (hasPlayed) {
-		if (solver->isGameFinished(*board)) {
-			isFinished = true;
-		}
-		currentPlayer = OPPONENT(currentPlayer);
-	}
-	return hasPlayed;
 }
 
 void	Game::loop(void) {
-	bool			firstTurn, hasPlayed;
+	bool			hasPlayed;
 	pair<int, int>	xy;
-	Event			event;
 
-	firstTurn = true;
+	render->window.clear();
+	render->drawBoard(board);
 	while (render->window.isOpen()) {
-		if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
-			render->window.close();
+		hasPlayed = false;
+		if (!isFinished && player[currentPlayer]->type == P_AI) {
+			hasPlayed = getAIMove();
 		}
-		while (render->window.pollEvent(event)) {
-			if (!isFinished) {
-				if ((hasPlayed = playOneTurn(&event)))
-					break ;
-			}
+		if (render->window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				render->window.close();
+			else if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
+				render->window.close();
+			}
+			else if (!isFinished && player[currentPlayer]->type == P_PLAYER) {
+				hasPlayed = getPlayerMove(&event);
+			}
 		}
-		if (firstTurn || hasPlayed) {
+		if (hasPlayed) {
+			setNext();
 			render->window.clear();
 			render->drawBoard(board);
+			render->drawPanel(currentPlayer);
 			render->window.display();
-			firstTurn = false;
 		}
 	}
 }
@@ -70,7 +63,8 @@ bool	Game::getAIMove(void) {
 
 	start = clock();
 	ret = solver->solve(*board);
-	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
+	if (!board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer)))
+		getAIMove();
 	end = clock();
 	cout << "Time required for execution: " << (double)(end - start)/CLOCKS_PER_SEC << " seconds." << endl;
 	return true;
