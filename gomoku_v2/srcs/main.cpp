@@ -6,7 +6,12 @@ int main() {
 
 	while (replay) {
 		game = new Game();
-		replay = game->loop();
+		if (game->step == STEP_COLOR) {
+			game->setColorChoice();
+		}
+		if (game->step == STEP_GAME) {
+			replay = game->loop();
+		}
 		delete game;
 	}
 	return (EXIT_SUCCESS);

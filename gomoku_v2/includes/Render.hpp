@@ -23,6 +23,8 @@ public:
 	Texture 	whitePieceTexture;
 	Texture 	blackPieceTexture;
 	Texture 	replayTexture;
+	Texture 	blackBtnTexture;
+	Texture 	whiteBtnTexture;
 
 	Font		font;
 
@@ -30,6 +32,8 @@ public:
 	Sprite		blackPiece;
 	Sprite		whitePiece;
 	Sprite		replay;
+	Sprite		blackBtn;
+	Sprite		whiteBtn;
 
 	Render(void);
 	~Render(void);
@@ -37,6 +41,7 @@ public:
 	void mouseMove(Board *board);
 	void drawBoard(Board *board);
 	void drawPanel(Game *game);
+	void renderColorChoice(void);
 	void setPieceAndRender(t_player_color player, int posX, int posY);
 	void setTextAndRender(string s, int posX, int posY, int size, Color color);
 	void displayFinish(Game *game);

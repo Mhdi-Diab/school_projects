@@ -13,6 +13,11 @@ using namespace std;
 # include "Render.hpp"
 # include <time.h>
 
+typedef enum 	e_step {
+	STEP_COLOR,
+	STEP_GAME
+}				t_step;
+
 class Board;
 class Solver;
 class Game {
@@ -24,6 +29,7 @@ public:
 	Solver			*solver;
 	Player			*player[2];
 	Event			event;
+	t_step			step;
 	static t_player_color	currentPlayer;
 
 	Game(void);
@@ -35,6 +41,8 @@ public:
 	bool 			playOneTurn(Event *event);
 	bool 			getPlayerMove(Event *event);
 	bool			clickedReplay(Event *event);
+	void 			setColorChoice(void);
+	bool 			hasClickedOnSprite(Sprite sprite);
 };
 
 #endif

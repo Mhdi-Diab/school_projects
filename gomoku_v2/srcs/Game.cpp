@@ -4,6 +4,7 @@ t_player_color Game::currentPlayer = P_BLACK;
 
 Game::Game(void) {
 	isFinished = false;
+	step = STEP_COLOR;
 	board = new Board();
 	solver = new Solver();
 	render = new Render();
@@ -18,6 +19,44 @@ Game::~Game(void) {
 	delete render;
 	delete player[P_BLACK];
 	delete player[P_WHITE];
+}
+
+bool Game::hasClickedOnSprite(Sprite sprite) {
+	int x, y, xx, yy, height, width;
+
+	x = event.mouseButton.x;
+	y = event.mouseButton.y;
+	xx = sprite.getPosition().x;
+	yy = sprite.getPosition().y;
+	height = sprite.getGlobalBounds().height;
+	width = sprite.getGlobalBounds().width;
+	return (x >= xx && x <= xx + width && y >= yy && y <= yy + height);
+}
+
+void Game::setColorChoice(void) {
+	while (render->window.isOpen()) {
+		if (render->window.pollEvent(event)) {
+			if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
+				step = STEP_GAME;
+				render->window.close();
+			}
+			if (hasClickedOnSprite(render->blackBtn)) {
+					player[P_BLACK]->type = P_PLAYER;
+					player[P_WHITE]->type = P_AI;
+					step = STEP_GAME;
+					return;
+			}
+			if (hasClickedOnSprite(render->whiteBtn)) {
+				player[P_WHITE]->type = P_PLAYER;
+				player[P_BLACK]->type = P_AI;
+				step = STEP_GAME;
+				return;
+			}
+		}
+		render->window.clear(Color(139, 90, 34));
+		render->renderColorChoice();
+		render->window.display();
+	}
 }
 
 void Game::setNext(void) {
@@ -82,14 +121,9 @@ bool	Game::getAIMove(void) {
 bool	Game::clickedReplay(Event *event) {
 	if (event->type == sf::Event::MouseButtonPressed) {
 		if (event->mouseButton.button == sf::Mouse::Left) {
-			if (event->mouseButton.x >= render->replay.getPosition().x &&
-				event->mouseButton.x <= render->replay.getPosition().x +
-				render->replay.getGlobalBounds().width &&
-				event->mouseButton.y >= render->replay.getPosition().y &&
-				event->mouseButton.x <= render->replay.getPosition().y +
-				render->replay.getGlobalBounds().height) {
+			if (hasClickedOnSprite(render->replay)) {
 					return true;
-				}
+			}
 		}
 	}
 	return false;

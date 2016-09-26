@@ -53,9 +53,16 @@ void Render::displayFinish(Game *game) {
 		setTextAndRender("WHITE WINS", 250, 490, 100, Color::White);
 }
 
+void Render::renderColorChoice(void) {
+	setTextAndRender("CHOOSE COLOR", 150, 430, 100, Color::White);
+	blackBtn.setPosition(300, 700);
+	window.draw(blackBtn);
+	whiteBtn.setPosition(610, 660);
+	window.draw(whiteBtn);
+}
+
 void Render::drawPanel(Game *game) {
 	RectangleShape rectangle(Vector2f(WIN_X, 100));
-
 
 	rectangle.setOutlineColor(Color(205, 133, 63));
 	rectangle.setOutlineThickness(10);
@@ -105,6 +112,20 @@ int Render::loadTextures() {
 	} else {
 		replay.setTexture(replayTexture);
 		replay.setScale(0.3f, 0.3f);
+	}
+	if (!blackBtnTexture.loadFromFile("./img/black-button.png")) {
+		cerr << "Error while loading black button" << endl;
+		return EXIT_FAILURE;
+	} else {
+		blackBtn.setTexture(blackBtnTexture);
+		blackBtn.setScale(0.6f, 0.6f);
+	}
+	if (!whiteBtnTexture.loadFromFile("./img/white-button.png")) {
+		cerr << "Error while loading white button" << endl;
+		return EXIT_FAILURE;
+	} else {
+		whiteBtn.setTexture(whiteBtnTexture);
+		whiteBtn.setScale(0.6f, 0.6f);
 	}
 	if (!font.loadFromFile("./img/arial.ttf")) {
 		cerr << "Error loading font" << endl;
