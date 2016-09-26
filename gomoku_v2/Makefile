@@ -1,4 +1,4 @@
-CC = g++
+CC = clang++
 CFLAGS = -Wextra -Wall -Werror -O3
 IFLAGS = -I./includes -I ~/.brew/include -I./SFML/include
 LFLAGS = -L ./SFML -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system

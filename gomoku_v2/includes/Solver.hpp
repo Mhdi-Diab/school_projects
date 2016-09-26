@@ -16,8 +16,8 @@ public:
 	bool isGameFinished(Board &board);
 	Board minMaxAlphaBeta(Board const &board, int depth, int alpha, int beta);
 	pair<int, int> solve(Board const &board);
-	priority_queue<Board, vector<Board>, greater<Board> > listAllMoves(Board const &b);
-	priority_queue<Board, vector<Board>, less<Board> > listAllMovesRev(Board const &b);
+	template<typename U>
+	void listAllMoves(Board const &b, priority_queue<Board, vector<Board>, U > &queue);
 	Board AlphaBetaMaxMove(Board const &board, short int depth, int alpha, int beta);
 	Board AlphaBetaMinMove(Board const &board, short int depth, int alpha, int beta);
 };

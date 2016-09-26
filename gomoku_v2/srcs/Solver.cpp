@@ -7,15 +7,15 @@ Solver::Solver() {
 Solver::~Solver(void) {
 }
 
-//TODO: shrink to one function
-priority_queue<Board, vector<Board>, greater<Board> > Solver::listAllMoves(Board const &b) {
+template<typename U>
+void Solver::listAllMoves(Board const &b, priority_queue<Board, vector<Board>, U > &queue) {
 	int x, y;
-	priority_queue<Board, vector<Board>, greater<Board> > queue;
+
 	unordered_map<string, bool> alreadyUsed;
 
 	for (unordered_map<string, pair<int, int> >::const_iterator it = b.pieces.begin(); it != b.pieces.end(); ++it) {
-		x = get<0>(it->second);
-		y = get<1>(it->second);
+		x = it->second.first;
+		y = it->second.second;
 		for (int yy = y - PADDING; yy <= y + PADDING; yy++) {
 			for (int xx = x - PADDING; xx <= x + PADDING; xx++) {
 				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 && xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b.board[yy][xx] == EMPTY_PIECE) {
@@ -27,31 +27,8 @@ priority_queue<Board, vector<Board>, greater<Board> > Solver::listAllMoves(Board
 			}
 		}
 	}
-	return queue;
 }
 
-//TODO: shrink to one function
-priority_queue<Board, vector<Board>, less<Board> > Solver::listAllMovesRev(Board const &b) {
-	int x, y;
-	priority_queue<Board, vector<Board>, less<Board> > queue;
-	unordered_map<string, bool> alreadyUsed;
-
-	for (unordered_map<string, pair<int, int> >::const_iterator it = b.pieces.begin(); it != b.pieces.end(); ++it) {
-		x = get<0>(it->second);
-		y = get<1>(it->second);
-		for (int yy = y - PADDING; yy <= y + PADDING; yy++) {
-			for (int xx = x - PADDING; xx <= x + PADDING; xx++) {
-				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 && xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b.board[yy][xx] == EMPTY_PIECE) {
-					Board board = b;
-					board.placePiece(xx, yy, b.turn);
-					queue.push(board);
-					alreadyUsed[myHash(xx, yy)] = true;
-				}
-			}
-		}
-	}
-	return queue;
-}
 
 pair<int, int> Solver::solve(Board const &board) {
 	Board move;
@@ -85,7 +62,7 @@ Board Solver::AlphaBetaMaxMove(Board const &board, short int depth, int alpha, i
 	if (depth == 0) {
 		return board;;
 	}
-	moves = listAllMoves(board);
+	listAllMoves(board, moves);
 	while (!moves.empty()) {
 		current = moves.top();
 		moves.pop();
@@ -113,7 +90,7 @@ Board Solver::AlphaBetaMinMove(Board const &board, short int depth, int alpha, i
 	if (depth == 0) {
 		return board;
 	}
-	moves = listAllMovesRev(board);
+	listAllMoves(board, moves);
 	while (!moves.empty()) {
 		current = moves.top();
 		moves.pop();
