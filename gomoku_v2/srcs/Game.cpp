@@ -50,7 +50,8 @@ void	Game::loop(void) {
 		}
 		while (render->window.pollEvent(event)) {
 			if (!isFinished) {
-				hasPlayed = playOneTurn(&event);
+				if ((hasPlayed = playOneTurn(&event)))
+					break ;
 			}
 			if (event.type == Event::Closed)
 				render->window.close();
@@ -59,7 +60,6 @@ void	Game::loop(void) {
 			render->window.clear();
 			render->drawBoard(board);
 			render->window.display();
-			board->print();
 			firstTurn = false;
 		}
 	}
@@ -80,7 +80,6 @@ bool	Game::getAIMove() {
 bool 	Game::getPlayerMove(Event *event) {
 	int 			x;
 	int 			y;
-	static int count = 0;
 
 	x = -1;
 	y = -1;
@@ -88,7 +87,6 @@ bool 	Game::getPlayerMove(Event *event) {
 		if (event->mouseButton.button == sf::Mouse::Left) {
 			x = (event->mouseButton.x - POSB) / POSA;
 			y = (event->mouseButton.y - POSB) / POSA;
-			cout << "IN" << ++count << endl;
 			if (board->placePiece(y , x, PIECE(currentPlayer))) {
 				return true;
 			}
