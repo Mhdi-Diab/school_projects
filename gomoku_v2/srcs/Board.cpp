@@ -3,8 +3,7 @@
 string Board::orientation[] = {"NW", "SE", "N", "S", "W", "E", "SW", "NE"};
 unordered_map<string, pair<int, int> >Board::orientationInc = initOrientationInc();
 
-Board::Board() {
-	threat = new AThreat();
+Board::Board(void) {
 	lastMove = make_pair(-1, -1);
 	score = 0;
 	turn = BLACK_PIECE;
@@ -15,7 +14,7 @@ Board::Board() {
 Board::~Board(void) {
 }
 
-void Board::print() {
+void Board::print(void) {
 	for (int i = 0; i < BOARD_SIZE; i++) {
 		for (int j = 0; j < BOARD_SIZE; j++) {
 			cout << board[j][i];
@@ -32,11 +31,10 @@ Board::Board(Board const &rhs) {
 	for (unordered_map<string, pair<int, int> >::const_iterator it = rhs.pieces.begin(); it != rhs.pieces.end(); ++it) {
 		pieces[(*it).first] = (*it).second;
 	}
-	threat = new AThreat();
 	score = rhs.score;
 }
 
-void Board::removeCaptures() {
+void Board::removeCaptures(void) {
 	pair<int, int> inc;
 	int x = get<0>(lastMove);
 	int y = get<1>(lastMove);
@@ -99,14 +97,14 @@ bool Board::hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int)) {
 bool Board::placePiece(int x, int y, t_piece piece) {
 	if (x < BOARD_SIZE && y < BOARD_SIZE && board[y][x] == EMPTY_PIECE) {
 		board[y][x] = piece;
-		if (threat->isBrokenThree(this, x, y) && threat->isXStraight(this, x, y, 3)) {
+		if (threat.isBrokenThree(*this, x, y) && threat.isXStraight(*this, x, y, 3)) {
 			board[y][x] = EMPTY_PIECE;
 			return false;
 		}
 		lastMove = make_pair(x, y);
 		pieces[myHash(x, y)] = make_pair(x, y);
 		removeCaptures();
-		threat->computeThreats(this);
+		threat.computeThreats(*this);
 		turn = INV(turn);
 		return true;
 	}

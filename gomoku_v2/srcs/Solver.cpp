@@ -7,6 +7,7 @@ Solver::Solver() {
 Solver::~Solver(void) {
 }
 
+//TODO: shrink to one function
 priority_queue<Board, vector<Board>, greater<Board> > Solver::listAllMoves(Board const &b) {
 	int x, y;
 	priority_queue<Board, vector<Board>, greater<Board> > queue;
@@ -30,6 +31,7 @@ priority_queue<Board, vector<Board>, greater<Board> > Solver::listAllMoves(Board
 	return queue;
 }
 
+//TODO: shrink to one function
 priority_queue<Board, vector<Board>, less<Board> > Solver::listAllMovesRev(Board const &b) {
 	int x, y;
 	priority_queue<Board, vector<Board>, less<Board> > queue;
@@ -61,11 +63,18 @@ pair<int, int> Solver::solve(Board const &board) {
 	}
 	move = AlphaBetaMaxMove(board, MAX_DEPTH, -MAX_VALUE, MAX_VALUE);
 	res = move.lastMove;
+	if (get<0>(res) == -1 || get<1>(res) == -1) {
+		while (true) {
+			res = make_pair(rand() % 19, rand() % 19);
+			if (((Board &)board).getPiece(get<0>(res), get<1>(res) == EMPTY_PIECE))
+				break ;
+		}
+	}
 	return res;
 }
 
-bool Solver::isGameFinished(Board const &board) {
-	return board.threat->whiteThreats["FIVE"] != 0 || board.threat->blackThreats["FIVE"] != 0;
+bool Solver::isGameFinished(Board &board) {
+	return board.threat.whiteThreats["FIVE"] != 0 || board.threat.blackThreats["FIVE"] != 0;
 }
 
 Board Solver::AlphaBetaMaxMove(Board const &board, short int depth, int alpha, int beta) {

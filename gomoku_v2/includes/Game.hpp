@@ -5,6 +5,8 @@
 #include <string>
 using namespace std;
 
+# define PIECE(X) ((X) == (P_BLACK) ? (BLACK_PIECE) : (WHITE_PIECE))
+
 # include "Board.hpp"
 # include "Player.hpp"
 # include "Solver.hpp"
@@ -25,11 +27,10 @@ public:
 
 	Game(void);
 	~Game(void);
-
-	bool 			playOneTurn(Event *event);
 	void 			loop(void);
+	bool			getAIMove(void);
+	bool 			playOneTurn(Event *event);
 	bool 			getPlayerMove(Event *event);
-	bool			getAIMove();
 };
 
 #endif

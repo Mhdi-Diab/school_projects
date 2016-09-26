@@ -19,15 +19,15 @@ public:
 	AThreat(AThreat &rhs);
 	~AThreat(void);
 	void clearThreats(void);
-	bool isPlacedAtEnd(Board *b, int x, int y, string ori);
-	bool isXStraight(Board *board, int x, int y, int nb);
-	void arrangeThreats(Board *b, unordered_map<string, int> *t);
-	void findThreats(Board *b, int x, int y, unordered_map<string, int> *threats);
-	void computeScore(Board *b);
-	void computeThreats(Board *b);
-	void printThreats(Board *b);
-	bool isBrokenThree(Board *b, int x, int y);
-	void countThreats(Board *b, int x, int y, unordered_map<string, int> *t);
+	bool isPlacedAtEnd(Board &b, int x, int y, string ori);
+	bool isXStraight(Board &board, int x, int y, int nb);
+	void arrangeThreats(Board &b, unordered_map<string, int> *t);
+	void findThreats(Board &b, int x, int y, unordered_map<string, int> *threats);
+	void computeScore(Board &b);
+	void computeThreats(Board &b);
+	void printThreats(Board &b);
+	bool isBrokenThree(Board &b, int x, int y);
+	void countThreats(Board &b, int x, int y, unordered_map<string, int> *t);
 
 	static string 						threatsName[NUMBER_THREATS];
 	static unordered_map<string, int>	threatsScore;

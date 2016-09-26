@@ -29,17 +29,16 @@ bool Game::playOneTurn(Event *event) {
 		hasPlayed = getPlayerMove(event);
 	}
 	if (hasPlayed) {
-		currentPlayer = OPPONENT(currentPlayer);
 		if (solver->isGameFinished(*board)) {
 			isFinished = true;
 		}
+		currentPlayer = OPPONENT(currentPlayer);
 	}
 	return hasPlayed;
 }
 
 void	Game::loop(void) {
-	bool			firstTurn;
-	bool			hasPlayed;
+	bool			firstTurn, hasPlayed;
 	pair<int, int>	xy;
 	Event			event;
 
@@ -65,8 +64,8 @@ void	Game::loop(void) {
 	}
 }
 
-bool	Game::getAIMove() {
-	pair<int,int>	ret;
+bool	Game::getAIMove(void) {
+	pair<int,int> ret;
 	clock_t start, end;
 
 	start = clock();
@@ -78,11 +77,8 @@ bool	Game::getAIMove() {
 }
 
 bool 	Game::getPlayerMove(Event *event) {
-	int 			x;
-	int 			y;
+	int x = -1, y = -1;
 
-	x = -1;
-	y = -1;
 	if (event->type == sf::Event::MouseButtonPressed) {
 		if (event->mouseButton.button == sf::Mouse::Left) {
 			x = (event->mouseButton.x - POSB) / POSA;

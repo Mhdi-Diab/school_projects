@@ -3,7 +3,6 @@
 
 # define BOARD_SIZE 19
 # define INV(X) ((X) == (BLACK_PIECE) ? (WHITE_PIECE) : (BLACK_PIECE))
-# define PIECE(X) ((X) == (P_BLACK) ? (BLACK_PIECE) : (WHITE_PIECE))
 
 # include "Player.hpp"
 # include "AThreat.hpp"
@@ -21,7 +20,7 @@ typedef enum 	e_piece {
 
 class Board {
 public:
-	AThreat 					*threat;
+	AThreat 					threat;
 	bool						lastMoveIsCapture;
 	char						board[BOARD_SIZE][BOARD_SIZE];
 	int							score;
@@ -37,13 +36,13 @@ public:
 	virtual ~Board(void);
 
 	void clear(void);
-	void print();
+	void print(void);
 	bool placePiece(int x, int y, t_piece piece);
 	t_piece getPiece(int x, int y);
 	bool hasXPiecesInRow(int x, int y, int nb, bool (*f)(int, int));
 	int countConnectedPieces(int x, int y, t_piece piece, string ori);
 	bool rowEndsWithPiece(int x, int y, t_piece initial, t_piece piece, string ori);
-	void removeCaptures();
+	void removeCaptures(void);
 	void removePiece(int x, int y);
 
 	static unordered_map<string, pair<int, int > > initOrientationInc() {
