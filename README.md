@@ -4,7 +4,7 @@ Some of my school projects at Ecole 42
 ## Gomoku (C++)
 Gomoku game (Ninuki-renju /Pente variants) with an AI (minMax AlphaBeta algorithm)
 Goal: align 5 stones of the same color. Capture is possible (surround 2 pieces)
-![Gomoku](images/gomoku.png =250x)
+<img src="images/gomoku.png" width="200">
 
 ## Libft (C)
 Libc rewritten library coupled with my own library of:
