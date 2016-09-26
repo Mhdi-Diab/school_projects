@@ -47,10 +47,10 @@ void Render::setPieceAndRender(t_player_color player, int posX, int posY) {
 }
 
 void Render::displayFinish(Game *game) {
-	if (game->currentPlayer == P_BLACK)
-		setTextAndRender("BLACK WINS", WIN_X / 4, WIN_Y / 3, 100, Color::White);
-	else if (game->currentPlayer == P_WHITE)
-		setTextAndRender("WHITE WINS", WIN_X / 4, WIN_Y / 3, 100, Color::White);
+	if (game->currentPlayer == P_WHITE)
+		setTextAndRender("BLACK WINS", 250, 490, 100, Color::White);
+	else if (game->currentPlayer == P_BLACK)
+		setTextAndRender("WHITE WINS", 250, 490, 100, Color::White);
 }
 
 void Render::drawPanel(Game *game) {
