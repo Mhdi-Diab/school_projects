@@ -33,7 +33,7 @@ public:
 	static unordered_map<string, pair<int, int> > orientationInc;
 
 	Board(void);
-	Board(Board &rhs);
+	Board(Board const &rhs);
 	virtual ~Board(void);
 
 	void clear(void);
@@ -59,5 +59,12 @@ public:
 		 return myMap;
 	 }
 };
+
+bool operator>(Board const &a, Board const &b);
+bool operator<(Board const &a, Board const &b);
+bool operator>=(Board const &a, Board const &b);
+bool operator<=(Board const &a, Board const &b);
+bool operator==(Board const &a, Board const &b);
+bool operator!=(Board const &a, Board const &b);
 
 #endif

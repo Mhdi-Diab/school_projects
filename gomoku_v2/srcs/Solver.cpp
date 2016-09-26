@@ -7,121 +7,119 @@ Solver::Solver() {
 Solver::~Solver(void) {
 }
 
-vector<Board *> Solver::listAllMoves(Board *b) {
+priority_queue<Board, vector<Board>, greater<Board> > Solver::listAllMoves(Board const &b) {
 	int x, y;
-	vector <Board *> vec;
+	priority_queue<Board, vector<Board>, greater<Board> > queue;
+	priority_queue<Board, vector<Board>, greater<Board> > queue2;
 	unordered_map<string, bool> alreadyUsed;
 
-	for (unordered_map<string, pair<int, int> >::iterator it = b->pieces.begin(); it != b->pieces.end(); ++it) {
+	for (unordered_map<string, pair<int, int> >::const_iterator it = b.pieces.begin(); it != b.pieces.end(); ++it) {
 		x = get<0>(it->second);
 		y = get<1>(it->second);
 		for (int yy = y - PADDING; yy <= y + PADDING; yy++) {
 			for (int xx = x - PADDING; xx <= x + PADDING; xx++) {
-				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 && xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b->board[yy][xx] == EMPTY_PIECE) {
-					Board *board = new Board(*b);
-					board->placePiece(xx, yy, b->turn);
-					vec.push_back(board);
+				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 && xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b.board[yy][xx] == EMPTY_PIECE) {
+					Board board = b;
+					board.placePiece(xx, yy, b.turn);
+					queue.push(board);
 					alreadyUsed[myHash(xx, yy)] = true;
 				}
 			}
 		}
 	}
-	return vec;
+	return queue;
 }
 
-pair<int, int> Solver::solve(Board *board) {
-	Board *move;
+priority_queue<Board, vector<Board>, less<Board> > Solver::listAllMovesRev(Board const &b) {
+	int x, y;
+	priority_queue<Board, vector<Board>, less<Board> > queue;
+	unordered_map<string, bool> alreadyUsed;
+
+	for (unordered_map<string, pair<int, int> >::const_iterator it = b.pieces.begin(); it != b.pieces.end(); ++it) {
+		x = get<0>(it->second);
+		y = get<1>(it->second);
+		for (int yy = y - PADDING; yy <= y + PADDING; yy++) {
+			for (int xx = x - PADDING; xx <= x + PADDING; xx++) {
+				if (yy >= 0 && yy < BOARD_SIZE && xx >= 0 && xx < BOARD_SIZE && !alreadyUsed[myHash(xx, yy)] && b.board[yy][xx] == EMPTY_PIECE) {
+					Board board = b;
+					board.placePiece(xx, yy, b.turn);
+					queue.push(board);
+					alreadyUsed[myHash(xx, yy)] = true;
+				}
+			}
+		}
+	}
+	return queue;
+}
+
+pair<int, int> Solver::solve(Board const &board) {
+	Board move;
 	pair<int, int> res;
 
-	if (board->pieces.size() == 0) {
+	if (board.pieces.size() == 0) {
 		return make_pair(BOARD_SIZE / 2, BOARD_SIZE / 2);
 	}
 	move = AlphaBetaMaxMove(board, MAX_DEPTH, -MAX_VALUE, MAX_VALUE);
-	if (move) {
-		res = move->lastMove;
-		delete move;
-	} else {
-		while (true) {
-			res = make_pair(rand() % 19, rand() % 19);
-			if (board->getPiece(get<0>(res), get<1>(res) == EMPTY_PIECE))
-				break ;
-		}
-	}
+	res = move.lastMove;
 	return res;
 }
 
-bool Solver::isGameFinished(Board *board) {
-	return board->threat->whiteThreats["FIVE"] != 0 || board->threat->blackThreats["FIVE"] != 0;
+bool Solver::isGameFinished(Board const &board) {
+	return board.threat->whiteThreats["FIVE"] != 0 || board.threat->blackThreats["FIVE"] != 0;
 }
 
-Board *Solver::deleteMovesAndReturn(vector<Board *> moves, Board *save) {
-	Board *copy;
-
-	if (!save)
-		return save;
-	copy = new Board(*save);
-	for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
-		delete *it;
-	}
-	return copy;
-}
-
-Board *Solver::AlphaBetaMaxMove(Board *board, short int depth, int alpha, int beta) {
-	vector<Board *> moves;
-	Board *bestMove = NULL;
-	Board *move = NULL;
+Board Solver::AlphaBetaMaxMove(Board const &board, short int depth, int alpha, int beta) {
+	priority_queue<Board, vector<Board>, greater<Board> > moves;
+	Board current;
+	Board bestMove;
+	Board move;
 
 	if (depth == 0) {
-		return new Board(*board);
+		return board;;
 	}
 	moves = listAllMoves(board);
-	sort(moves.begin(), moves.end(), sortBoardsByScore);
-	for (vector<Board *>::iterator it = moves.begin(); it != moves.end(); it++) {
-		if (isGameFinished(*it)) {
-			return deleteMovesAndReturn(moves, *it);
+	while (!moves.empty()) {
+		current = moves.top();
+		moves.pop();
+		if (isGameFinished(current)) {
+			return current;
 		}
-		move = AlphaBetaMinMove(*it, depth - 1, alpha, beta);
-		if (move) {
- 			if (move->score > alpha) {
-				bestMove = *it;
-				alpha = move->score;
-				if (beta < alpha) {
-					delete move;
-					return deleteMovesAndReturn(moves, bestMove);
-				}
+		move = AlphaBetaMinMove(current, depth - 1, alpha, beta);
+			if (move.score > alpha) {
+			bestMove = current;
+			alpha = move.score;
+			if (beta < alpha) {
+				return bestMove;
 			}
-			delete move;
 		}
 	}
-	return deleteMovesAndReturn(moves, bestMove);
+	return bestMove;
 }
 
-Board *Solver::AlphaBetaMinMove(Board* board, short int depth, int alpha, int beta) {
-	vector<Board*> moves;
-	Board *bestMove = NULL;
-	Board *move = NULL;
+Board Solver::AlphaBetaMinMove(Board const &board, short int depth, int alpha, int beta) {
+	priority_queue<Board, vector<Board>, less<Board> > moves;
+	Board current;
+	Board bestMove;
+	Board move;
 
 	if (depth == 0) {
-		return new Board(*board);
+		return board;
 	}
-	moves = listAllMoves(board);
-	sort(moves.begin(), moves.end(), sortBoardsByScoreRev);
-	for (vector<Board*>::iterator it = moves.begin(); it != moves.end(); it++) {
-		if (isGameFinished(*it)) {
-			return deleteMovesAndReturn(moves, *it);
+	moves = listAllMovesRev(board);
+	while (!moves.empty()) {
+		current = moves.top();
+		moves.pop();
+		if (isGameFinished(current)) {
+			return current;
 		}
-		move = AlphaBetaMaxMove(*it, depth - 1, alpha, beta);
-		if (move) {
-			if (move->score < beta) {
-				beta = move->score;
-				bestMove = *it;
-				if (beta < alpha) {
-					delete move;
-					return deleteMovesAndReturn(moves, bestMove);
-				}
+		move = AlphaBetaMaxMove(current, depth - 1, alpha, beta);
+		if (move.score < beta) {
+			beta = move.score;
+			bestMove = current;
+			if (beta < alpha) {
+				return bestMove;
 			}
-			delete move;
 		}
 	}
-	return deleteMovesAndReturn(moves, bestMove);
+	return bestMove;
 }

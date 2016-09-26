@@ -7,8 +7,8 @@ Game::Game(void) {
 	board = new Board();
 	solver = new Solver();
 	render = new Render();
-	player[P_BLACK] = new Player(P_BLACK, P_PLAYER);
-	player[P_WHITE] = new Player(P_WHITE, P_AI);
+	player[P_BLACK] = new Player(P_BLACK, P_AI);
+	player[P_WHITE] = new Player(P_WHITE, P_PLAYER);
 }
 
 Game::~Game(void) {
@@ -30,7 +30,7 @@ bool Game::playOneTurn(Event *event) {
 	}
 	if (hasPlayed) {
 		currentPlayer = OPPONENT(currentPlayer);
-		if (solver->isGameFinished(board)) {
+		if (solver->isGameFinished(*board)) {
 			isFinished = true;
 		}
 	}
@@ -70,7 +70,7 @@ bool	Game::getAIMove() {
 	clock_t start, end;
 
 	start = clock();
-	ret = solver->solve(board);
+	ret = solver->solve(*board);
 	board->placePiece(get<0>(ret), get<1>(ret), PIECE(currentPlayer));
 	end = clock();
 	cout << "Time required for execution: " << (double)(end - start)/CLOCKS_PER_SEC << " seconds." << endl;

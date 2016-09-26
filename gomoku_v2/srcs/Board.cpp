@@ -13,7 +13,6 @@ Board::Board() {
 }
 
 Board::~Board(void) {
-	delete threat;
 }
 
 void Board::print() {
@@ -25,12 +24,12 @@ void Board::print() {
 	}
 }
 
-Board::Board(Board &rhs) {
+Board::Board(Board const &rhs) {
 	memcpy(board, rhs.board, sizeof(char[BOARD_SIZE][BOARD_SIZE]));
 	lastMove = rhs.lastMove;
 	turn = rhs.turn;
 	lastMoveIsCapture = rhs.lastMoveIsCapture;
-	for (unordered_map<string, pair<int, int> >::iterator it = rhs.pieces.begin(); it != rhs.pieces.end(); ++it) {
+	for (unordered_map<string, pair<int, int> >::const_iterator it = rhs.pieces.begin(); it != rhs.pieces.end(); ++it) {
 		pieces[(*it).first] = (*it).second;
 	}
 	threat = new AThreat();
@@ -126,4 +125,28 @@ t_piece Board::getPiece(int x, int y) {
 	if (x < 0 ||  y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE)
 		return OUT_OF_BOARD;
 	return (t_piece)board[y][x];
+}
+
+bool operator>(Board const &a, Board const &b) {
+	return (a.score > b.score);
+}
+
+bool operator<(Board const &a, Board const &b) {
+	return (a.score < b.score);
+}
+
+bool operator>=(Board const &a, Board const &b) {
+	return (a.score >= b.score);
+}
+
+bool operator<=(Board const &a, Board const &b) {
+	return (a.score <= b.score);
+}
+
+bool operator==(Board const &a, Board const &b) {
+	return (a.score == b.score);
+}
+
+bool operator!=(Board const &a, Board const &b) {
+	return (a.score != b.score);
 }
