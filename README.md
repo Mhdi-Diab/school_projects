@@ -1,11 +1,18 @@
 # School Projects
 Some of my school projects at Ecole 42
 
+## Gomoku (C++)
+Gomoku game (Ninuki-renju /Pente variants) with an AI (minMax AlphaBeta algorithm)
+Goal: align 5 stones of the same color. Capture is possible (surround 2 pieces)
+![alt tag](images/gomoku.png "Gomoku")
+
 ## Libft (C)
 Libc rewritten library coupled with my own library of:
 - linked list simple and circular (with merge sort)
 - binary trees (with red & black balance)
 - hashtable dictionary
+
+## Printf (C) - In Progress
 
 ## Linear Regression (Python)
 Introduction to machine learning.
