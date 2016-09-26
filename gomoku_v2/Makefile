@@ -1,5 +1,5 @@
 CC = clang++
-CFLAGS = -Wextra -Wall -Werror -O3 -I./includes -I ~/.brew/include -I./SFML/include
+CFLAGS = -Wextra -Wall -Werror -I./includes -I ~/.brew/include -I./SFML/include
 LFLAGS = -L ./SFML -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 SRC = main.cpp Board.cpp Solver.cpp Render.cpp Player.cpp Game.cpp \

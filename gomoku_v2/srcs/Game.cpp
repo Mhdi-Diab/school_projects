@@ -7,8 +7,8 @@ Game::Game(void) {
 	board = new Board();
 	solver = new Solver();
 	render = new Render();
-	player[P_BLACK] = new Player(P_BLACK, P_AI);
-	player[P_WHITE] = new Player(P_WHITE, P_PLAYER);
+	player[P_BLACK] = new Player(P_BLACK, P_PLAYER);
+	player[P_WHITE] = new Player(P_WHITE, P_AI);
 }
 
 Game::~Game(void) {
@@ -56,7 +56,7 @@ void	Game::loop(void) {
 			if (event.type == Event::Closed)
 				render->window.close();
 		}
-		if (hasPlayed) {
+		if (firstTurn || hasPlayed) {
 			render->window.clear();
 			render->drawBoard(board);
 			render->window.display();

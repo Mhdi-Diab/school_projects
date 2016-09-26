@@ -17,7 +17,7 @@ AThreat::AThreat(AThreat &rhs) {
 }
 
 void AThreat::clearThreats(void) {
-	for (int i = 0; i <= NUMBER_THREATS; i++) {
+	for (int i = 0; i < NUMBER_THREATS; i++) {
 		this->blackThreats[threatsName[i]] = 0;
 		this->whiteThreats[threatsName[i]] = 0;
 	}
@@ -86,12 +86,8 @@ void 		AThreat::computeScore(Board *b) {
 }
 
 void 		AThreat::countThreats(Board *b, int x, int y, unordered_map<string, int> *t) {
-	int i = 0;
-	int maxV = 0;
-	int value = 0;
-	int oriIndex = 0;
-	bool isStraightLeft = false;
-	bool isStraightRight = false;
+	int i = 0, maxV = 0, value = 0, oriIndex = 0;
+	bool isStraightLeft = false, isStraightRight = false;
 
 	t_piece piece = b->getPiece(x, y);
 	while (i < 8) {
