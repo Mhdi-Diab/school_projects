@@ -6,8 +6,7 @@ Gomoku game (Ninuki-renju /Pente variants) with an AI (minMax AlphaBeta algorith
 - Goal: align 5 stones of the same color.
 - Capture is possible (surround 2 pieces)
 ```
-make
-./gomoku
+make && ./gomoku
 ```
 
 #### Render:
@@ -53,15 +52,6 @@ npm install
 Create a npuzzle map file
 ```
 python doc/npuzzle-gen.py -s -i 150 4 > test.txt
-```
-#### Options:
-- s: solvable
-- u: unsolvable
-- i [nb]: number of iterations
-- last option: size of the puzzle
-
-Launch the solver on the generated npuzzle map file
-```
 node ./bin/main.js test.txt  [-m -h -e] [-g -u]
 ```
 #### Options:
